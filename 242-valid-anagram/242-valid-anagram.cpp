@@ -3,7 +3,6 @@ public:
     bool isAnagram(string s, string t) {
         unordered_map<char,int> m1;
         unordered_map<char,int> m2;
-        int i=0;
         for(auto x:s)
         {
             m1[x]++;
@@ -12,18 +11,22 @@ public:
         {
             m2[x]++;
         }
-        for(i=0;i<s.size();i++)
+        for(int i=0;i<t.size();i++)
         {
-            if(m2.find(s[i])==m2.end())
+            if(m1.find(t[i])==m1.end())
             {
                 return false;
             }
-            else if(m2[s[i]]<m1[s[i]])
+            if(m2[t[i]]>=m1[t[i]])
+            {
+                continue;
+            }
+            else
             {
                 return false;
             }
         }
-        if(m2.size()>m1.size())
+        if(s.size()>t.size())
         {
             return false;
         }
