@@ -1,21 +1,29 @@
 class Solution {
 public:
     vector<int> replaceElements(vector<int>& arr) {
-        int i=0,mx=INT_MIN,j=0;
-        vector<int> v;
-        for(i=0;i<arr.size()-1;i++)
+        int n = arr.size();
+        int i = n;
+        int mx = 0;
+        vector<int> v(arr.size(),0);
+        for(i=n-1;i>=0;i--)
         {
-            mx=INT_MIN;
-            for(j=i+1;j<arr.size();j++)
+            if(i==n-1)
             {
-                if(arr[j]>mx)
+                v[i]=-1;
+            }
+            else 
+            {
+                if(arr[i+1]>mx)
                 {
-                    mx=arr[j];
+                    mx=arr[i+1];
+                    v[i]=mx;
+                }
+                else
+                {
+                    v[i]=mx;
                 }
             }
-            v.push_back(mx);
         }
-        v.push_back(-1);
         return v;
     }
 };
