@@ -1,30 +1,29 @@
 class Solution {
 public:
     bool detectCapitalUse(string word) {
-        unordered_map<char,int> cap;
-        unordered_map<char,int> low;
-        for(auto x:word)
+        int cap=0,low=0;
+        for(int i=0;i<word.size();i++)
         {
-            if(x>=65 and x<=90)
+            if(word[i]>=65 and word[i]<=90)
             {
-                cap[x]++;
+                cap++;
             }
             else
             {
-                low[x]++;
+                low++;
             }
         }
-        if(cap.size()!=0 and low.size()==0)
+        if(cap!=0 and low==0)
         {
             return true;
         }
-        if(low.size()!=0 and cap.size()==0)
+        if(low!=0 and cap==0)
         {
             return true;
         }
-        if(cap.size()==1 and cap[word[0]]==1)
+        if(cap==1 and ((word[0])>=65 and word[0]<=90))
         {
-           return true;
+            return true;
         }
         return false;
     }
