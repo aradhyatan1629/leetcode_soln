@@ -1,18 +1,17 @@
 class Solution {
 public:
     int arithmeticTriplets(vector<int>& nums, int diff) {
-        int cnt=0;
-        for(int i=0;i<nums.size()-2;i++)
+        unordered_map<int,bool> m;
+        for(auto x:nums)
         {
-            for(int j=i+1;j<nums.size()-1;j++)
+            m[x]=true;
+        }
+        int cnt=0;
+        for(int i=0;i<nums.size();i++)
+        {
+            if(m[nums[i]-diff] && m[nums[i]+diff])
             {
-                for(int k=j+1;k<nums.size();k++)
-                {
-                    if(nums[j]-nums[i]==diff and nums[k]-nums[j]==diff)
-                    {
-                        cnt++;
-                    }
-                }
+                cnt++;
             }
         }
         return cnt;
