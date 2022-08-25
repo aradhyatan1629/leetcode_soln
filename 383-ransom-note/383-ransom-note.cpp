@@ -1,20 +1,20 @@
 class Solution {
 public:
-    bool canConstruct(string r, string m) {
-        unordered_map<char,int> mp;
-        for(auto x:m)
+    bool canConstruct(string ransomNote, string magazine) {
+        unordered_map<char,int> m;
+        for(auto x:magazine)
         {
-            mp[x]++;
+            m[x]++;
         }
-        for(int i=0;i<r.size();i++)
+        for(auto x:ransomNote)
         {
-            if(mp[r[i]]==0)
+            if(m[x]==0)
             {
                 return false;
             }
             else
             {
-                mp[r[i]]-=1;
+                m[x]-=1;
             }
         }
         return true;
