@@ -3,11 +3,10 @@ public:
     vector<vector<int>> matrixBlockSum(vector<vector<int>>& mat, int k) {
         int m=mat.size();
         int n=mat[0].size();
-        vector<vector<int>> ans;
+        vector<vector<int>> ans(m,vector<int>(n,0));
         for(int i=0;i<m;++i)
         {
             int sum=0;
-            vector<int> v;
             for(int j=0;j<n;++j)
             {
                 sum=0;
@@ -31,8 +30,6 @@ public:
                 {
                     chigh=n-1;
                 }
-                // cout<<rlow<<" "<<rhigh<<endl;
-                // cout<<clow<<" "<<chigh<<endl;
                 for(int i=rlow;i<=rhigh;i++)
                 {
                     for(int j=clow;j<=chigh;++j)
@@ -40,11 +37,8 @@ public:
                         sum+=mat[i][j];
                     }
                 }
-                // cout<<"sum: "<<sum<<endl;
-                v.push_back(sum);
+                ans[i][j]=sum;
             }
-            ans.push_back(v);
-            v.clear();
         }
         return ans;
     }
