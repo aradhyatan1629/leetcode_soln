@@ -17,7 +17,6 @@ public:
             if(nums[index]%2!=0)
             {
                 nums[index]+=val;
-                // cout<<nums[index]<<endl;
                 if(nums[index]%2==0)
                 {
                     sum+=nums[index];
@@ -37,12 +36,6 @@ public:
                 }
             }
             ans.push_back(sum);
-            /*for(auto x:nums)
-            {
-                cout<<x<<" ";
-            }
-            cout<<"sum : "<<sum;
-            cout<<endl;*/
         }
         return ans;
     }
