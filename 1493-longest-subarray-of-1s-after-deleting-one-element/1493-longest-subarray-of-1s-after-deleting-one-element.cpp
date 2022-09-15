@@ -12,7 +12,6 @@ public:
         {
             if(nums[i]==0 and i==0)
             {
-                // cout<<"hi1"<<endl;
                 l=0;
                 int j=1;
                 while(nums[j]==1)
@@ -25,12 +24,10 @@ public:
             }
             else if(nums[i]==0 and i==nums.size()-1)
             {
-                // cout<<"hi2"<<endl;
                 h=0;
                 int j=i-1;
                 while(nums[j]==1)
                 {
-                    // cout<<"entered"<<endl;
                     h++;
                     j--;
                 }
@@ -39,13 +36,10 @@ public:
             }
             else if(nums[i]==0 and (i!=0 and i!=nums.size()-1))
             {
-                // cout<<"hi3"<<endl;
                 int j=i-1;
                 int k=i+1;
                 while(nums[j]==1)
                 {
-                    // cout<<"entered1"<<endl;
-                    // cout<<"j: "<<j<<endl;
                     l++;
                     j--;
                     if(j<0)
@@ -55,13 +49,10 @@ public:
                 }
                 while(nums[k]==1)
                 {
-                    // cout<<"entered2"<<endl;
-                    // cout<<"k: "<<k<<endl;
                     h++;
                     k++;
                     if(k==nums.size())
                     {
-                        // cout<<"break";
                         break;
                     }
                 }
