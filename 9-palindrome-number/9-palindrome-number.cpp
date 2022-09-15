@@ -5,16 +5,18 @@ public:
         {
             return false;
         }
-        long int n=x;
-        long int rev=0;
-        while(x!=0)
+        long long int rev=0,rem=0;
+        long long int num=x;
+        while(num!=0)
         {
-            int rem=x%10;
-            rev=rev*10+rem;
-            x=x/10;
+            rem=num%10;
+            rev=(rev*10)+rem;
+            num=num/10;
         }
-        if(rev==n)
+        if(rev==x)
+        {
             return true;
+        }
         return false;
     }
 };
