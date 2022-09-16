@@ -11,7 +11,7 @@ public:
             if(nums[mid]==target)
             {
                 ans[0]=mid;
-                h=h-1;
+                h=mid-1;
             }
             else if(nums[mid]<target)
             {
@@ -29,7 +29,7 @@ public:
             if(nums[mid]==target)
             {
                 ans[1]=mid;
-                l=l+1;
+                l=mid+1;
             }
             else if(nums[mid]<target)
             {
