@@ -1,16 +1,30 @@
 class Solution {
 public:
     int findMin(vector<int>& nums) {
-        //O(n) solution
-        int mn=INT_MAX;
-        int index=-1;
-        for(int i=0;i<nums.size();i++)
+        int l=0,h=nums.size()-1;
+        int n=nums.size();
+        while(l<=h)
         {
-            if(nums[i]<mn)
+            if(nums[l]<=nums[h])
             {
-                mn=nums[i];
+                return nums[l];
+            }
+            int mid=l+(h-l)/2;
+            int prev=(mid+n-1)%n;
+            int next=(mid+1)%n;
+            if(nums[mid]<=nums[prev] and nums[mid]<=nums[next])
+            {
+                return nums[mid];
+            }
+            else if(nums[mid]>=nums[l])
+            {
+                l=mid+1;
+            }
+            else
+            {
+                h=mid-1;
             }
         }
-        return mn;
+        return 0;
     }
 };
