@@ -6,6 +6,7 @@ public:
         int top=0,bottom=r-1;
         int left=0,right=c-1;
         vector<int> ans;
+        
         while(top<=bottom and left<=right)
         {
             for(int i=left;i<=right;i++)
