@@ -1,62 +1,21 @@
 class Solution {
 public:
     bool winnerOfGame(string colors) {
-        int movesalice=0;
-        int movesbob=0;
-        for(int i=1;i<colors.size();i++)
+        int a=0,b=0;
+        for(int i=1;i<colors.size()-1;i++)
         {
-            if(colors[i]=='A' and colors[i-1]=='A')
+            if(colors[i-1]==colors[i] and colors[i+1]==colors[i])
             {
-                int j=i+1;
-                int cnt=2;
-                if(j>=colors.size())
+                if(colors[i]=='A')
                 {
-                    continue;
+                    a++;
                 }
-                while(colors[j]=='A')
+                else
                 {
-                    cnt++;
-                    // cout<<"cnt in while:"<<cnt<<endl;
-                    j++;
-                }
-                i=j;
-                // cout<<"cnt:"<<cnt<<endl;
-                if(cnt>=3)
-                {
-                    movesalice+=cnt-2;
+                    b++;
                 }
             }
         }
-        for(int i=1;i<colors.size();i++)
-        {
-            if(colors[i]=='B' and colors[i-1]=='B')
-            {
-                int j=i+1;
-                int cnt=2;
-                if(j>=colors.size())
-                {
-                    continue;
-                }
-                while(colors[j]=='B')
-                {
-                    cnt++;
-                    // cout<<"cnt in while:"<<cnt<<endl;
-                    j++;
-                }
-                i=j;
-                // cout<<"cnt:"<<cnt<<endl;
-                if(cnt>=3)
-                {
-                    movesbob+=cnt-2;
-                }
-            }
-        }
-        // cout<<movesalice<<endl;
-        // cout<<movesbob;
-        if(movesalice>movesbob)
-        {
-            return true;
-        }
-        return false;
+        return a>b;
     }
 };
