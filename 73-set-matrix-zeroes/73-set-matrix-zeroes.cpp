@@ -3,16 +3,16 @@ public:
     void setZeroes(vector<vector<int>>& matrix) {
         int m=matrix.size();
         int n=matrix[0].size();
-        unordered_set<int> r;
-        unordered_set<int> c;
+        unordered_map<int,int> r;
+        unordered_map<int,int> c;
         for(int i=0;i<m;++i)
         {
             for(int j=0;j<n;++j)
             {
                 if(matrix[i][j]==0)
                 {
-                    r.insert(i);
-                    c.insert(j);
+                    r[i]=1;
+                    c[j]=1;
                 }
             }
         }
@@ -21,7 +21,7 @@ public:
         {
             for(j=0;j<n;++j)
             {
-                if(r.find(i)!=r.end() and c.find(j)!=c.end())
+                if(r[i]==1 and c[j]==1)
                 {
                     for(int j=0;j<n;++j)
                     {
