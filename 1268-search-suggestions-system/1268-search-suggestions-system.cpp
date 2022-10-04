@@ -10,17 +10,15 @@ public:
             int cnt=0;
             word+=search[i];
             vector<string> v;
-            for(int j=0;j<temp.size();j++)
+            auto start = lower_bound(temp.begin(),temp.end(),word);
+            for(int i=0;i<3 and (start+i)!=temp.end();i++)
             {
-                if(temp[j].substr(0,word.size())==word)
+                string s=*(start+i);
+                if(s.find(word))
                 {
-                    v.push_back(temp[j]);
-                    cnt++;
-                    if(cnt==3)
-                    {
-                        break;
-                    }
+                    break;
                 }
+                v.push_back(s);
             }
             ans.push_back(v);
         }
