@@ -16,35 +16,28 @@ public:
                 if(flag==-1)
                 {
                     v.push_back(word);
-                    // cout<<word<<endl;
                     word.clear();
                 }
                 else
                 {
                     flag=-1;
                 }
-                // cout<<v.back()<<endl;
             }
             else if(m[word]==1)
             {
                 flag=1;
                 v.push_back(word);
-                // cout<<v.back()<<endl;
                 word.clear();
                 while(s[i]!=' ')
                 {
                     i++;
                     if(i>=s.size())
                     {
-                        // cout<<"i "<<i<<"hi"<<endl;
-                        // v.push_back(word);
-                        // word.clear();
                         break;
                     }
                 }
                 if(i>=s.size())
                 {
-                    // cout<<"hi2"<<endl;
                     break;
                 }
                 i--;
@@ -59,10 +52,6 @@ public:
             v.push_back(word);
             word.clear();
         }
-        // for(auto x:v)
-        // {
-        //     cout<<"element : "<<x<<endl;
-        // }
         for(int i=0;i<v.size()-1;i++)
         {
             word+=v[i];
