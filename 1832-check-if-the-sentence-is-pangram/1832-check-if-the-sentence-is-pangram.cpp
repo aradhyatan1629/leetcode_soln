@@ -1,15 +1,18 @@
 class Solution {
 public:
     bool checkIfPangram(string sentence) {
-        unordered_set<char> s;
-        for(auto x:sentence)
+        vector<int> v(26,0);
+        for(int i=0;i<sentence.size();i++)
         {
-            s.insert(x);
+            v[sentence[i]-'a']=1;
         }
-        if(s.size()==26)
+        for(auto x:v)
         {
-            return 1;
+            if(x==0)
+            {
+                return false;
+            }
         }
-        return false;
+        return true;
     }
 };
