@@ -1,45 +1,22 @@
 class Solution {
 public:
     string breakPalindrome(string palindrome) {
-        string s=palindrome;
-        int j=0;
-        int cnt=0;
-        while(j<palindrome.size())
+        if(palindrome.size()==1)
         {
-            string s=palindrome;
-            for(int i=0;i<s.size();i++)
-            {
-                if(s[i]=='a')
-                {
-                    cnt++;
-                    continue;
-                }
-                s[i]='a';
-                string x=s;
-                reverse(x.begin(),x.end());
-                if(s==x)
-                {
-                    s=palindrome;
-                    break;
-                }
-                else if(s!=x)
-                {
-                    return s;
-                }
-            }
-            j++;
+            return "";
         }
-        if(cnt>1)
+//         change the first non 'a' character to 'a'
+        for(int i=0;i<palindrome.size()/2;i++)
         {
-            for(int i=palindrome.size();i>=0;i--)
+            if(palindrome[i]!='a')
             {
-                if(palindrome[i]=='a')
-                {
-                    palindrome[i]='b';
-                    return palindrome;
-                }
+                palindrome[i]='a';
+                return palindrome;
             }
         }
-        return "";
+//         for cases like "aa" "aaa"
+        int n=palindrome.size();
+        palindrome[n-1]='b';
+        return palindrome;
     }
 };
