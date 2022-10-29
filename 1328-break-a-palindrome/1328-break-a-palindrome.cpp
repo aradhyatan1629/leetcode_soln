@@ -2,9 +2,7 @@ class Solution {
 public:
     string breakPalindrome(string palindrome) {
         string s=palindrome;
-        vector<char> v={'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
-        
-        int j=0,k=0;
+        int j=0;
         int cnt=0;
         while(j<palindrome.size())
         {
@@ -16,7 +14,7 @@ public:
                     cnt++;
                     continue;
                 }
-                s[i]=v[k];
+                s[i]='a';
                 string x=s;
                 reverse(x.begin(),x.end());
                 if(s==x)
@@ -30,11 +28,6 @@ public:
                 }
             }
             j++;
-            k++;
-            if(k==v.size())
-            {
-                k=0;
-            }
         }
         if(cnt>1)
         {
