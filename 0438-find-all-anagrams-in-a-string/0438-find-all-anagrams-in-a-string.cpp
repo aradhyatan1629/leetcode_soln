@@ -20,20 +20,9 @@ public:
             }
             else if(j-i+1==k)
             {
-                if(m1.size()==m2.size())
+                if(m1==m2)
                 {
-                    for(auto x:m1)
-                    {
-                        if(m1[x.first]!=m2[x.first])
-                        {
-                            flag=-1;
-                            break;
-                        }
-                    }
-                    if(flag==1)
-                    {
-                        ans.push_back(i);
-                    }
+                    ans.push_back(i);
                 }
                 m2[s[i]]--;
                 if(m2[s[i]]==0)
