@@ -1,7 +1,6 @@
 class Solution {
 public:
     vector<string> stringMatching(vector<string>& words) {
-        int cnt=0;
         vector<string> ans;
         for(int i=0;i<words.size();i++)
         {
