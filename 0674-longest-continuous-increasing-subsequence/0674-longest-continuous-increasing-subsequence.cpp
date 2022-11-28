@@ -1,26 +1,22 @@
 class Solution {
 public:
     int findLengthOfLCIS(vector<int>& nums) {
-        int mx=INT_MIN,len=1;
+        int len=1,mx=INT_MIN;
         if(nums.size()==1)
         {
             return 1;
         }
         for(int i=0;i<nums.size()-1;i++)
         {
-            len=1;
-            for(int j=i+1;j<nums.size();j++)
+            if(nums[i]<nums[i+1])
             {
-                if(nums[j]>nums[j-1])
-                {
-                    len++;
-                }
-                else
-                {
-                    break;
-                }
+                len++;
             }
-            mx=max(mx,len);
+            else
+            {
+                mx=max(mx,len);
+                len=1;
+            }
         }
         mx=max(mx,len);
         return mx;
