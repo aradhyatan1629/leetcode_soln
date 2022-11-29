@@ -4,9 +4,14 @@ public:
         unordered_set<int> s(nums.begin(),nums.end());
         for(int i=0;i<nums.size();i++)
         {
-            string x=to_string(nums[i]);
-            reverse(x.begin(),x.end());
-            s.insert(stoi(x));
+            int num=0;
+            while(nums[i])
+            {
+                int rem=nums[i]%10;
+                num=num*10 +rem;
+                nums[i]/=10;
+            }
+            s.insert(num);
         }
         return s.size();
     }
