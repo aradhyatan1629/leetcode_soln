@@ -1,22 +1,25 @@
 class Solution {
 public:
     vector<vector<int>> ans;
-    void f(int ind,vector<int> &sub,vector<int> &nums,int n)
+    void f(int ind,vector<int> &subs,vector<int> &nums,int n)
     {
         if(ind>=n)
         {
-           ans.push_back(sub);
-           return;
+            ans.push_back(subs);
+            return;
         }
-        sub.push_back(nums[ind]);//adding the givenarray(nums) element in our subsequence array
-        f(ind+1,sub,nums,n); //take
-        sub.pop_back(); //bringing the array to the state it was in
-        f(ind+1,sub,nums,n);//not take
+        else
+        {
+            subs.push_back(nums[ind]);
+            f(ind+1,subs,nums,n);
+            subs.pop_back();
+            f(ind+1,subs,nums,n);
+        }
     }
     vector<vector<int>> subsets(vector<int>& nums) {
-        vector<int> sub;
+        vector<int> subs;
         int n=nums.size();
-        f(0,sub,nums,n);
+        f(0,subs,nums,n);
         return ans;
     }
 };
