@@ -14,12 +14,10 @@ public:
         }
         sort(v.begin(),v.end());
         ans=0;
-        int mod=1e9+7;
         for(int i=left-1;i<right;i++)
         {
             ans+=v[i];
-            // cout<<ans<<endl;
         }
-        return ans%mod;
+        return ans%1000000007;
     }
 };
