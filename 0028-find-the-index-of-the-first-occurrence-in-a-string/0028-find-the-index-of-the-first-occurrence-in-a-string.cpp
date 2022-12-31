@@ -1,18 +1,29 @@
 class Solution {
 public:
     int strStr(string haystack, string needle) {
+        int i=0,j=0,n=haystack.size();
+        int k=needle.size();
+        string temp;
         if(needle.size()>haystack.size())
         {
             return -1;
         }
-        for(int i=0;i<=haystack.size()-needle.size();i++)
+        while(j<n)
         {
-            if(haystack[i]==needle[0])
+            temp+=haystack[j];
+            if(j-i+1<k)
             {
-                if(haystack.substr(i,needle.size()) == needle)
+                j++;
+            }
+            else if(j-i+1==k)
+            {
+                if(temp==needle)
                 {
                     return i;
                 }
+                temp.erase(temp.begin());
+                i++;
+                j++;
             }
         }
         return -1;
