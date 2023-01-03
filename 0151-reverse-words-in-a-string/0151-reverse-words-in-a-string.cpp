@@ -1,32 +1,32 @@
 class Solution {
 public:
     string reverseWords(string s) {
-        stack<string> st;
-        string word;
+        string ans;
+        vector<string> v;
+        string temp;
         for(int i=0;i<s.size();i++)
         {
-            if(s[i]==' ' and word!="")
+            if(s[i]>=65 and s[i]<=91 or s[i]>=97 and s[i]<=122 or s[i]>=48 and s[i]<=57)
             {
-                st.push(word);
-                word.clear();
+                temp+=s[i];
             }
-            else if(s[i]!=' ')
+            else if(s[i]==' ' and temp.size()!=0)
             {
-                word+=s[i];
+                v.push_back(temp);
+                temp.clear();
             }
         }
-        if(word!="")
+        if(temp.size()!=0)
         {
-            st.push(word);
-            word.clear();
+            v.push_back(temp);
+            temp.clear();
         }
-        while(!st.empty())
+        for(int i=v.size()-1;i>=0;i--)
         {
-            word+=st.top();
-            word+=" ";
-            st.pop();
+            ans+=v[i];
+            ans+=" ";
         }
-        word.erase(word.end()-1);
-        return word;
+        ans.erase(ans.end()-1);
+        return ans;
     }
 };
