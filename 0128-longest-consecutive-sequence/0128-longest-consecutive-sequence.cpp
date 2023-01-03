@@ -27,9 +27,9 @@ public:
                 while(m.find(t)!=m.end())
                 {
                     len++;
-                    mx=max(mx,len);
                     t++;
                 }
+                mx=max(mx,len);
             }
         }
         return mx;
