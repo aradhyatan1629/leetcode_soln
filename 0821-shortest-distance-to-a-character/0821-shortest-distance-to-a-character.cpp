@@ -1,43 +1,40 @@
 class Solution {
 public:
     vector<int> shortestToChar(string s, char c) {
-        int n=s.size();
-        vector<int> answer;
-        int i=0;
-        while(i<n)
+        //O(n) O(n)
+        vector<int> v;
+        vector<int> ans;
+        for(int i=0;i<s.size();i++)
         {
-            int j=i-1;
-            int k=i+1;
-            int ans=INT_MAX;
             if(s[i]==c)
             {
-                answer.push_back(0);
-                i++;
-                continue;
+                v.push_back(i);
             }
-            while(j>=0 and s[j]!=c)
+        }
+        int j=0;
+        for(int i=0;i<s.size();i++)
+        {
+            if(j==0)
             {
-                j--;
+                ans.push_back(v[j]-i);
             }
-            while(k<n and s[k]!=c)
+            else if(j>=v.size())
             {
-                k++;
-            }
-            if(j==-1)
-            {
-                answer.push_back(abs(i-k));
-            }
-            else if(k==n)
-            {
-                answer.push_back(abs(i-j));
+                ans.push_back(i-v[j-1]);
             }
             else
             {
-                ans=min(abs(i-j),abs(i-k));
-                answer.push_back(ans);
+                ans.push_back(min(v[j]-i,i-v[j-1]));
             }
-            i++;
+            if(s[i]==c)
+            {
+                j++;
+            }
         }
-        return answer;
+        return ans;
     }
 };
+
+
+
+// [3,5,6,11]
