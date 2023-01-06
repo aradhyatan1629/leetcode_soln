@@ -1,6 +1,15 @@
 class Solution {
 public:
     int mostFrequentEven(vector<int>& nums) {
+        if(nums.size()==1)
+        {
+            int x=nums[0];
+            if(x%2==0)
+            {
+                return x;
+            }
+            return -1;
+        }
         unordered_map<int,int> m;
         for(auto x:nums)
         {
@@ -9,23 +18,20 @@ public:
                 m[x]++;
             }
         }
-        int mx=INT_MIN;
-        int mn=INT_MAX;
+        int mx=0;
+        int ans=-1;
         for(auto x:m)
         {
-            mx=max(mx,x.second);
-        }
-        for(auto x:m)
-        {
-            if(x.second==mx)
+            if(x.second>mx)
             {
-                mn=min(mn,x.first);
+                mx=x.second;
+                ans=x.first;
+            }
+            else if(x.second==mx)
+            {
+                ans=min(ans,x.first);
             }
         }
-        if(mn==INT_MAX)
-        {
-            return -1;
-        }
-        return mn;
+        return ans;
     }
 };
