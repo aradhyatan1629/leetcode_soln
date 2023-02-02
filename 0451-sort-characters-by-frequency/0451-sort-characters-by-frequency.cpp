@@ -3,6 +3,7 @@ public:
     string frequencySort(string s) {
         unordered_map<char,int> m;
         vector<pair<int,char>> v;
+        string ans;
         for(auto x:s)
         {
             m[x]++;
@@ -12,15 +13,14 @@ public:
             v.push_back({x.second,x.first});
         }
         sort(v.begin(),v.end());
-        s.clear();
         for(int i=v.size()-1;i>=0;i--)
         {
             while(v[i].first!=0)
             {
-                s+=v[i].second;
+                ans+=v[i].second;
                 v[i].first--;
             }
         }
-        return s;
+        return ans;
     }
 };
