@@ -1,41 +1,31 @@
 class Solution {
 public:
     bool checkInclusion(string s1, string s2) {
-        vector<int> v(26,0);
-        vector<int> t(26,0);
-        for(int i=0;i<s1.size();i++)
+        //Sorting and using sliding window
+        int i=0,j=0,n=s2.size();
+        sort(s1.begin(),s1.end());
+        int k=s1.size();
+        string t;
+        while(j<n)
         {
-            v[s1[i]-'a']++;
-        }
-        t=v;
-        for(int i=0;i<s2.size();i++)
-        {
-            if(v[s2[i]-'a']>0)
+            t+=s2[j];
+            if(j-i+1<k)
             {
-                for(int j=i;j<s2.size();j++)
-                {
-                    if(v[s2[j]-'a']>0)
-                    {
-                        v[s2[j]-'a']--;
-                    }
-                    else
-                    {
-                        if(count(v.begin(),v.end(),0)==26)
-                        {
-                            return true;
-                        }
-                        v=t;
-                        break;
-                    }
-                }
-                if(count(v.begin(),v.end(),0)==26)
+                j++;
+            }
+            else if(j-i+1==k)
+            {
+                string x=t;
+                sort(x.begin(),x.end());
+                if(s1==x)
                 {
                     return true;
                 }
+                t.erase(t.begin());
+                i++;
+                j++;
             }
-            v=t;
         }
-        
         return false;
     }
 };
