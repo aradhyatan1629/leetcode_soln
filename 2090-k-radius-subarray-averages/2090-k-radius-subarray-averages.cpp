@@ -19,20 +19,17 @@ public:
             {
                 ans.push_back(-1);
             }
+            else if(i-k==0)
+            {
+                long long int s = pre[i+k];
+                long long int t = (s/((k*2)+1));
+                ans.push_back(t);
+            }
             else
             {
-                if(i-k>0)
-                {
-                    long long int s = pre[i+k] - pre[i-k-1];
-                    long long int t = (s/((k*2)+1));
-                    ans.push_back(t);
-                }
-                else
-                {
-                    long long int s = pre[i+k];
-                    long long int t = (s/((k*2)+1));
-                    ans.push_back(t);
-                }
+                long long int s = pre[i+k] - pre[i-k-1];
+                long long int t = (s/((k*2)+1));
+                ans.push_back(t);
             }
         }
         return ans;
