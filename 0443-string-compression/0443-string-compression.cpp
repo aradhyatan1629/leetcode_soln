@@ -3,7 +3,7 @@ public:
     int compress(vector<char>& chars) {
         char prev=chars[0];
         int cnt=0;
-        string s;
+        int j=0;
         for(int i=0;i<chars.size();i++)
         {
             if(chars[i]==prev)
@@ -12,29 +12,31 @@ public:
             }
             else if(cnt==1)
             {
-                s+=prev;
+                chars[j++]=prev;
                 prev=chars[i];
                 cnt=1;
             }
             else
             {
-                s+=prev;
-                s+=to_string(cnt);
+                chars[j++]=prev;
+                string s = to_string(cnt);
+                for(char x:s)
+                {
+                    chars[j++] = x;
+                }
                 prev=chars[i];
                 cnt=1;
             }
         }
-        s+=prev;
+        chars[j++]=prev;
         if(cnt!=1)
         {
-            s+=to_string(cnt);
+            string s = to_string(cnt);
+            for(char x:s)
+            {
+                chars[j++] = x;
+            }
         }
-        int j=0;
-        for(int i=0;i<s.size();i++)
-        {
-            chars[j]=s[i];
-            j++;
-        }
-        return s.size();
+        return j;
     }
 };
