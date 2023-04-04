@@ -1,32 +1,27 @@
 class Solution {
 public:
     int partitionString(string s) {
-        unordered_set<char> s1;
-        int cnt=1;
-        if(s.size()==1)
+        unordered_set<char> st;
+        int ans=0,cnt=0;
+        int i=0,j=0,n=s.size();
+        while(j<n)
         {
-            return 1;
+            if(st.find(s[j])==st.end())
+            {
+                st.insert(s[j]);
+            }
+            else
+            {
+                ans++;
+                st.clear();
+                st.insert(s[j]);
+            }
+            j++;
         }
-        for(int i=0;i<s.size();i++)
+        if(st.size()!=0)
         {
-            if(s1.size()==0)
-            {
-                s1.insert(s[i]);
-            }
-            else 
-            {
-                if(s1.find(s[i])==s1.end())
-                {
-                    s1.insert(s[i]);
-                }
-                else
-                {
-                    s1.clear();
-                    s1.insert(s[i]);
-                    cnt++;
-                }
-            }
+            ans++;
         }
-        return cnt;
+        return ans;
     }
 };
