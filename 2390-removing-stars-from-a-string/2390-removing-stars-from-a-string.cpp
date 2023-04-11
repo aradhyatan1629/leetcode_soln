@@ -5,11 +5,11 @@ public:
         string ans;
         for(int i=0;i<s.size();i++)
         {
-            if(s[i]!='*')
+            if(s[i]>=97 and s[i]<=122)
             {
                 st.push(s[i]);
             }
-            else
+            else if(s[i]=='*')
             {
                 st.pop();
             }
