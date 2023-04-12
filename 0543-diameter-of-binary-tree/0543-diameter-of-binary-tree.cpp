@@ -11,34 +11,24 @@
  */
 class Solution {
 public:
-    //Brute Force - O(n^2)
-    int ans=0;
-    int height(TreeNode *root)
+    //O(n) solution - 
+    
+    
+    int height(TreeNode *root,int &diameter)
     {
         if(root==NULL)
         {
             return 0;
         }
-        int leftH = height(root->left);
-        int rightH = height(root->right);
+        int leftH = height(root->left,diameter);
+        int rightH = height(root->right,diameter);
+        diameter = max(diameter,leftH+rightH);
         return 1+max(leftH,rightH);
     }
     
-    void solve(TreeNode *root)
-    {
-        if(root==NULL)
-        {
-            return;
-        }
-        int leftH = height(root->left);
-        int rightH = height(root->right);
-        ans = max(ans,leftH+rightH);
-        solve(root->left);
-        solve(root->right);
-    }
-    
     int diameterOfBinaryTree(TreeNode* root) {
-        solve(root);
-        return ans;
+        int diameter = 0;
+        height(root,diameter);
+        return diameter;
     }
 };
