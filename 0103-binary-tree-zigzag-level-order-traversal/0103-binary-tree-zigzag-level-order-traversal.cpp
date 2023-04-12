@@ -16,7 +16,7 @@ public:
         {
             return {};
         }
-        int flag=0;
+        int flag=0; //0 - left to right , 1 - right to left
         vector<vector<int>> ans;
         queue<TreeNode*> q;
         q.push(root);
