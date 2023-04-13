@@ -21,9 +21,9 @@ public:
         q.push(root);
         while(!q.empty())
         {
-            int sz = q.size();
+            int size = q.size();
             vector<int> v;
-            for(int i=0;i<sz;i++)
+            for(int i=0;i<size;i++)
             {
                 TreeNode *node = q.front();
                 q.pop();
