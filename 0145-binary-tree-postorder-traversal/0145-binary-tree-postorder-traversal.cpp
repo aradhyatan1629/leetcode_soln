@@ -13,12 +13,13 @@ class Solution {
 public:
     vector<int> postorderTraversal(TreeNode* root) {
         //iterative postorder using 2 stacks
+        
         vector<int> ans;
         stack<TreeNode*> st1;
         stack<TreeNode*> st2;
         if(root==NULL)
         {
-            return ans;
+            return {};
         }
         st1.push(root);
         while(!st1.empty())
