@@ -11,14 +11,13 @@
  */
 class Solution {
 public:
-    //O(n) solutiion - 
-    
     int height(TreeNode *node)
     {
         if(node==NULL)
         {
             return 0;
         }
+        
         int leftH = height(node->left);
         int rightH = height(node->right);
         if(leftH==-1 or rightH==-1)
@@ -29,9 +28,9 @@ public:
         {
             return -1;
         }
+        
         return 1+max(leftH,rightH);
     }
-    
     bool isBalanced(TreeNode* root) {
         return height(root)!=-1;
     }
