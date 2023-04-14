@@ -11,24 +11,37 @@
  */
 class Solution {
 public:
-    //O(n) solution - 
     
+    //O(n^2)
     
-    int height(TreeNode *root,int &diameter)
+    int ans=0;
+    int height(TreeNode *node)
     {
-        if(root==NULL)
+        if(node==NULL)
         {
             return 0;
         }
-        int leftH = height(root->left,diameter);
-        int rightH = height(root->right,diameter);
-        diameter = max(diameter,leftH+rightH);
+        int leftH = height(node->left);
+        int rightH = height(node->right);
         return 1+max(leftH,rightH);
     }
     
+    void solve(TreeNode *node)
+    {
+        if(node==NULL)
+        {
+            return;
+        }
+        int leftH = height(node->left);
+        int rightH = height(node->right);
+        ans = max(ans,leftH+rightH);
+        
+        solve(node->left);
+        solve(node->right);
+    
+    }
     int diameterOfBinaryTree(TreeNode* root) {
-        int diameter = 0;
-        height(root,diameter);
-        return diameter;
+        solve(root);
+        return ans;
     }
 };
