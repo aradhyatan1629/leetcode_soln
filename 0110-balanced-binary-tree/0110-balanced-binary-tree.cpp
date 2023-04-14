@@ -11,6 +11,7 @@
  */
 class Solution {
 public:
+    //O(n^2) solution 
     
     int height(TreeNode *node)
     {
@@ -23,14 +24,11 @@ public:
         return 1+max(leftH,rightH);
     }
     
-   
-    
     bool isBalanced(TreeNode* root) {
         if(root==NULL)
         {
             return true;
         }
-        
         int leftH = height(root->left);
         int rightH = height(root->right);
         
