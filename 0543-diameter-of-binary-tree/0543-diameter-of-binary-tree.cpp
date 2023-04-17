@@ -11,9 +11,6 @@
  */
 class Solution {
 public:
-    
-    //O(n^2)
-    
     int ans=0;
     int height(TreeNode *node)
     {
@@ -25,7 +22,6 @@ public:
         int rightH = height(node->right);
         return 1+max(leftH,rightH);
     }
-    
     void solve(TreeNode *node)
     {
         if(node==NULL)
@@ -35,10 +31,8 @@ public:
         int leftH = height(node->left);
         int rightH = height(node->right);
         ans = max(ans,leftH+rightH);
-        
         solve(node->left);
         solve(node->right);
-    
     }
     int diameterOfBinaryTree(TreeNode* root) {
         solve(root);
