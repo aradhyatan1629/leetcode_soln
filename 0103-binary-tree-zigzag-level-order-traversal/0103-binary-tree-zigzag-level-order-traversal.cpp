@@ -11,24 +11,40 @@
  */
 class Solution {
 public:
+    
+    //Solution without using reverse operation
+    
     vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
-        bool flag = true;
         if(root==NULL)
         {
             return {};
         }
-        vector<vector<int>> ans;
+        
+        bool flag=true;
         queue<TreeNode*> q;
+        vector<vector<int>> ans;
         q.push(root);
+        
         while(!q.empty())
         {
             int size = q.size();
-            vector<int> v;
+            vector<int> v(size);
             for(int i=0;i<size;i++)
             {
                 TreeNode *node = q.front();
                 q.pop();
-                v.push_back(node->val);
+                int index;
+                
+                if(flag)
+                {
+                    index = i;
+                }
+                else
+                {
+                    index = size-i-1;
+                }
+                v[index] = node->val;
+                
                 if(node->left!=NULL)
                 {
                     q.push(node->left);
@@ -38,17 +54,8 @@ public:
                     q.push(node->right);
                 }
             }
-            if(flag)
-            {
-                ans.push_back(v);
-                flag=!flag;
-            }
-            else
-            {
-                reverse(v.begin(),v.end());
-                ans.push_back(v);
-                flag=!flag;
-            }
+            flag=!flag;
+            ans.push_back(v);
         }
         return ans;
     }
