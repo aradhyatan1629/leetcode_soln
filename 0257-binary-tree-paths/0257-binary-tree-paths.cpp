@@ -11,48 +11,33 @@
  */
 class Solution {
 public:
-    vector<vector<int>> ans;
-    vector<int> v;
+    vector<string> ans;
     
-    void preorder(TreeNode *node)
+    void preorder(TreeNode *node,string s)
     {
         if(node->left==NULL and node->right==NULL)
         {
-            v.push_back(node->val);
-            ans.push_back(v);
-            v.pop_back();
+            s+=to_string(node->val);
+            ans.push_back(s);
             return;
         }
-        v.push_back(node->val);
-        if(node->left!=NULL)
+        s+=to_string(node->val) + "->";
+        if(node->left)
         {
-            preorder(node->left);
+            preorder(node->left,s);
         }
-        if(node->right!=NULL)
+        if(node->right)
         {
-            preorder(node->right);
+            preorder(node->right,s);
         }
-        v.pop_back();
     }
+    
     vector<string> binaryTreePaths(TreeNode* root) {
         if(root==NULL)
         {
             return {};
         }
-        preorder(root);
-        vector<string> res;
-        for(auto x:ans)
-        {
-            string s;
-            for(auto y:x)
-            {
-                s+=to_string(y);
-                s+="->";
-            }
-            s.pop_back();
-            s.pop_back();
-            res.push_back(s);
-        }
-        return res;
+        preorder(root,"");
+        return ans;
     }
 };
