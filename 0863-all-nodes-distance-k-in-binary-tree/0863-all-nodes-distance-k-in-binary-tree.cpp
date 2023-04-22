@@ -10,77 +10,74 @@
 class Solution {
 public:
     
-    void markParents(TreeNode *root,unordered_map<TreeNode*,TreeNode*> &parent_track)
+    void markParents(TreeNode *root,unordered_map<TreeNode*,TreeNode*> &m_parent)
     {
         queue<TreeNode*> q;
         q.push(root);
         while(!q.empty())
         {
+            TreeNode *node = q.front();
+            q.pop();
+            if(node->left)
+            {
+                m_parent[node->left] = node;
+                q.push(node->left);
+            }
+            if(node->right)
+            {
+                m_parent[node->right] = node;
+                q.push(node->right);
+            }
+        }
+    }
+    
+    vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
+        unordered_map<TreeNode*,TreeNode*> m_parent;
+        markParents(root,m_parent);
+        
+        unordered_map<TreeNode*,bool> visited;
+        queue<TreeNode*> q;
+        q.push(target);
+        visited[target] = true;
+        int curr_level=0;
+        
+        while(!q.empty())
+        {
+            if(curr_level++==k)
+            {
+                break;
+            }
             int size = q.size();
             for(int i=0;i<size;i++)
             {
                 TreeNode *node = q.front();
                 q.pop();
                 
-                if(node->left)
+                if(node->left and visited[node->left]==false)
                 {
-                    parent_track[node->left] = node;
                     q.push(node->left);
+                    visited[node->left] = true;
                 }
-                if(node->right)
+                if(node->right and visited[node->right]==false)
                 {
-                    parent_track[node->right] = node;
                     q.push(node->right);
+                    visited[node->right] = true;
+                }
+                if(m_parent[node] and visited[m_parent[node]]==false)
+                {
+                    q.push(m_parent[node]);
+                    visited[m_parent[node]]=true;
                 }
             }
         }
-    }
-    
-    vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
-        unordered_map<TreeNode*,TreeNode*> parent_track; //node->parent
-        markParents(root,parent_track);
         
-        unordered_map<TreeNode*,bool> visited;
-        queue<TreeNode*> q;
-        q.push(target);
-        visited[target] = true;
-        int current_level = 0;
-        
-        while(!q.empty()) //second bfs to go upto k level from our target and using our hashtable info
-        {
-            int size = q.size();
-            if(current_level++==k)
+            vector<int> ans;
+            while(!q.empty())
             {
-                break;
-            }
-            for(int i=0;i<size;i++)
-            {
-                TreeNode *current = q.front();
+                ans.push_back(q.front()->val);
                 q.pop();
-                
-                if(current->left and visited[current->left]==false)
-                {
-                    q.push(current->left);
-                    visited[current->left]=true;
-                }
-                if(current->right and visited[current->right]==false)
-                {
-                    q.push(current->right);
-                    visited[current->right]=true;
-                }
-                if(parent_track[current] and visited[parent_track[current]]==false)
-                {
-                    q.push(parent_track[current]);
-                    visited[parent_track[current]] = true;
-                }
             }
-        }
-        vector<int> ans;
-        while(!q.empty())
-        {
-            ans.push_back(q.front()->val);
-            q.pop();
-        }
-        return ans;
+            return ans;
+        
     }
 };
