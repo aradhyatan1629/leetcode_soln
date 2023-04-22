@@ -54,12 +54,16 @@ public:
             }
             else if(node==NULL)
             {
-                TreeNode *t = new TreeNode();
-                t->val = v[i];
-                prev->right = t;
-                node=t;
-                prev=node;
-                node=node->right;
+                while(i<v.size() and node==NULL)
+                {
+                    TreeNode *t = new TreeNode();
+                    t->val = v[i];
+                    prev->right = t;
+                    node=t;
+                    prev=node;
+                    node=node->right;
+                    i++;
+                }
             }
             i++;
         }
