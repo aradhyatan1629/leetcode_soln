@@ -26,13 +26,12 @@ public:
         vector<int> v;
         inorder(root,v);
         int ans=INT_MAX;
+        
         for(int i=0;i<v.size()-1;i++)
         {
-            for(int j=i+1;j<v.size();j++)
-            {
-                ans = min(ans,abs(v[i]-v[j]));
-            }
+            ans = min(ans,abs(v[i]-v[i+1]));
         }
+        
         return ans;
     }
 };
