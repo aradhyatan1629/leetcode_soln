@@ -1,5 +1,6 @@
 class Solution {
 public:
+    
     bool isvowel(char c)
     {
         if(c=='a' or c=='e' or c=='i' or c=='o' or c=='u')
@@ -8,15 +9,12 @@ public:
         }
         return false;
     }
+    
     int maxVowels(string s, int k) {
-        int mx=INT_MIN;
-        int n=s.size();
-        int i=0,j=0;
-        string word;
-        int cnt=0;
+        int cnt=0,ans=0;
+        int i=0,j=0,n=s.size();
         while(j<n)
         {
-            word+=s[j];
             if(isvowel(s[j]))
             {
                 cnt++;
@@ -27,16 +25,15 @@ public:
             }
             else if(j-i+1==k)
             {
-                mx=max(mx,cnt);
-                if(isvowel(word[0]))
+                ans = max(cnt,ans);
+                if(isvowel(s[i]))
                 {
                     cnt--;
                 }
-                word.erase(word.begin());
                 i++;
                 j++;
             }
         }
-        return mx;
+        return ans;
     }
 };
