@@ -12,6 +12,8 @@
 class Solution {
 public:
     
+    // Note - inorder traversal in a bst gives sorted order of elements
+    
     void inorder(TreeNode *root,vector<int> &v)
     {
         if(root==NULL)
@@ -22,12 +24,37 @@ public:
         v.push_back(root->val);
         inorder(root->right,v);
     }
-    
     vector<int> getAllElements(TreeNode* root1, TreeNode* root2) {
-        vector<int> v;
-        inorder(root1,v);
-        inorder(root2,v);
-        sort(v.begin(),v.end());
-        return v;
+        vector<int> v1,v2;
+        inorder(root1,v1);
+        inorder(root2,v2);
+        vector<int> ans;
+        
+        int i=0,j=0;
+        
+        while(i<v1.size() or j<v2.size())
+        {
+            if(i<v1.size() and j<v2.size() and v1[i]<=v2[j])
+            {
+                ans.push_back(v1[i]);
+                i++;
+            }
+            else if(i<v1.size() and j<v2.size() and v2[j]<=v1[i])
+            {
+                ans.push_back(v2[j]);
+                j++;
+            }
+            else if(i<v1.size())
+            {
+                ans.push_back(v1[i]);
+                i++;
+            }
+            else if(j<v2.size())
+            {
+                ans.push_back(v2[j]);
+                j++;
+            }
+        }
+        return ans;
     }
 };
