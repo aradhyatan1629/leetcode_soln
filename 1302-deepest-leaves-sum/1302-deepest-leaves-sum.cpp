@@ -12,38 +12,40 @@
 class Solution {
 public:
     
-    int bfs(TreeNode *root)
+    int maxDepth(TreeNode *root)
     {
-        int ans = 0;
-        queue<TreeNode*> q;
-        q.push(root);
-        
-        while(!q.empty())
+        if(root==NULL)
         {
-            int sz = q.size();
-            int sum=0;
-            for(int i=0;i<sz;i++)
-            {
-                TreeNode *node = q.front();
-                sum+=node->val;
-                q.pop();
-                
-                if(node->left)
-                {
-                    q.push(node->left);
-                }
-                if(node->right)
-                {
-                    q.push(node->right);
-                }
-            }
-            ans = sum;
-            sum=0;
+            return 0;
         }
-        return ans;
+        int leftH = maxDepth(root->left);
+        int rightH = maxDepth(root->right);
+        return 1 + max(leftH,rightH);
+            
+    }
+    
+    int h=0;
+    int sum = 0;
+    
+    void inorder(TreeNode *root,int maxD)
+    {
+        if(root==NULL)
+        {
+            return;
+        }
+        h++;
+        if(h==maxD)
+        {
+            sum+=root->val;
+        }
+        inorder(root->left,maxD);
+        inorder(root->right,maxD);
+        h--;
     }
     
     int deepestLeavesSum(TreeNode* root) {
-        return bfs(root);
+        int maxD = maxDepth(root);
+        inorder(root,maxD);
+        return sum;
     }
 };
