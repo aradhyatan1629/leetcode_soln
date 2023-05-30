@@ -12,23 +12,18 @@
 class Solution {
 public:
     
-    //Solution without using reverse operation
     
-    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
-        if(root==NULL)
-        {
-            return {};
-        }
-        
-        bool flag=true;
+    void bfs(TreeNode *root,vector<vector<int>> &ans)
+    {
         queue<TreeNode*> q;
-        vector<vector<int>> ans;
         q.push(root);
+        bool flag=true;
         
         while(!q.empty())
         {
             int size = q.size();
             vector<int> v(size);
+            
             for(int i=0;i<size;i++)
             {
                 TreeNode *node = q.front();
@@ -45,18 +40,27 @@ public:
                 }
                 v[index] = node->val;
                 
-                if(node->left!=NULL)
+                if(node->left)
                 {
                     q.push(node->left);
                 }
-                if(node->right!=NULL)
+                if(node->right)
                 {
                     q.push(node->right);
                 }
             }
-            flag=!flag;
             ans.push_back(v);
+            flag=!flag;
         }
+    }
+    
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        if(root==NULL)
+        {
+            return {};
+        }
+        vector<vector<int>> ans;
+        bfs(root,ans);
         return ans;
     }
 };
