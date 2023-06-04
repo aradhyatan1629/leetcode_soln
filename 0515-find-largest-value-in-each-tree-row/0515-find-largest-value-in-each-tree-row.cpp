@@ -12,41 +12,31 @@
 class Solution {
 public:
     
-    void bfs(TreeNode *root,vector<int> &ans)
+    
+    void preorder(TreeNode *root,int level,vector<int> &ans)
     {
-        queue<TreeNode*> q;
-        q.push(root);
-        
-        while(!q.empty())
+        if(root==NULL)
         {
-            int sz = q.size();
-            int mx = INT_MIN;
-            for(int i=0;i<sz;i++)
-            {
-                TreeNode *node = q.front();
-                q.pop();
-                mx = max(mx,node->val);
-                
-                if(node->left)
-                {
-                    q.push(node->left);
-                }
-                if(node->right)
-                {
-                    q.push(node->right);
-                }
-            }
-            ans.push_back(mx);
+            return;
         }
+        if(level<ans.size())
+        {
+            if(root->val>ans[level])
+            {
+                ans[level] = root->val;
+            }
+        }
+        else
+        {
+            ans.push_back(root->val);
+        }
+        preorder(root->left,level+1,ans);
+        preorder(root->right,level+1,ans);
     }
     
     vector<int> largestValues(TreeNode* root) {
-        if(root==NULL)
-        {
-            return {};
-        }
         vector<int> v;
-        bfs(root,v);
+        preorder(root,0,v);
         return v;
     }
 };
