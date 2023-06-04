@@ -12,47 +12,31 @@
 class Solution {
 public:
     
-    
-    int count(TreeNode *root,int &cnt)
-    {
-        if(root==NULL)
-        {
-            return 0;
-        }
-        count(root->left,cnt);
-        cnt++;
-        count(root->right,cnt);
-        return cnt;
-    }
-    
-    int sum(TreeNode *root,int &s)
-    {
-        if(root==NULL)
-        {
-            return 0;
-        }
-        sum(root->left,s);
-        s+=root->val;
-        sum(root->right,s);
-        return s;
-    }
+    //Postorder O(n) solution  pair - {sum,count}
     
     int ans=0;
-    void solve(TreeNode *root)
+    pair<int,int> solve(TreeNode *root)
     {
         if(root==NULL)
         {
-            return;
+            return {0,0};
         }
-        int s = 0,c=0;
-        s = sum(root,s);
-        c = count(root,c);
-        if(s/c==root->val)
+        auto left = solve(root->left);
+        int left_sum = left.first;
+        int left_cnt = left.second;
+        
+        auto right = solve(root->right);
+        int right_sum = right.first;
+        int right_cnt = right.second;
+        
+        int sum = root->val + left_sum + right_sum;
+        int cnt = left_cnt + right_cnt + 1;
+        
+        if(sum/cnt==root->val)
         {
             ans++;
         }
-        solve(root->left);
-        solve(root->right);
+        return {sum,cnt};
     }
     
     int averageOfSubtree(TreeNode* root) {
