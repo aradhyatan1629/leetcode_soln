@@ -106,14 +106,23 @@ struct Node
 class Solution {
 public:
     
-    void addLeftB(Node *root,vector<int> &v)
+    bool isLeaf(Node *root)
+    {
+        if(root->left==NULL and root->right==NULL)
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    void addLeftB(Node *root,vector<int> &ans)
     {
         Node *curr = root->left;
         while(curr)
         {
             if(!isLeaf(curr))
             {
-                v.push_back(curr->data);
+                ans.push_back(curr->data);
             }
             if(curr->left)
             {
@@ -126,15 +135,15 @@ public:
         }
     }
     
-    void addRightB(Node *root,vector<int> &v)
+    void addRightB(Node *root,vector<int> &ans)
     {
+        stack<Node*> st;
         Node *curr = root->right;
-        vector<int> temp;
         while(curr)
         {
             if(!isLeaf(curr))
             {
-                temp.push_back(curr->data);
+                st.push(curr);
             }
             if(curr->right)
             {
@@ -145,53 +154,47 @@ public:
                 curr=curr->left;
             }
         }
-        for(int i=temp.size()-1;i>=0;i--)
+        while(!st.empty())
         {
-            v.push_back(temp[i]);
+            Node *t = st.top();
+            ans.push_back(t->data);
+            st.pop();
         }
     }
     
-    void addLeaves(Node *root,vector<int> &v)
+    void addLeaves(Node *root,vector<int> &ans)
     {
-        if(root->left)
-        {
-            addLeaves(root->left,v);
-        }
         if(isLeaf(root))
         {
-            v.push_back(root->data);
+            ans.push_back(root->data);
             return;
+        }
+        if(root->left)
+        {
+            addLeaves(root->left,ans);
         }
         if(root->right)
         {
-            addLeaves(root->right,v);
+            addLeaves(root->right,ans);
         }
-    }
-
-    bool isLeaf(Node *root)
-    {
-        if(root->left==NULL and root->right==NULL)
-        {
-            return true;
-        }
-        return false;
+        
     }
 
     vector <int> boundary(Node *root)
     {
+        vector<int> ans;
         if(root==NULL)
         {
-            return {};
+            return ans;
         }
-        vector<int> v;
         if(!isLeaf(root))
         {
-            v.push_back(root->data);
+            ans.push_back(root->data);
         }
-        addLeftB(root,v);
-        addLeaves(root,v);
-        addRightB(root,v);
-        return v;
+        addLeftB(root,ans);
+        addLeaves(root,ans);
+        addRightB(root,ans);
+        return ans;
     }
 };
 
