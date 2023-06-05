@@ -14,8 +14,8 @@ public:
     
     vector<vector<int>> bfs(TreeNode *root)
     {
-        map<int,map<int,multiset<int>>> m;
         queue<pair<TreeNode*,pair<int,int>>> q;
+        map<int,map<int,multiset<int>>> m;
         q.push({root,{0,0}});
         
         while(!q.empty())
@@ -24,17 +24,17 @@ public:
             q.pop();
             
             TreeNode *node = p.first;
-            int x_vertical = p.second.first;
-            int y_level = p.second.second;
+            int x = p.second.first;
+            int y = p.second.second;
+            m[x][y].insert(node->val);
             
-            m[x_vertical][y_level].insert(node->val);
             if(node->left)
             {
-                q.push({node->left,{x_vertical-1,y_level+1}});
+                q.push({node->left,{x-1,y+1}});
             }
             if(node->right)
             {
-                q.push({node->right,{x_vertical+1,y_level+1}});
+                q.push({node->right,{x+1,y+1}});
             }
         }
         
