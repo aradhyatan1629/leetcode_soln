@@ -105,7 +105,7 @@ struct Node
 
 class Solution {
 public:
-    
+
     bool isLeaf(Node *root)
     {
         if(root->left==NULL and root->right==NULL)
@@ -115,14 +115,14 @@ public:
         return false;
     }
     
-    void addLeftB(Node *root,vector<int> &ans)
+    void addLeftB(Node *root,vector<int> &v)
     {
         Node *curr = root->left;
         while(curr)
         {
             if(!isLeaf(curr))
             {
-                ans.push_back(curr->data);
+                v.push_back(curr->data);
             }
             if(curr->left)
             {
@@ -135,10 +135,11 @@ public:
         }
     }
     
-    void addRightB(Node *root,vector<int> &ans)
+    void addRightB(Node *root,vector<int> &v)
     {
-        stack<Node*> st;
         Node *curr = root->right;
+        stack<Node*> st;
+        
         while(curr)
         {
             if(!isLeaf(curr))
@@ -156,45 +157,43 @@ public:
         }
         while(!st.empty())
         {
-            Node *t = st.top();
-            ans.push_back(t->data);
+            v.push_back(st.top()->data);
             st.pop();
         }
     }
     
-    void addLeaves(Node *root,vector<int> &ans)
+    void addLeaves(Node *root,vector<int> &v)
     {
         if(isLeaf(root))
         {
-            ans.push_back(root->data);
+            v.push_back(root->data);
             return;
         }
         if(root->left)
         {
-            addLeaves(root->left,ans);
+            addLeaves(root->left,v);
         }
         if(root->right)
         {
-            addLeaves(root->right,ans);
+            addLeaves(root->right,v);
         }
-        
     }
 
     vector <int> boundary(Node *root)
     {
-        vector<int> ans;
+        vector<int> v;
         if(root==NULL)
         {
-            return ans;
+            return {};
         }
         if(!isLeaf(root))
         {
-            ans.push_back(root->data);
+            v.push_back(root->data);
         }
-        addLeftB(root,ans);
-        addLeaves(root,ans);
-        addRightB(root,ans);
-        return ans;
+        addLeftB(root,v);
+        addLeaves(root,v);
+        addRightB(root,v);
+        return v;
     }
 };
 
