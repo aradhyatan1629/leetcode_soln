@@ -12,24 +12,38 @@
 class Solution {
 public:
     
-    bool solve(TreeNode *nodeLeft,TreeNode *nodeRight)
+    //bfs soln - 
+    
+    bool bfs(TreeNode *root)
     {
-        if(nodeLeft==NULL or nodeRight==NULL)
+        queue<TreeNode*> q;
+        q.push(root->left);
+        q.push(root->right);
+        
+        while(!q.empty())
         {
-            return nodeLeft==nodeRight;
+            TreeNode *leftNode = q.front();
+            q.pop();
+            TreeNode *rightNode = q.front();
+            q.pop();
+            
+            if(leftNode==NULL and rightNode==NULL)
+            {
+                continue;
+            }
+            if(leftNode==NULL or rightNode==NULL or leftNode->val!=rightNode->val)
+            {
+                return false;
+            }
+            q.push(leftNode->left);
+            q.push(rightNode->right);
+            q.push(leftNode->right);
+            q.push(rightNode->left);
         }
-        if(nodeLeft->val!=nodeRight->val)
-        {
-            return false;
-        }
-        return solve(nodeLeft->left,nodeRight->right) 
-               and solve(nodeLeft->right,nodeRight->left);
+        return true;
     }
+    
     bool isSymmetric(TreeNode* root) {
-        if(root==NULL)
-        {
-            return true;
-        }
-        return solve(root->left,root->right);
+        return bfs(root);
     }
 };
