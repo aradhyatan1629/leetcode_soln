@@ -12,7 +12,7 @@
 class Solution {
 public:
     
-    vector<vector<int>> bfs(TreeNode *root)
+    vector<vector<int>> solve(TreeNode *root)
     {
         queue<pair<TreeNode*,pair<int,int>>> q;
         map<int,map<int,multiset<int>>> m;
@@ -20,14 +20,14 @@ public:
         
         while(!q.empty())
         {
-            auto p = q.front();
+            auto it = q.front();
             q.pop();
             
-            TreeNode *node = p.first;
-            int x = p.second.first;
-            int y = p.second.second;
-            m[x][y].insert(node->val);
+            TreeNode *node = it.first;           //node
+            int x = it.second.first;            //vertical
+            int y = it.second.second;           //level
             
+            m[x][y].insert(node->val);
             if(node->left)
             {
                 q.push({node->left,{x-1,y+1}});
@@ -46,12 +46,13 @@ public:
             {
                 v.insert(v.end(),y.second.begin(),y.second.end());
             }
+            
             ans.push_back(v);
         }
         return ans;
     }
     
     vector<vector<int>> verticalTraversal(TreeNode* root) {
-        return bfs(root);
+        return solve(root);
     }
 };
