@@ -115,26 +115,25 @@ class Solution
         
         while(!q.empty())
         {
-            auto p = q.front();
+            auto it = q.front();
             q.pop();
-            Node *node = p.first;
-            int line = p.second;
             
-            if(m.find(line)==m.end())
+            Node *node = it.first;
+            int vertical = it.second;
+            
+            if(m.find(vertical)==m.end())
             {
-                m[line] = node->data;
+                m[vertical] = node->data;
             }
-            
             if(node->left)
             {
-                q.push({node->left,line-1});
+                q.push({node->left,vertical-1});
             }
             if(node->right)
             {
-                q.push({node->right,line+1});
+                q.push({node->right,vertical+1});
             }
         }
-        
         vector<int> v;
         for(auto x:m)
         {
