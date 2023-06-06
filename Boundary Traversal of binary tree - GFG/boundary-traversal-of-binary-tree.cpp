@@ -105,7 +105,7 @@ struct Node
 
 class Solution {
 public:
-
+    
     bool isLeaf(Node *root)
     {
         if(root->left==NULL and root->right==NULL)
@@ -139,7 +139,6 @@ public:
     {
         Node *curr = root->right;
         stack<Node*> st;
-        
         while(curr)
         {
             if(!isLeaf(curr))
