@@ -11,29 +11,32 @@
  */
 class Solution {
 public:
-    //level order traversal solution 
-    vector<int> rightSideView(TreeNode* root) {
+    
+    vector<int> bfs(TreeNode *root)
+    {
         if(root==NULL)
         {
             return {};
         }
-        vector<int> ans;
         queue<TreeNode*> q;
         q.push(root);
+        
+        vector<int> ans;
         while(!q.empty())
         {
-            int size = q.size();
             vector<int> v;
-            for(int i=0;i<size;i++)
+            int sz = q.size();
+            for(int i=0;i<sz;i++)
             {
                 TreeNode *node = q.front();
                 q.pop();
                 v.push_back(node->val);
-                if(node->left!=NULL)
+                
+                if(node->left)
                 {
                     q.push(node->left);
                 }
-                if(node->right!=NULL)
+                if(node->right)
                 {
                     q.push(node->right);
                 }
@@ -41,5 +44,9 @@ public:
             ans.push_back(v[v.size()-1]);
         }
         return ans;
+    }
+    
+    vector<int> rightSideView(TreeNode* root) {
+        return bfs(root);
     }
 };
