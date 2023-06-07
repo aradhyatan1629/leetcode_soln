@@ -10,43 +10,27 @@
 class Solution {
 public:
     
-   //Brute force solution - TC - O(n) and SC - O(n)
-    
-   bool getPath(TreeNode *root,TreeNode *node,vector<TreeNode*> &v)
-   {
-       if(root==NULL)
-       {
-           return false;
-       }
-       v.push_back(root);
-       if(root->val == node->val)
-       {
-           return true;
-       }
-       if(getPath(root->left,node,v) or getPath(root->right,node,v))
-       {
-           return true;
-       }
-       v.pop_back();
-       return false;
-   }
+    TreeNode *solve(TreeNode *root,TreeNode *p,TreeNode *q)
+    {
+        if(root==NULL or root->val == p->val or root->val == q->val)
+        {
+            return root;
+        }
+        TreeNode *left = solve(root->left,p,q);
+        TreeNode *right = solve(root->right,p,q);
+        
+        if(left==NULL)
+        {
+            return right;
+        }
+        else if(right==NULL)
+        {
+            return left;
+        }
+        return root;        //is both left and right is not equal to null
+    }
     
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        vector<TreeNode*> v1;
-        vector<TreeNode*> v2;
-        getPath(root,p,v1);
-        getPath(root,q,v2);
-        
-        int i=0,j=0;
-        while(i<v1.size() and j<v2.size())
-        {
-            if(v1[i]!=v2[j])
-            {
-                break;
-            }
-            i++;
-            j++;
-        }
-        return v1[i-1];
+        return solve(root,p,q);
     }
 };
