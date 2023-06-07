@@ -10,45 +10,50 @@
 class Solution {
 public:
     
-    void markParents(TreeNode *root,unordered_map<TreeNode*,TreeNode*> &m_parent)
+    void bfs(TreeNode *root,unordered_map<TreeNode*,TreeNode*> &parent)
     {
         queue<TreeNode*> q;
         q.push(root);
+        
         while(!q.empty())
         {
-            TreeNode *node = q.front();
-            q.pop();
-            if(node->left)
+            int sz = q.size();
+            for(int i=0;i<sz;i++)
             {
-                m_parent[node->left] = node;
-                q.push(node->left);
-            }
-            if(node->right)
-            {
-                m_parent[node->right] = node;
-                q.push(node->right);
+                TreeNode *node = q.front();
+                q.pop();
+                
+                if(node->left)
+                {
+                    parent[node->left] = node;
+                    q.push(node->left);
+                }
+                if(node->right)
+                {
+                    parent[node->right] = node;
+                    q.push(node->right);
+                }
             }
         }
     }
-    
     vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
-        unordered_map<TreeNode*,TreeNode*> m_parent;
-        markParents(root,m_parent);
+        unordered_map<TreeNode*,TreeNode*> parent;
+        bfs(root,parent);
         
         unordered_map<TreeNode*,bool> visited;
         queue<TreeNode*> q;
         q.push(target);
-        visited[target] = true;
+        visited[target]=true;
         int curr_level=0;
         
         while(!q.empty())
         {
-            if(curr_level++==k)
+            int sz = q.size();
+            if(curr_level++ == k)
             {
                 break;
             }
-            int size = q.size();
-            for(int i=0;i<size;i++)
+            for(int i=0;i<sz;i++)
             {
                 TreeNode *node = q.front();
                 q.pop();
@@ -63,21 +68,19 @@ public:
                     q.push(node->right);
                     visited[node->right] = true;
                 }
-                if(m_parent[node] and visited[m_parent[node]]==false)
+                if(parent[node] and visited[parent[node]]==false)
                 {
-                    q.push(m_parent[node]);
-                    visited[m_parent[node]]=true;
+                    q.push(parent[node]);
+                    visited[parent[node]] = true;
                 }
             }
         }
-        
-            vector<int> ans;
-            while(!q.empty())
-            {
-                ans.push_back(q.front()->val);
-                q.pop();
-            }
-            return ans;
-        
+        vector<int> ans;
+        while(!q.empty())
+        {
+            ans.push_back(q.front()->val);
+            q.pop();
+        }
+        return ans;
     }
 };
