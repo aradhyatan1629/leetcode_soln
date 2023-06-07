@@ -23,11 +23,12 @@ public:
             auto it = q.front();
             q.pop();
             
-            TreeNode *node = it.first;           //node
-            int x = it.second.first;            //vertical
-            int y = it.second.second;           //level
+            TreeNode *node = it.first;
+            int x = it.second.first;
+            int y = it.second.second;
             
             m[x][y].insert(node->val);
+            
             if(node->left)
             {
                 q.push({node->left,{x-1,y+1}});
@@ -46,7 +47,6 @@ public:
             {
                 v.insert(v.end(),y.second.begin(),y.second.end());
             }
-            
             ans.push_back(v);
         }
         return ans;
