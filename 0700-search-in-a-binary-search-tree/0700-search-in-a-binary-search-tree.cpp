@@ -11,32 +11,18 @@
  */
 class Solution {
 public:
-    
-    TreeNode* preorder(TreeNode *root,int val)
-    {
-        if(root==NULL)
-        {
-            return NULL;
-        }
-        else if(root->val == val)
-        {
-            return root;
-        }
-        else if(root->val > val)
-        {
-            return preorder(root->left,val);
-        }
-        else
-        {
-            return preorder(root->right,val);
-        }
-    }
     TreeNode* searchBST(TreeNode* root, int val) {
-        if(root==NULL)
+        while(root!=NULL and root->val!=val)
         {
-            return NULL;
+            if(root->val > val)
+            {
+                root = root->left;
+            }
+            else
+            {
+                root = root->right;
+            }
         }
-        TreeNode *node = preorder(root,val);
-        return node;
+        return root;
     }
 };
