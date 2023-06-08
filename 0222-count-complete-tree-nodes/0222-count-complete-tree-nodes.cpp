@@ -12,20 +12,42 @@
 class Solution {
 public:
     
-    void inorder(TreeNode *root,int &cnt)
+    //T.c. - (logn)^2
+    
+    int findLeftHeight(TreeNode *node)
     {
-        if(root==NULL)
+        int h = 0;
+        while(node)
         {
-            return;
+            h++;
+            node=node->left;
         }
-        inorder(root->left,cnt);
-        cnt++;
-        inorder(root->right,cnt);
+        return h;
+    }
+    
+    int findRightHeight(TreeNode *node)
+    {
+        int h = 0;
+        while(node)
+        {
+            h++;
+            node=node->right;
+        }
+        return h;
     }
     
     int countNodes(TreeNode* root) {
-        int cnt=0;
-        inorder(root,cnt);
-        return cnt;
+        if(root==NULL)
+        {
+            return 0;
+        }
+        int leftH = findLeftHeight(root);
+        int rightH = findRightHeight(root);
+        
+        if(leftH==rightH)
+        {
+            return pow(2,leftH) - 1;
+        }
+        return 1 + countNodes(root->left) + countNodes(root->right);
     }
 };
