@@ -12,30 +12,22 @@
 class Solution {
 public:
     
-    long long lastVal = LONG_MIN;
-    bool ans = true;
+    //Striver approach (using range)
     
-    void inorder(TreeNode *root)
+    bool isBST(TreeNode *root,long mnVal,long mxVal)
     {
         if(root==NULL)
         {
-            return;
+            return true;
         }
-        inorder(root->left);
-        if(lastVal < root->val)
+        if(root->val >= mxVal or root->val <= mnVal)
         {
-            lastVal = root->val;
+            return false;
         }
-        else
-        {
-            ans = false;
-            return;
-        }
-        inorder(root->right);
+        return isBST(root->left,mnVal,root->val) and isBST(root->right,root->val,mxVal);
     }
     
     bool isValidBST(TreeNode* root) {
-        inorder(root);
-        return ans;
+        return isBST(root,LONG_MIN,LONG_MAX);
     }
 };
