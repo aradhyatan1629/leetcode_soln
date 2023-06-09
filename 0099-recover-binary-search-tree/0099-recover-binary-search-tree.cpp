@@ -11,39 +11,36 @@
  */
 class Solution {
 public:
-    //O(nlogn) and O(n) soln
+    // O(n) O(n) striver soln
     
-    void dfs(TreeNode *root,vector<int> &v)
+    TreeNode *prev;
+    TreeNode *violation1;
+    TreeNode *violation2;
+    
+    
+    void inorder(TreeNode *root)
     {
         if(root==NULL)
         {
             return;
         }
-        dfs(root->left,v);
-        v.push_back(root->val);
-        dfs(root->right,v);
-    }
-    
-    void solve(TreeNode *root,vector<int> &v,int &i)
-    {
-        if(root==NULL)
+        inorder(root->left);
+        if(prev!=NULL and prev->val>root->val)
         {
-            return;
+            if(violation1==NULL)
+            {
+               violation1 = prev;
+            }
+            violation2 = root;
         }
-        solve(root->left,v,i);
-        if(root->val != v[i])
-        {
-            root->val = v[i];
-        }
-        i++;
-        solve(root->right,v,i);
+        prev = root;
+        inorder(root->right);
     }
     
     void recoverTree(TreeNode* root) {
-        vector<int> v;
-        int i = 0;
-        dfs(root,v);
-        sort(v.begin(),v.end());
-        solve(root,v,i);
+        inorder(root);
+        int t = violation1->val;
+        violation1->val = violation2->val;
+        violation2->val = t;
     }
 };
