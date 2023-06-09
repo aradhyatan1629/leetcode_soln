@@ -11,38 +11,31 @@
  */
 class BSTIterator {
 public:
-    //O(n) and O(n)
+    //O(n) and O(h) striver soln
+    stack<TreeNode*> st;
     
-    int node = -1;
-    
-    vector<TreeNode*> v; 
-    void inorder(TreeNode *root)
+    void pushNodes(TreeNode *node)
     {
-        if(root==NULL)
+        while(node!=NULL)
         {
-            return;
+            st.push(node);
+            node = node->left;
         }
-        inorder(root->left);
-        v.push_back(root);
-        inorder(root->right);
     }
     
     BSTIterator(TreeNode* root) {
-        inorder(root);
+        pushNodes(root);
     }
     
     int next() {
-        node++;
-        return v[node]->val;
+        TreeNode *node = st.top();
+        st.pop();
+        pushNodes(node->right);
+        return node->val;
     }
     
     bool hasNext() {
-        int x = v.size();
-        if(node<x-1)
-        {
-            return true;
-        }
-        return false;
+        return !st.empty();
     }
 };
 
