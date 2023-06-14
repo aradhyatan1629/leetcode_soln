@@ -11,28 +11,26 @@
  */
 class Solution {
 public:
+    //O(n) and O(1)
     
-    //O(n) and O(n)
-    
-    void dfs(TreeNode *root,vector<int> &v)
+    void inorder(TreeNode *root,int &ans,int &prev)
     {
         if(root==NULL)
         {
             return;
         }
-        dfs(root->left,v);
-        v.push_back(root->val);
-        dfs(root->right,v);
+        inorder(root->left,ans,prev);
+        if(prev!=-1)
+        {
+            ans = min(ans,root->val-prev);
+        }
+        prev = root->val;
+        inorder(root->right,ans,prev);
     }
     
     int getMinimumDifference(TreeNode* root) {
-        vector<int> v;
-        dfs(root,v);
-        int ans = INT_MAX;
-        for(int i=0;i<v.size()-1;i++)
-        {
-            ans = min(ans,v[i+1]-v[i]);
-        }
+        int ans=INT_MAX,prev=-1;
+        inorder(root,ans,prev);
         return ans;
     }
 };
