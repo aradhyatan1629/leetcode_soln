@@ -12,13 +12,15 @@
 class Solution {
 public:
     
-    int bfs(TreeNode *root,int level,int mxsum,int ans)
+    int bfs(TreeNode *root)
     {
+        int ansLevel = 1,level=1;
+        long mxSum = LONG_MIN;
         queue<TreeNode*> q;
-        q.push(root);          
+        q.push(root);
         while(!q.empty())
         {
-            int sum=0;
+            long sum = 0;
             int sz = q.size();
             for(int i=0;i<sz;i++)
             {
@@ -34,19 +36,17 @@ public:
                     q.push(node->right);
                 }
             }
-            if(sum>mxsum)
+            if(sum>mxSum)
             {
-                mxsum = sum;
-                ans = level;
+                mxSum = sum;
+                ansLevel = level;
             }
             level++;
         }
-        return ans;
+        return ansLevel;
     }
+    
     int maxLevelSum(TreeNode* root) {
-        int level = 1;
-        int mxsum = INT_MIN;
-        int ans = 0;
-        return bfs(root,level,mxsum,ans);
+        return bfs(root);
     }
 };
