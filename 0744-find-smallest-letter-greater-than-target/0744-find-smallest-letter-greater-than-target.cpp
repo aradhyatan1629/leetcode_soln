@@ -1,15 +1,23 @@
 class Solution {
 public:
-    //Linar search O(n)
+    //Binary Seach O(logn)
     
     char nextGreatestLetter(vector<char>& letters, char target) {
+        int low = 0;
+        int high = letters.size()-1;
         char ans = '\0';
-        for(int i=0;i<letters.size();i++)
+        
+        while(low<=high)
         {
-            if(letters[i]>target)
+            int mid = low + (high-low)/2;
+            if(letters[mid]>target)
             {
-                ans = letters[i];
-                break;
+                ans = letters[mid];
+                high = mid-1;
+            }
+            else
+            {
+                low = mid+1;
             }
         }
         if(ans!='\0')
