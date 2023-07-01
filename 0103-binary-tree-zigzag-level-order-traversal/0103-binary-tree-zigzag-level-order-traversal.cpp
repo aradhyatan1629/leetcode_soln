@@ -19,13 +19,20 @@ public:
         bool flag = false;
         while(!q.empty())
         {
-            vector<int> v;
             int sz = q.size();
+            vector<int> v(sz,0);
             for(int i=0;i<sz;i++)
             {
                 TreeNode *node = q.front();
                 q.pop();
-                v.push_back(node->val);
+                if(flag)
+                {
+                    v[sz-i-1] = node->val;
+                }
+                else
+                {
+                    v[i] = node->val;
+                }
                 if(node->left)
                 {
                     q.push(node->left);
@@ -35,15 +42,7 @@ public:
                     q.push(node->right);
                 }
             }
-            if(flag)
-            {
-                reverse(v.begin(),v.end());
-                ans.push_back(v);
-            }
-            else
-            {
-                ans.push_back(v);
-            }
+            ans.push_back(v);
             flag=!flag;
         }
     }
