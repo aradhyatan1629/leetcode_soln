@@ -12,34 +12,20 @@
 class Solution {
 public:
     
-    
     void bfs(TreeNode *root,vector<vector<int>> &ans)
     {
         queue<TreeNode*> q;
         q.push(root);
-        bool flag=true;
-        
+        bool flag = false;
         while(!q.empty())
         {
-            int size = q.size();
-            vector<int> v(size);
-            
-            for(int i=0;i<size;i++)
+            vector<int> v;
+            int sz = q.size();
+            for(int i=0;i<sz;i++)
             {
                 TreeNode *node = q.front();
                 q.pop();
-                int index;
-                
-                if(flag)
-                {
-                    index = i;
-                }
-                else
-                {
-                    index = size-i-1;
-                }
-                v[index] = node->val;
-                
+                v.push_back(node->val);
                 if(node->left)
                 {
                     q.push(node->left);
@@ -49,7 +35,15 @@ public:
                     q.push(node->right);
                 }
             }
-            ans.push_back(v);
+            if(flag)
+            {
+                reverse(v.begin(),v.end());
+                ans.push_back(v);
+            }
+            else
+            {
+                ans.push_back(v);
+            }
             flag=!flag;
         }
     }
