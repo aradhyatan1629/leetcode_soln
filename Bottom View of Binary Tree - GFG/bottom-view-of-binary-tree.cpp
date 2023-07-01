@@ -98,41 +98,38 @@ class Solution {
     
     vector<int> bfs(Node *root)
     {
-        if(root==NULL)
-        {
-            return {};
-        }
         queue<pair<Node*,int>> q;
-        q.push({root,0});
         map<int,int> m;
-        
+        q.push({root,0});
         while(!q.empty())
         {
             auto it = q.front();
             q.pop();
             Node *node = it.first;
-            int line = it.second;
-            
-            m[line] = node->data;
+            int vertical = it.second;
+            m[vertical] = node->data;
             if(node->left)
             {
-                q.push({node->left,line-1});
+                q.push({node->left,vertical-1});
             }
             if(node->right)
             {
-                q.push({node->right,line+1});
+                q.push({node->right,vertical+1});
             }
         }
-        
-        vector<int> v;
+        vector<int> ans;
         for(auto x:m)
         {
-            v.push_back(x.second);
+            ans.push_back(x.second);
         }
-        return v;
+        return ans;
     }
   
     vector <int> bottomView(Node *root) {
+        if(root==NULL)
+        {
+            return {};
+        }
         return bfs(root);
     }
 };
