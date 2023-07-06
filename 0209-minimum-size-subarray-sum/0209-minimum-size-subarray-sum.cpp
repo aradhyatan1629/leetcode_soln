@@ -1,9 +1,9 @@
 class Solution {
 public:
     int minSubArrayLen(int target, vector<int>& nums) {
-        int i=0,j=0,n=nums.size();
-        long long sum = 0;
-        int ans = INT_MAX;
+        int n=nums.size();
+        int i=0,j=0;
+        int sum=0,ans=INT_MAX;
         while(j<n)
         {
             sum+=nums[j];
@@ -29,3 +29,4 @@ public:
         return ans;
     }
 };
+
