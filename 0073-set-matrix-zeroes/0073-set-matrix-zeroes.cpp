@@ -1,25 +1,26 @@
 class Solution {
 public:
-    //TC - O(m*n)
-    //SC - O(1)
+    
+    /*
+    intuition - we need to know which coordinates have 0 so that we can change all its row and cloumn to 0. So we will use our 0th idex row i.e first row and 0th index column i.e first column as a flag.
+    */
     
     void setZeroes(vector<vector<int>>& matrix) {
-        bool flagRow0 = false,flagCol0 = false;
+        bool firstRow = false, firstCol = false;
         int m = matrix.size(),n=matrix[0].size();
-        
-        for(int j=0;j<n;j++)            //if there is any 0 in the first row 
+        for(int j=0;j<n;j++)
         {
-            if(matrix[0][j] == 0)
+            if(matrix[0][j]==0)
             {
-                flagRow0 = true;
+                firstRow = true;
                 break;
             }
         }
-        for(int i=0;i<m;i++)          //if there is any 0 in the first column
+        for(int i=0;i<m;i++)
         {
-            if(matrix[i][0] == 0)
+            if(matrix[i][0]==0)
             {
-                flagCol0 = true;
+                firstCol = true;
                 break;
             }
         }
@@ -39,21 +40,21 @@ public:
         {
             for(int j=1;j<n;j++)
             {
-                if(matrix[i][0] == 0 or matrix[0][j] == 0)
+                if(matrix[i][0]==0 or matrix[0][j]==0)
                 {
                     matrix[i][j] = 0;
                 }
             }
         }
         
-        if(flagRow0 == true)               //if there was originally any 0 in the first row 
-        {                                  
+        if(firstRow)
+        {
             for(int j=0;j<n;j++)
             {
                 matrix[0][j] = 0;
             }
         }
-        if(flagCol0 == true)
+        if(firstCol)
         {
             for(int i=0;i<m;i++)
             {
@@ -62,3 +63,29 @@ public:
         }
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
