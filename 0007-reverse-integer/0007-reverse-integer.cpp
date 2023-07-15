@@ -8,7 +8,7 @@ public:
             rev = rev*10 + t;
             x/=10;
         }
-        if(rev<pow(-2,31) or rev>pow(2,31))
+        if(rev<INT_MIN or rev>INT_MAX)
         {
             return 0;
         }
