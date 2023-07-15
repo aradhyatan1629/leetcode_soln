@@ -7,29 +7,36 @@ using namespace std;
 class Solution{
 public:
     vector<int> findTwoElement(vector<int> arr, int n) {
-        unordered_map<int,int> m;
         vector<int> ans;
         for(int i=0;i<n;i++)
         {
-            m[arr[i]]++;
-        }
-        for(int i=1;i<=n;i++)
-        {
-            if(m[i]>1)
+            if(arr[abs(arr[i])-1]<0)
             {
-                ans.push_back(i);
+                ans.push_back(abs(arr[i]));
+            }
+            else
+            {
+                arr[abs(arr[i])-1]*=-1;
             }
         }
-        for(int i=1;i<=n;i++)
+        
+        for(int i=0;i<n;i++)
         {
-            if(m[i]==0)
+            if(arr[i]>0)
             {
-                ans.push_back(i);
+                ans.push_back(i+1);
             }
         }
         return ans;
     }
 };
+
+
+
+
+
+
+
 
 //{ Driver Code Starts.
 
