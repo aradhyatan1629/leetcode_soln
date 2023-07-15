@@ -8,17 +8,16 @@ class Solution{
 public:
     vector<int> findTwoElement(vector<int> arr, int n) {
         unordered_map<int,int> m;
+        vector<int> ans;
         for(int i=0;i<n;i++)
         {
             m[arr[i]]++;
         }
-        vector<int> ans;
-        for(auto x:m)
+        for(int i=1;i<=n;i++)
         {
-            if(x.second==2)
+            if(m[i]>1)
             {
-                ans.push_back(x.first);
-                break;
+                ans.push_back(i);
             }
         }
         for(int i=1;i<=n;i++)
