@@ -25,7 +25,7 @@ class Solution
             }
             else if(a[mid]==2)
             {
-                swap(a[high],a[mid]);
+                swap(a[mid],a[high]);
                 high--;
             }
         }
