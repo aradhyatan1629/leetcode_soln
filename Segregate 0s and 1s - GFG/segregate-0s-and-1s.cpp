@@ -10,28 +10,26 @@ using namespace std;
 class Solution{   
 public:
     void segregate0and1(int arr[], int n) {
-        int type0=0,type1=n-1;
-        while(type0<type1)
+        int low=0,high=n-1;
+        while(low<=high)
         {
-            if(arr[type0]==1)
+            if(arr[low]==1 and arr[high]==0)
             {
-                if(arr[type1]==0)
-                {
-                    swap(arr[type0],arr[type1]);
-                }
-                type1--;
+                swap(arr[low],arr[high]);
+                low++;
+                high--;
             }
-            else
+            else if(arr[low]==0)
             {
-                type0++;
+                low++;
+            }
+            else if(arr[high]==1)
+            {
+                high--;
             }
         }
     }
 };
-
-
-
-
 
 //{ Driver Code Starts.
 
