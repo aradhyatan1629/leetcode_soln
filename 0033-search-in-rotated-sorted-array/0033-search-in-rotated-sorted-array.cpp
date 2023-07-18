@@ -1,8 +1,7 @@
 class Solution {
 public:
     int search(vector<int>& nums, int target) {
-        int low = 0,high = nums.size()-1;
-        
+        int low=0,high=nums.size()-1;
         while(low<=high)
         {
             int mid = low + (high-low)/2;
@@ -10,9 +9,9 @@ public:
             {
                 return mid;
             }
-            else if(nums[low]<=nums[mid])                     //if left half if sorted
+            else if(nums[low]<=nums[mid])
             {
-                if(nums[low]<=target and target<=nums[mid])  //if target is in this range
+                if(nums[low]<=target and target<=nums[mid])
                 {
                     high = mid-1;
                 }
@@ -21,9 +20,9 @@ public:
                     low = mid+1;
                 }
             }
-            else                                             //if right half is sorted
+            else
             {
-                if(nums[mid]<=target and target<=nums[high]) //if target is in this range
+                if(nums[mid]<=target and target<=nums[high])
                 {
                     low = mid+1;
                 }
