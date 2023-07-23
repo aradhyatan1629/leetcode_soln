@@ -11,67 +11,30 @@
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-//         Using vector to reverse and stack for additon
-        stack<int> st1,st2;
-        vector<int> v1,v2,ans;
-        ListNode *temp1=l1,*temp2=l2;
-        while(temp1!=NULL)
+        ListNode *head = new ListNode();
+        ListNode *temp = head;
+        int carry=0;
+        
+        while(l1 or l2 or carry!=0)
         {
-            v1.push_back(temp1->val);
-            temp1=temp1->next;
-        }
-        while(temp2!=NULL)
-        {
-            v2.push_back(temp2->val);
-            temp2=temp2->next;
-        }
-        temp1=l1,temp2=l2;
-        reverse(v1.begin(),v1.end());
-        reverse(v2.begin(),v2.end());
-        for(auto x:v1)
-        {
-            st1.push(x);
-        }
-        for(auto x:v2)
-        {
-            st2.push(x);
-        }
-        int carry=0,sum=0;
-        while(st1.size()!=0 or st2.size()!=0 or carry!=0)
-        {
-            if(st1.size()!=0)
+            int sum = 0;
+            if(l1)
             {
-                sum+=st1.top();
-                st1.pop();
+                sum+=l1->val;
+                l1=l1->next;
             }
-            if(st2.size()!=0)
+            if(l2)
             {
-                sum+=st2.top();
-                st2.pop();
+                sum+=l2->val;
+                l2=l2->next;
             }
+            
             sum+=carry;
-            if(sum>=10)
-            {
-                carry=sum/10;
-                ans.push_back(sum%10);
-            }
-            else
-            {
-                ans.push_back(sum);
-                carry=0;
-            }
-            sum=0;
-        }
-        ListNode *l = new ListNode;
-        ListNode *temp = l;
-        for(int i=0;i<ans.size();i++)
-        {
-            ListNode *ptr = new ListNode(ans[i]);
-            temp->next=ptr;
+            carry=sum/10;
+            ListNode *node = new ListNode(sum%10);
+            temp->next=node;
             temp=temp->next;
         }
-        return l->next;
+        return head->next;
     }
 };
-
-
