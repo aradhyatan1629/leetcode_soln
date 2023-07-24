@@ -9,14 +9,15 @@ class Solution
     public:
     pair<long,long> indexes(vector<long long> v, long long x)
     {
-        long first=-1,last=-1;
-        int low = 0,high=v.size()-1;
+        long low=0,high=v.size()-1;
+        int first=-1,last=-1;
+        
         while(low<=high)
         {
             int mid = low + (high-low)/2;
-            if(v[mid] == x)
+            if(v[mid]==x)
             {
-                first = mid;
+                first=mid;
                 high=mid-1;
             }
             else if(v[mid]>x)
@@ -25,16 +26,16 @@ class Solution
             }
             else
             {
-                low = mid+1;
+                low=mid+1;
             }
         }
         low=0,high=v.size()-1;
         while(low<=high)
         {
             int mid = low + (high-low)/2;
-            if(v[mid] == x)
+            if(v[mid]==x)
             {
-                last = mid;
+                last=mid;
                 low=mid+1;
             }
             else if(v[mid]>x)
@@ -43,7 +44,7 @@ class Solution
             }
             else
             {
-                low = mid+1;
+                low=mid+1;
             }
         }
         return {first,last};
