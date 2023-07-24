@@ -20,16 +20,14 @@ class Solution{
         {
             m[a[i]]++;
         }
-        int ans=-1;
         for(auto x:m)
         {
             if(x.second>size/2)
             {
-                ans=x.first;
-                break;
+                return x.first;
             }
         }
-        return ans;
+        return -1;
     }
 };
 
