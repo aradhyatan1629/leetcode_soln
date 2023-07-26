@@ -11,17 +11,16 @@ class Solution
     vector<long long> nextLargerElement(vector<long long> arr, int n){
         vector<long long> ans;
         stack<long long> st;
-        for(int i=arr.size()-1;i>=0;i--)
+        
+        for(int i=n-1;i>=0;i--)
         {
             if(st.size()==0)
             {
                 ans.push_back(-1);
-                // st.push(arr[i]);
             }
             else if(st.size()>0 and st.top()>arr[i])
             {
                 ans.push_back(st.top());
-                // st.push(arr[i]);
             }
             else if(st.size()>0 and st.top()<=arr[i])
             {
@@ -37,7 +36,6 @@ class Solution
                 {
                     ans.push_back(st.top());
                 }
-                st.push(arr[i]);
             }
             st.push(arr[i]);
         }
