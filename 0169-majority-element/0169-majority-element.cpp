@@ -1,13 +1,12 @@
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-        //O(n) O(1) Moore Voting Algo
-        int cnt=0,element=0;
+        int cnt=0,element;
         for(int i=0;i<nums.size();i++)
         {
             if(cnt==0)
             {
-                element=nums[i];
+                element = nums[i];
             }
             if(element==nums[i])
             {
@@ -15,10 +14,9 @@ public:
             }
             else
             {
-                cnt-=1;
+                cnt--;
             }
         }
         return element;
     }
 };
-
