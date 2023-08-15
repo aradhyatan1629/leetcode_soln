@@ -4,7 +4,7 @@ public:
         int low=0,mid=0,high=nums.size()-1;
         while(mid<=high)
         {
-            if(nums[mid] == 0)
+            if(nums[mid]==0)
             {
                 swap(nums[low],nums[mid]);
                 low++;
@@ -14,9 +14,9 @@ public:
             {
                 mid++;
             }
-            else if(nums[mid] == 2)
+            else if(nums[mid]==2)
             {
-                swap(nums[mid],nums[high]);
+                swap(nums[high],nums[mid]);
                 high--;
             }
         }
