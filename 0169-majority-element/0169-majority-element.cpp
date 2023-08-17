@@ -8,7 +8,7 @@ public:
             {
                 element = nums[i];
             }
-            if(element==nums[i])
+            if(element == nums[i])
             {
                 cnt++;
             }
@@ -20,3 +20,4 @@ public:
         return element;
     }
 };
+
