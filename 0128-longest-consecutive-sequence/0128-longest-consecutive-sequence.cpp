@@ -5,23 +5,26 @@ public:
         {
             return 0;
         }
-        sort(nums.begin(),nums.end());
-        int len=1;
-        int cnt = 1;
-        
-        for(int i=0;i<nums.size()-1;i++)
+        unordered_set<int> st;
+        for(int i=0;i<nums.size();i++)
         {
-            if(nums[i]!=nums[i+1] and nums[i]==nums[i+1]-1)
+            st.insert(nums[i]);
+        }
+        int mx=1;
+        for(auto x:st)
+        {
+            if(st.find(x-1)==st.end())
             {
-                cnt++;
-            }
-            else if(nums[i]!=nums[i+1])
-            {
-                len = max(len,cnt);
-                cnt=1;
+                int cnt=1;
+                int t = x+1;
+                while(st.find(t)!=st.end())
+                {
+                    cnt++;
+                    t++;
+                }
+                mx = max(mx,cnt);
             }
         }
-        len = max(len,cnt);
-        return len;
+        return mx;
     }
 };
