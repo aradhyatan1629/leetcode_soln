@@ -10,21 +10,34 @@ class Solution{
     //array A[] which sums up to X.
     bool find3Numbers(int A[], int n, int X)
     {
-        for(int i=0;i<n-1;i++)
+        sort(A,A+n);
+        for(int i=0;i<n;i++)
         {
-            unordered_map<int,int> m;
-            for(int j=i+1;j<n;j++)
+            if(i>0 and A[i]==A[i-1])
             {
-                int third = X-(A[i]+A[j]);
-                if(m[third]==1)
+                continue;
+            }
+            int j = i+1;
+            int k = n-1;
+            while(j<k)
+            {
+                int sum = A[i]+A[j]+A[k];
+                if(sum<X)
                 {
-                    return true;;
+                    j++;
                 }
-                m[A[j]]++;
+                else if(sum>X)
+                {
+                    k--;
+                }
+                else
+                {
+                    return true;
+                }
             }
         }
         return false;
-    }
+    } 
 
 };
 
