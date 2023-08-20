@@ -1,13 +1,9 @@
 class Solution {
 public:
-    //TC - nlogn + n^2
-    //SC - O(1)
-    
     vector<vector<int>> threeSum(vector<int>& nums) {
         sort(nums.begin(),nums.end());
+        int n=nums.size();
         vector<vector<int>> ans;
-        int n = nums.size();
-        
         for(int i=0;i<nums.size();i++)
         {
             if(i>0 and nums[i]==nums[i-1])
