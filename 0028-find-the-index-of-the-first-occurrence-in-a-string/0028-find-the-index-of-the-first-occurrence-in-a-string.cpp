@@ -1,29 +1,18 @@
 class Solution {
 public:
+    
+    //O(m*n)
     int strStr(string haystack, string needle) {
-        int i=0,j=0,n=haystack.size();
-        int k=needle.size();
-        string temp;
         if(needle.size()>haystack.size())
         {
             return -1;
         }
-        while(j<n)
+        int n=needle.size();
+        for(int i=0;i<haystack.size();i++)
         {
-            temp+=haystack[j];
-            if(j-i+1<k)
+            if(haystack.substr(i,n) == needle)
             {
-                j++;
-            }
-            else if(j-i+1==k)
-            {
-                if(temp==needle)
-                {
-                    return i;
-                }
-                temp.erase(temp.begin());
-                i++;
-                j++;
+                return i;
             }
         }
         return -1;
