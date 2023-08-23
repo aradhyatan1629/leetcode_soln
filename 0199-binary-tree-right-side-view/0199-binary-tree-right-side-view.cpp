@@ -14,21 +14,18 @@ public:
     
     vector<int> bfs(TreeNode *root)
     {
+        vector<int> ans;
         queue<TreeNode*> q;
         q.push(root);
-        vector<int> ans;
-        
         while(!q.empty())
         {
             int sz = q.size();
-            TreeNode *temp = q.front();
-            ans.push_back(temp->val);
-            
+            TreeNode *t = q.front();
+            ans.push_back(t->val);
             for(int i=0;i<sz;i++)
             {
                 TreeNode *node = q.front();
                 q.pop();
-                
                 if(node->right)
                 {
                     q.push(node->right);
