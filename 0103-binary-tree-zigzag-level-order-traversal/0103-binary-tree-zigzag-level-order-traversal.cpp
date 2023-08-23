@@ -17,18 +17,16 @@ public:
         vector<vector<int>> ans;
         queue<TreeNode*> q;
         q.push(root);
-        bool flag=true;
+        bool flag = true;
         
         while(!q.empty())
         {
             int sz = q.size();
-            vector<int> v(sz);
-            
+            vector<int> v(sz,0);
             for(int i=0;i<sz;i++)
             {
                 TreeNode *node = q.front();
                 q.pop();
-                
                 if(flag)
                 {
                     v[i] = node->val;
@@ -60,16 +58,3 @@ public:
         return bfs(root);
     }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
