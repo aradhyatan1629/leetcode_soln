@@ -105,7 +105,7 @@ struct Node
 
 class Solution {
 public:
-    
+
     bool isLeaf(Node *root)
     {
         if(root->left==NULL and root->right==NULL)
@@ -126,11 +126,11 @@ public:
             }
             if(curr->left)
             {
-                curr=curr->left;
+                curr = curr->left;
             }
             else
             {
-                curr=curr->right;
+                curr = curr->right;
             }
         }
     }
@@ -147,11 +147,11 @@ public:
             }
             if(curr->right)
             {
-                curr=curr->right;
+                curr = curr->right;
             }
             else
             {
-                curr=curr->left;
+                curr = curr->left;
             }
         }
         while(!st.empty())
@@ -166,7 +166,6 @@ public:
         if(isLeaf(root))
         {
             v.push_back(root->data);
-            return;
         }
         if(root->left)
         {
@@ -177,14 +176,15 @@ public:
             addLeaves(root->right,v);
         }
     }
-    
+
+
     vector <int> boundary(Node *root)
     {
-        vector<int> v;
         if(root==NULL)
         {
             return {};
         }
+        vector<int> v;
         if(!isLeaf(root))
         {
             v.push_back(root->data);
