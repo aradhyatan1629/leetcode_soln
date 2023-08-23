@@ -11,32 +11,20 @@
  */
 class Solution {
 public:
+    //Soln using reverse preorder traversal
     
-    vector<int> bfs(TreeNode *root)
+    void preorder(TreeNode *root,int lvl,vector<int> &v)
     {
-        vector<int> ans;
-        queue<TreeNode*> q;
-        q.push(root);
-        while(!q.empty())
+        if(root==NULL)
         {
-            int sz = q.size();
-            TreeNode *t = q.front();
-            ans.push_back(t->val);
-            for(int i=0;i<sz;i++)
-            {
-                TreeNode *node = q.front();
-                q.pop();
-                if(node->right)
-                {
-                    q.push(node->right);
-                }
-                if(node->left)
-                {
-                    q.push(node->left);
-                }
-            }
+            return;
         }
-        return ans;
+        if(lvl == v.size())         //This is the first time we came across this level
+        {
+            v.push_back(root->val);
+        }
+        preorder(root->right,lvl+1,v);
+        preorder(root->left,lvl+1,v);
     }
     
     vector<int> rightSideView(TreeNode* root) {
@@ -44,6 +32,8 @@ public:
         {
             return {};
         }
-        return bfs(root);
+        vector<int> v;
+        preorder(root,0,v);
+        return v;
     }
 };
