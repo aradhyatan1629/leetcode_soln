@@ -100,20 +100,23 @@ struct Node
 class Solution
 {
     public:
-    
-    
-    vector<int> bfs(Node *root)
+    //Function to return a list of nodes visible from the top view 
+    //from left to right in Binary Tree.
+    vector<int> topView(Node *root)
     {
+        map<int,int> m;
         queue<pair<Node*,int>> q;
         q.push({root,0});
-        map<int,int> m;
+        m[0] = root->data;
+        
         while(!q.empty())
         {
             auto it = q.front();
             q.pop();
             Node *node = it.first;
             int vertical = it.second;
-            if(m.find(vertical)==m.end())
+            
+            if(m.find(vertical) == m.end())
             {
                 m[vertical] = node->data;
             }
@@ -132,15 +135,6 @@ class Solution
             ans.push_back(x.second);
         }
         return ans;
-    }
-    
-    vector<int> topView(Node *root)
-    {
-        if(root==NULL)
-        {
-            return {};
-        }
-        return bfs(root);
     }
 
 };
