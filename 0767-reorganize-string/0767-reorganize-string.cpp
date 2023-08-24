@@ -1,40 +1,47 @@
 class Solution {
 public:
     string reorganizeString(string s) {
-        vector<int> v(26,0);
-        priority_queue<pair<int,char>> pq;
         string ans;
-        for(int i=0;i<s.size();i++)
+        unordered_map<char,int> m;
+        priority_queue<pair<int,char>> pq;
+        for(auto x:s)
         {
-            v[s[i]-'a']++;
+            m[x]++;
         }
-        
-        for(int i=0;i<v.size();i++)
+        for(auto x:m)
         {
-            if(v[i]>0)
-            {
-                pq.push({v[i],(char)('a'+i)});
-            }
+            pq.push({x.second,x.first});
         }
-        auto block = pq.top();
-        pq.pop();
-        ans+=block.second;
-        block.first--;
-        while(pq.size()>0)
+        while(pq.size()>1)
         {
-            auto top = pq.top();
+            auto top1 = pq.top();
             pq.pop();
-            ans+=top.second;
-            top.first--;
-            if(block.first>0)
+            auto top2 = pq.top();
+            pq.pop();
+            
+            ans+=top1.second;
+            ans+=top2.second;
+            
+            top1.first--;
+            top2.first--;
+            
+            if(top1.first > 0)
             {
-                pq.push(block);
+                pq.push(top1);
             }
-            block = top;
+            
+            if(top2.first > 0)
+            {
+                pq.push(top2);
+            }
         }
-        if(block.first>0)
+        if(!pq.empty())
         {
-            return "";
+            if(pq.top().first>1)
+            {
+                return "";
+            }
+            ans+=pq.top().second;
         }
         return ans;
     }
