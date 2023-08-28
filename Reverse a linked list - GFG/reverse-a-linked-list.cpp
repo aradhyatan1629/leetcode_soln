@@ -42,7 +42,7 @@ class Solution
             r=q;
             q=p;
             p=p->next;
-            q->next=r;
+            q->next = r;
         }
         head=q;
         return head;
