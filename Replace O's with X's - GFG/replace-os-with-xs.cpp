@@ -10,51 +10,51 @@ using namespace std;
 class Solution{
 public:
     
-    void dfs(int row,int col,vector<vector<int>> &vis,vector<vector<char>> mat,int delRow[],int delCol[])
+    void dfs(int row,int col,vector<vector<int>> &vis,vector<vector<char>> &mat,int delRow[],int delCol[])
     {
         vis[row][col] = 1;
-        int n=mat.size();
-        int m=mat[0].size();
+        int n = mat.size();
+        int m = mat[0].size();
         for(int i=0;i<4;i++)
         {
             int nrow = row + delRow[i];
             int ncol = col + delCol[i];
-            if(nrow>=0 and nrow<n and ncol>=0 and ncol<m and !vis[nrow][ncol] and mat[nrow][ncol] == 'O')
+            if(nrow>=0 and nrow<n and ncol>=0 and ncol<m and !vis[nrow][ncol] and mat[nrow][ncol]=='O')
             {
                 dfs(nrow,ncol,vis,mat,delRow,delCol);
             }
         }
     }
-    
+
     vector<vector<char>> fill(int n, int m, vector<vector<char>> mat)
     {
         vector<vector<int>> vis(n,vector<int>(m,0));
         int delRow[] = {-1,0,+1,0};
         int delCol[] = {0,+1,0,-1};
+        
         for(int i=0;i<n;i++)
         {
             for(int j=0;j<m;j++)
             {
-                if(i==0 or j==0 or i==n-1 or j==m-1)
+                if((i==0 or i==n-1 or j==0 or j==m-1) and (!vis[i][j] and mat[i][j]=='O'))
                 {
-                    if(!vis[i][j] and mat[i][j]=='O')
-                    {
-                        dfs(i,j,vis,mat,delRow,delCol);
-                    }
+                    dfs(i,j,vis,mat,delRow,delCol);
                 }
             }
         }
+        
+        vector<vector<char>> ans = mat;
         for(int i=0;i<n;i++)
         {
             for(int j=0;j<m;j++)
             {
-                if(!vis[i][j] and mat[i][j]=='O')
+                if(ans[i][j]=='O' and vis[i][j]!=1)
                 {
-                    mat[i][j] = 'X';
+                    ans[i][j] = 'X';
                 }
             }
         }
-        return mat;
+        return ans;
     }
 };
 
