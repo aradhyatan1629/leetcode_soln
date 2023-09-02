@@ -5,11 +5,11 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    
-    bool bfs(int source,vector<int> adj[],vector<int> &vis)
+  
+    bool bfs(int source,vector<int> &vis,vector<int> adj[])
     {
+        queue<pair<int,int>> q;     //{node,parent}
         vis[source] = 1;
-        queue<pair<int,int>> q;
         q.push({source,-1});
         
         while(!q.empty())
@@ -18,14 +18,14 @@ class Solution {
             int parent = q.front().second;
             q.pop();
             
-            for(auto adjacentNode:adj[node])
+            for(auto it:adj[node])
             {
-                if(!vis[adjacentNode])
+                if(!vis[it])
                 {
-                    vis[adjacentNode]=1;
-                    q.push({adjacentNode,node});
+                    vis[it] = 1;
+                    q.push({it,node});
                 }
-                else if(adjacentNode!=parent)
+                else if(it!=parent)
                 {
                     return true;
                 }
@@ -33,14 +33,14 @@ class Solution {
         }
         return false;
     }
-    
+  
     bool isCycle(int V, vector<int> adj[]) {
         vector<int> vis(V,0);
         for(int i=0;i<V;i++)
         {
             if(!vis[i])
             {
-                if(bfs(i,adj,vis))
+                if(bfs(i,vis,adj))
                 {
                     return true;
                 }
