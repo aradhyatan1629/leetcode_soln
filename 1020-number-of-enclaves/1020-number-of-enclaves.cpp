@@ -1,26 +1,36 @@
 class Solution {
 public:
-    void dfs(int row,int col,vector<vector<int>> &grid,vector<vector<int>> &vis,
-             int delRow[],int delCol[])
+    
+    void bfs(int i,int j,vector<vector<int>> &vis,vector<vector<int>> &grid,int delRow[],int delCol[])
     {
-        vis[row][col] = 1;
-        int m=grid.size(),n=grid[0].size();
-        for(int i=0;i<4;i++)
+        queue<pair<int,int>> q;
+        vis[i][j] = 1;
+        q.push({i,j});
+        
+        int m = grid.size(),n=grid[0].size();
+        while(!q.empty())
         {
-            int nrow = row+delRow[i];
-            int ncol = col+delCol[i];
-            if(nrow>=0 and nrow<m and ncol>=0 and ncol<n and !vis[nrow][ncol] and 
-               grid[nrow][ncol]==1)
+            int row = q.front().first;
+            int col = q.front().second;
+            q.pop();
+            for(int i=0;i<4;i++)
             {
-                dfs(nrow,ncol,grid,vis,delRow,delCol);
+                int nrow = row + delRow[i];
+                int ncol = col + delCol[i];
+                if(nrow>=0 and nrow<m and ncol>=0 and ncol<n and !vis[nrow][ncol] and grid[nrow][ncol]==1)
+                {
+                    vis[nrow][ncol] = 1;
+                    q.push({nrow,ncol});
+                }
             }
         }
     }
     
     int numEnclaves(vector<vector<int>>& grid) {
-        int m=grid.size();
-        int n=grid[0].size();
+        int m = grid.size();
+        int n = grid[0].size();
         vector<vector<int>> vis(m,vector<int>(n,0));
+        
         int delRow[] = {-1,0,+1,0};
         int delCol[] = {0,+1,0,-1};
         
@@ -28,9 +38,9 @@ public:
         {
             for(int j=0;j<n;j++)
             {
-                if((i==0 or i==m-1 or j==0 or j==n-1) and grid[i][j]==1)
+                if((i==0 or i==m-1 or j==0 or j==n-1) and (!vis[i][j] and grid[i][j]==1))
                 {
-                    dfs(i,j,grid,vis,delRow,delCol);
+                    bfs(i,j,vis,grid,delRow,delCol);
                 }
             }
         }
@@ -46,5 +56,6 @@ public:
             }
         }
         return cnt;
+        
     }
 };
