@@ -32,7 +32,6 @@ struct Node
 class Solution
 {
     public:
-    //Function to reverse a linked list.
     struct Node* reverseList(struct Node *head)
     {
         Node *p=NULL,*q=NULL,*r=NULL;
