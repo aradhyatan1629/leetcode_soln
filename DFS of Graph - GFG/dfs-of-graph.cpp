@@ -6,7 +6,7 @@ using namespace std;
 class Solution {
   public:
     
-    void dfs(int node,vector<int> adj[],vector<int> &vis,vector<int> &ans)
+    void dfs(int node,vector<int> &vis,vector<int> adj[],vector<int> &ans)
     {
         vis[node]=1;
         ans.push_back(node);
@@ -14,7 +14,7 @@ class Solution {
         {
             if(!vis[it])
             {
-                dfs(it,adj,vis,ans);
+                dfs(it,vis,adj,ans);
             }
         }
     }
@@ -23,8 +23,7 @@ class Solution {
         vector<int> vis(V,0);
         vector<int> ans;
         int start=0;
-        
-        dfs(start,adj,vis,ans);
+        dfs(start,vis,adj,ans);
         return ans;
     }
 };
