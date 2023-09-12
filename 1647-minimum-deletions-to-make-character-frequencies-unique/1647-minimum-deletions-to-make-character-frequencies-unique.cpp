@@ -1,40 +1,27 @@
 class Solution {
 public:
     int minDeletions(string s) {
-        unordered_set<char> st;
         unordered_map<char,int> m;
-        vector<pair<int,char>> v;
+        unordered_map<int,int> m1;
         int cnt=0;
-        for(auto x:s)
+        for(int i=0;i<s.size();i++)
         {
-            m[x]++;
+            m[s[i]]++;
         }
         for(auto x:m)
         {
-            v.push_back({x.second,x.first});
-        }
-        sort(v.begin(),v.end());
-        int temp=-1;
-        for(int i=v.size()-1;i>=0;i--)
-        {
-            while(st.find(v[i].first)!=st.end())
+            int t = x.second;
+            if(m1.find(t)!=m1.end())
             {
-                v[i].first--;
-                if(v[i].first==0)
+                while(m1.find(t)!=m1.end())
                 {
                     cnt++;
-                    temp=1;
-                    st.insert(0);
-                    break;
-                }
-                else
-                {
-                    cnt++;
+                    t--;
                 }
             }
-            if(temp!=1)
+            if(t!=0)
             {
-                st.insert(v[i].first);   
+                m1[t]=1;
             }
         }
         return cnt;
