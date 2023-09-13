@@ -9,19 +9,26 @@ using namespace std;
 
 class Solution{
 public:
-    
-    void dfs(int row,int col,vector<vector<int>> &vis,vector<vector<char>> &mat,int delRow[],int delCol[])
+    void bfs(int row,int col,vector<vector<int>> &vis,vector<vector<char>> &mat,int delRow[],int delCol[])
     {
-        vis[row][col] = 1;
-        int n = mat.size();
-        int m = mat[0].size();
-        for(int i=0;i<4;i++)
+        queue<pair<int,int>> q;
+        vis[row][col]=1;
+        q.push({row,col});
+        int n=mat.size(),m=mat[0].size();
+        while(!q.empty())
         {
-            int nrow = row + delRow[i];
-            int ncol = col + delCol[i];
-            if(nrow>=0 and nrow<n and ncol>=0 and ncol<m and !vis[nrow][ncol] and mat[nrow][ncol]=='O')
+            int row = q.front().first;
+            int col = q.front().second;
+            q.pop();
+            for(int i=0;i<4;i++)
             {
-                dfs(nrow,ncol,vis,mat,delRow,delCol);
+                int nrow = row + delRow[i];
+                int ncol = col + delCol[i];
+                if(nrow>=0 and nrow<n and ncol>=0 and ncol<m and !vis[nrow][ncol] and mat[nrow][ncol]=='O')
+                {
+                    vis[nrow][ncol]=1;
+                    q.push({nrow,ncol});
+                }
             }
         }
     }
@@ -36,25 +43,23 @@ public:
         {
             for(int j=0;j<m;j++)
             {
-                if((i==0 or i==n-1 or j==0 or j==m-1) and (!vis[i][j] and mat[i][j]=='O'))
+                if((i==0 or i==n-1 or j==0 or j==m-1) and mat[i][j]=='O')
                 {
-                    dfs(i,j,vis,mat,delRow,delCol);
+                    bfs(i,j,vis,mat,delRow,delCol);
                 }
             }
         }
-        
-        vector<vector<char>> ans = mat;
         for(int i=0;i<n;i++)
         {
             for(int j=0;j<m;j++)
             {
-                if(ans[i][j]=='O' and vis[i][j]!=1)
+                if(mat[i][j]=='O' and vis[i][j]!=1)
                 {
-                    ans[i][j] = 'X';
+                    mat[i][j] = 'X';
                 }
             }
         }
-        return ans;
+        return mat;
     }
 };
 
