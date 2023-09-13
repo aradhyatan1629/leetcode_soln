@@ -5,39 +5,41 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    bool dfs(int node,int vis[],int pathVis[],vector<int> adj[])
+    
+    bool dfs(int node,vector<int> &vis,vector<int> &pathvis,vector<int> adj[])
     {
-        vis[node]=1;
-        pathVis[node]=1;
-        
-        for(auto adjacentNode:adj[node])
+        vis[node] = 1;
+        pathvis[node] = 1;
+        for(auto it:adj[node])
         {
-            if(!vis[adjacentNode])
+            if(!vis[it])
             {
-                if(dfs(adjacentNode,vis,pathVis,adj))
+                if(dfs(it,vis,pathvis,adj))
                 {
                     return true;
                 }
             }
-            else if(pathVis[adjacentNode])
+            else if(vis[it]==1 and pathvis[it]==1)
             {
                 return true;
             }
         }
-        
-        pathVis[node] = 0;
+        pathvis[node] = 0;
         return false;
     }
-  
+    
     bool isCyclic(int V, vector<int> adj[]) {
-        int vis[V] = {0};
-        int pathVis[V] = {0};
+        vector<int> vis(V,0);
+        vector<int> pathvis(V,0);
         
         for(int i=0;i<V;i++)
         {
-            if(dfs(i,vis,pathVis,adj)==true)
+            if(!vis[i])
             {
-                return true;
+                if(dfs(i,vis,pathvis,adj))
+                {
+                    return true;
+                }
             }
         }
         return false;
