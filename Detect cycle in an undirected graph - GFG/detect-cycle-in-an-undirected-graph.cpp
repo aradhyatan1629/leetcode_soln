@@ -6,21 +6,28 @@ using namespace std;
 class Solution {
   public:
     
-    bool dfs(int node,int parent,vector<int> &vis,vector<int> adj[])
+    bool bfs(int node,vector<int> &vis,vector<int> adj[])
     {
-        vis[node] = 1;
-        for(auto it:adj[node])
+        queue<pair<int,int>> q;
+        vis[node]=1;
+        q.push({node,-1});
+        
+        while(!q.empty())
         {
-            if(!vis[it])
+            int node = q.front().first;
+            int parent = q.front().second;
+            q.pop();
+            for(auto adjacentNode:adj[node])
             {
-                if(dfs(it,node,vis,adj))
+                if(!vis[adjacentNode])
+                {
+                    vis[adjacentNode]=1;
+                    q.push({adjacentNode,node});
+                }
+                else if(adjacentNode!=parent)
                 {
                     return true;
                 }
-            }
-            else if(it!=parent)
-            {
-                return true;
             }
         }
         return false;
@@ -28,11 +35,12 @@ class Solution {
     
     bool isCycle(int V, vector<int> adj[]) {
         vector<int> vis(V,0);
+        
         for(int i=0;i<V;i++)
         {
             if(!vis[i])
             {
-                if(dfs(i,-1,vis,adj))
+                if(bfs(i,vis,adj))
                 {
                     return true;
                 }
