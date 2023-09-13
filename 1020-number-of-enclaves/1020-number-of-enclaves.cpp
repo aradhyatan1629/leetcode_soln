@@ -4,7 +4,7 @@ public:
     void dfs(int row,int col,vector<vector<int>> &vis,vector<vector<int>> &grid,int delRow[],int delCol[])
     {
         vis[row][col] = 1;
-        int m = grid.size(),n=grid[0].size();
+        int m=grid.size(),n=grid[0].size();
         for(int i=0;i<4;i++)
         {
             int nrow = row + delRow[i];
@@ -28,19 +28,18 @@ public:
         {
             for(int j=0;j<n;j++)
             {
-                if((i==0 or i==m-1 or j==0 or j==n-1) and (!vis[i][j] and grid[i][j]==1))
+                if((i==0 or i==m-1 or j==0 or j==n-1) and grid[i][j]==1)
                 {
                     dfs(i,j,vis,grid,delRow,delCol);
                 }
             }
         }
-        
         int cnt=0;
         for(int i=0;i<m;i++)
         {
             for(int j=0;j<n;j++)
             {
-                if(grid[i][j] == 1 and vis[i][j]==0)
+                if(grid[i][j]==1 and vis[i][j]==0)
                 {
                     cnt++;
                 }
