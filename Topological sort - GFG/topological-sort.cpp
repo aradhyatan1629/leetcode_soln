@@ -6,20 +6,20 @@ using namespace std;
 class Solution
 {
 	public:
-	
-	void dfs(int node,vector<int> &vis,stack<int> &st,vector<int> adj[])
-	{
-	    vis[node]=1;
-	    for(auto it:adj[node])
-	    {
-	        if(!vis[it])
-	        {
-	            dfs(it,vis,st,adj);
-	        }
-	    }
-	    st.push(node);
-	}
-	
+    
+    void dfs(int node,vector<int> &vis,vector<int> adj[],stack<int> &st)
+    {
+        vis[node]=1;
+        for(auto it:adj[node])
+        {
+            if(!vis[it])
+            {
+                dfs(it,vis,adj,st);
+            }
+        }
+        st.push(node);
+    }
+    
 	vector<int> topoSort(int V, vector<int> adj[]) 
 	{
 	    vector<int> vis(V,0);
@@ -29,7 +29,7 @@ class Solution
 	    {
 	        if(!vis[i])
 	        {
-	            dfs(i,vis,st,adj);
+	            dfs(i,vis,adj,st);
 	        }
 	    }
 	    vector<int> ans;
