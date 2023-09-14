@@ -10,29 +10,30 @@ using namespace std;
 
 class Solution {
   public:
-    
-    bool dfs(int node,vector<int> &vis,vector<int> &pathvis,vector<int> &check,vector<int> adj[])
+    bool dfs(int node,vector<int> &vis,vector<int> &pathvis,vector<int> adj[],vector<int> &check)
     {
         vis[node]=1;
         pathvis[node]=1;
+        check[node]=0;
+        
         for(auto it:adj[node])
         {
             if(!vis[it])
             {
-                if(dfs(it,vis,pathvis,check,adj))
+                if(dfs(it,vis,pathvis,adj,check))  //if we detect a cycle then that node is not a safe node hence check[it]=0
                 {
-                    check[node] = 0;
+                    check[it]=0;
                     return true;
                 }
             }
-            else if(vis[it]==1 and pathvis[it]==1)
+            else if(vis[it]==1 and pathvis[it]==1)  //if we detect a cycle then that node is not a safe node hence check[it]=0
             {
-                check[node] = 0;
+                check[it]=0;
                 return true;
             }
         }
-        check[node] = 1;
-        pathvis[node]=0;
+        pathvis[node]=0;   //if vis[node]=1 and pathvis[node]=0 then we dont have a cycle hence that node is a safe node thus check[node]=1
+        check[node]=1;
         return false;
     }
   
@@ -46,7 +47,7 @@ class Solution {
         {
             if(!vis[i])
             {
-                dfs(i,vis,pathvis,check,adj);
+                dfs(i,vis,pathvis,adj,check);
             }
         }
         for(int i=0;i<check.size();i++)
