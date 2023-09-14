@@ -6,43 +6,44 @@ using namespace std;
 class Solution {
   public:
     
-    bool dfs(int node,vector<int> &vis,vector<int> &pathvis,vector<int> adj[])
-    {
-        vis[node] = 1;
-        pathvis[node] = 1;
-        for(auto it:adj[node])
-        {
-            if(!vis[it])
-            {
-                if(dfs(it,vis,pathvis,adj))
-                {
-                    return true;
-                }
-            }
-            else if(vis[it]==1 and pathvis[it]==1)
-            {
-                return true;
-            }
-        }
-        pathvis[node] = 0;
-        return false;
-    }
-    
     bool isCyclic(int V, vector<int> adj[]) {
-        vector<int> vis(V,0);
-        vector<int> pathvis(V,0);
-        
+        vector<int> indegree(V,0);
         for(int i=0;i<V;i++)
         {
-            if(!vis[i])
+            for(auto it:adj[i])
             {
-                if(dfs(i,vis,pathvis,adj))
+                indegree[it]++;
+            }
+        }
+        queue<int> q;
+        for(int i=0;i<indegree.size();i++)
+        {
+            if(indegree[i]==0)
+            {
+                q.push(i);
+            }
+        }
+        
+        int cnt=0;
+        while(!q.empty())
+        {
+            int node = q.front();
+            q.pop();
+            cnt++;
+            for(auto it:adj[node])
+            {
+                indegree[it]--;
+                if(indegree[it]==0)
                 {
-                    return true;
+                    q.push(it);
                 }
             }
         }
-        return false;
+        if(cnt==V)
+        {
+            return false;
+        }
+        return true;
     }
 };
 
