@@ -6,32 +6,11 @@ using namespace std;
 class Solution {
 public:
     
-    bool dfs(int node,vector<int> &vis,vector<int> &pathvis,vector<int> adj[])
-    {
-        vis[node]=1;
-        pathvis[node]=1;
-        for(auto it:adj[node])
-        {
-            if(!vis[it])
-            {
-                if(dfs(it,vis,pathvis,adj))
-                {
-                    return true;
-                }
-            }
-            else if(vis[it]==1 and pathvis[it]==1)
-            {
-                return true;
-            }
-        }
-        pathvis[node]=0;
-        return false;
-    }
-
+    
+    
 	bool isPossible(int N,int P, vector<pair<int, int> >& prerequisites) {
 	    vector<int> adj[N];
-	    vector<int> vis(N,0);
-	    vector<int> pathvis(N,0);
+	    vector<int> indegree(N,0);
 	    
 	    for(int i=0;i<P;i++)
 	    {
@@ -42,15 +21,40 @@ public:
 	    
 	    for(int i=0;i<N;i++)
 	    {
-	        if(!vis[i])
+	        for(auto x:adj[i])
 	        {
-	            if(dfs(i,vis,pathvis,adj))
+	            indegree[x]++;
+	        }
+	    }
+	    
+	    queue<int> q;
+	    int cnt=0;
+	    for(int i=0;i<N;i++)
+	    {
+	        if(indegree[i]==0)
+	        {
+	            q.push(i);
+	        }
+	    }
+	    while(!q.empty())
+	    {
+	        int node = q.front();
+	        q.pop();
+	        cnt++;
+	        for(auto it:adj[node])
+	        {
+	            indegree[it]--;
+	            if(indegree[it]==0)
 	            {
-	                return false;
+	                q.push(it);
 	            }
 	        }
 	    }
-	    return true;
+	    if(cnt==N)
+	    {
+	        return true;
+	    }
+	    return false;
 	}
 };
 
