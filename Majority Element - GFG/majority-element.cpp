@@ -15,14 +15,14 @@ class Solution{
     // size: size of input array
     int majorityElement(int a[], int size)
     {
-        int cnt=0,element;
+        int cnt = 0,element;
         for(int i=0;i<size;i++)
         {
             if(cnt==0)
             {
-                element = a[i];
+                element=a[i];
             }
-            if(element == a[i])
+            if(element==a[i])
             {
                 cnt++;
             }
@@ -32,13 +32,7 @@ class Solution{
             }
         }
         cnt=0;
-        for(int i=0;i<size;i++)
-        {
-            if(a[i]==element)
-            {
-                cnt++;
-            }
-        }
+        cnt = count(a,a+size,element);
         if(cnt>size/2)
         {
             return element;
