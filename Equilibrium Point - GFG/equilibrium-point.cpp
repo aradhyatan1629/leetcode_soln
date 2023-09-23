@@ -10,36 +10,25 @@ class Solution{
     // a: input array
     // n: size of array
     int equilibriumPoint(long long a[], int n) {
-        if(n==1)
-        {
-            return 1;
-        }
-        int leftSum = 0,totalSum=0,ans=-1;
+        long long sum = 0;
         for(int i=0;i<n;i++)
         {
-            totalSum+=a[i];
+            sum+=a[i];
         }
+        long long presum=0;
         for(int i=0;i<n;i++)
         {
-            if(leftSum == totalSum-(leftSum+a[i]))
+            if(presum==sum-a[i])
             {
-                ans = i+1;
-                break;
+                return i+1;
             }
-            else
-            {
-                leftSum+=a[i];
-            }
+            presum+=a[i];
+            sum-=a[i];
         }
-        return ans;
+        return -1;
     }
 
 };
-
-
-
-
-
 
 //{ Driver Code Starts.
 
