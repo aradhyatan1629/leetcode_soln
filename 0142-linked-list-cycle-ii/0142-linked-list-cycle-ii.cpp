@@ -9,8 +9,8 @@
 class Solution {
 public:
     //O(n) O(1)
-    //1) Find collision point
-    //2) Find the starting point of loop
+    //1) Find collision point of slow and fast pointers
+    //2) Find the starting point of loop using entry pointer
     
     ListNode *detectCycle(ListNode *head) {
         if(head==NULL)
