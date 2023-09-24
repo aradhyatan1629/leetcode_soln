@@ -1,18 +1,18 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-        int n = nums.size();
-        vector<vector<int>> ans;
         sort(nums.begin(),nums.end());
+        vector<vector<int>> ans;
+        int n = nums.size();
         
-        for(int i=0;i<n;i++)
+        for(int i=0;i<nums.size();i++)
         {
             if(i>0 and nums[i]==nums[i-1])
             {
                 continue;
             }
-            int j=i+1;
-            int k=n-1;
+            int j = i+1;
+            int k = n-1;
             while(j<k)
             {
                 int sum = nums[i] + nums[j] + nums[k];
