@@ -5,8 +5,8 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    
-    void dfs(int node,vector<int> &vis,vector<int> adj[],vector<int> &ans)
+  
+    void dfs(int node,vector<int> &vis,vector<int> &ans,vector<int> adj[])
     {
         vis[node]=1;
         ans.push_back(node);
@@ -14,7 +14,7 @@ class Solution {
         {
             if(!vis[it])
             {
-                dfs(it,vis,adj,ans);
+                dfs(it,vis,ans,adj);
             }
         }
     }
@@ -22,8 +22,13 @@ class Solution {
     vector<int> dfsOfGraph(int V, vector<int> adj[]) {
         vector<int> vis(V,0);
         vector<int> ans;
-        int start=0;
-        dfs(start,vis,adj,ans);
+        for(int i=0;i<V;i++)
+        {
+            if(!vis[i])
+            {
+                dfs(i,vis,ans,adj);
+            }
+        }
         return ans;
     }
 };
