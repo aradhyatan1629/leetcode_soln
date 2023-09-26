@@ -9,44 +9,41 @@ using namespace std;
 class Solution {
   public:
     
-    void dfs(int node,vector<int> adjList[],vector<int> &vis)
+    void dfs(int node,vector<int> &vis,vector<int> adjList[])
     {
         vis[node]=1;
         for(auto it:adjList[node])
         {
             if(!vis[it])
             {
-                dfs(it,adjList,vis);
+                dfs(it,vis,adjList);
             }
         }
     }
-    
+  
     int numProvinces(vector<vector<int>> adj, int V) {
-        vector<int> vis(V+1,0);
         vector<int> adjList[V+1];
-        int m = adj.size();
-        int n = adj[0].size();
-        
+        int m = adj.size(),n=adj[0].size();
         for(int i=0;i<m;i++)
         {
             for(int j=0;j<n;j++)
             {
-                if(adj[i][j]==1 and i!=j)
+                if(i!=j and adj[i][j]==1)
                 {
                     adjList[i+1].push_back(j+1);
                     adjList[j+1].push_back(i+1);
                 }
             }
         }
-        
         int cnt=0;
+        vector<int> vis(V+1,0);
         for(int i=1;i<=V;i++)
         {
-           if(!vis[i])
-           {
-               cnt++;
-               dfs(i,adjList,vis);
-           }
+            if(!vis[i])
+            {
+                cnt++;
+                dfs(i,vis,adjList);
+            }
         }
         return cnt;
     }
