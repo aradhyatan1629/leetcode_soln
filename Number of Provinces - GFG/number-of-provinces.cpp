@@ -9,14 +9,23 @@ using namespace std;
 class Solution {
   public:
     
-    void dfs(int node,vector<int> &vis,vector<int> adjList[])
+    void bfs(int node,vector<int> &vis,vector<int> adjList[])
     {
+        queue<int> q;
         vis[node]=1;
-        for(auto it:adjList[node])
+        q.push(node);
+        
+        while(!q.empty())
         {
-            if(!vis[it])
+            int node = q.front();
+            q.pop();
+            for(auto it : adjList[node])
             {
-                dfs(it,vis,adjList);
+                if(!vis[it])
+                {
+                    vis[it]=1;
+                    q.push(it);
+                }
             }
         }
     }
@@ -42,7 +51,7 @@ class Solution {
             if(!vis[i])
             {
                 cnt++;
-                dfs(i,vis,adjList);
+                bfs(i,vis,adjList);
             }
         }
         return cnt;
