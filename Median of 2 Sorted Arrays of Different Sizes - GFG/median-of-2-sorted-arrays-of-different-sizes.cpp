@@ -13,38 +13,48 @@ class Solution{
     public:
     double MedianOfArrays(vector<int>& array1, vector<int>& array2)
     {
-        vector<int> v;
+        int n1 = array1.size(),n2 = array2.size(),n = n1+n2;
+        int ind1 = (n/2)-1;
+        int ind2 = (n/2);
+        int cnt=0;
         int i=0,j=0;
-        while(i<array1.size() and j<array2.size())
+        int ind1e=0,ind2e=0;
+        while(i<n1 and j<n2)
         {
             if(array1[i]<=array2[j])
             {
-                v.push_back(array1[i]);
+                if(cnt==ind1){ind1e=array1[i];}
+                if(cnt==ind2){ind2e=array1[i];}
+                cnt++;
                 i++;
             }
             else
             {
-                v.push_back(array2[j]);
+                if(cnt==ind1){ind1e=array2[j];}
+                if(cnt==ind2){ind2e=array2[j];}
+                cnt++;
                 j++;
             }
         }
-        while(i<array1.size())
+        while(i<n1)
         {
-            v.push_back(array1[i]);
+            if(cnt==ind1){ind1e=array1[i];}
+            if(cnt==ind2){ind2e=array1[i];}
+            cnt++;
             i++;
         }
-        while(j<array2.size())
+        while(j<n2)
         {
-            v.push_back(array2[j]);
+            if(cnt==ind1){ind1e=array2[j];}
+            if(cnt==ind2){ind2e=array2[j];}
+            cnt++;
             j++;
         }
-        if(v.size()%2==0)
+        if(n%2==1)
         {
-            int n=v.size();
-            double x = ((double)v[(n/2)-1] + (double)v[n/2])/2.0;
-            return x;
+            return (double)ind2e;
         }
-        return double(v[v.size()/2]);
+        return double((double(ind1e+ind2e))/2.0);
     }
 };
 
