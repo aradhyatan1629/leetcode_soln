@@ -1,37 +1,23 @@
 class Solution {
 public:
-    //O(nlogm)
-    bool bs(int low,int high,vector<int> v,int target)
-    {
-        while(low<=high)
+    //O(n+m)
+    
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int m=matrix.size(),n=matrix[0].size();
+        int i=0,j=n-1;
+        while(i<m and j>=0)
         {
-            int mid = low + (high-low)/2;
-            if(v[mid] == target)
+            if(matrix[i][j]==target)
             {
                 return true;
             }
-            else if(v[mid]<target)
+            else if(matrix[i][j]<target)
             {
-                low = mid + 1;
+                i++;
             }
             else
             {
-                high = mid - 1;
-            }
-        }
-        return false;
-    }
-    
-    bool searchMatrix(vector<vector<int>>& matrix, int target) {
-        int m = matrix.size(),n=matrix[0].size();
-        for(int i=0;i<m;i++)
-        {
-            if(target>=matrix[i][0] and target<=matrix[i][n-1])
-            {
-                if(bs(0,n-1,matrix[i],target))
-                {
-                    return true;
-                }
+                j--;
             }
         }
         return false;
