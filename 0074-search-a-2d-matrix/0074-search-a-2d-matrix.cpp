@@ -1,8 +1,7 @@
 class Solution {
 public:
-    //O(m+n)
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
-        int m = matrix.size(),n=matrix[0].size();
+        int m=matrix.size(),n=matrix[0].size();
         int i=0,j=n-1;
         while(i<m and j>=0)
         {
@@ -10,13 +9,13 @@ public:
             {
                 return true;
             }
-            else if(matrix[i][j]>target)
+            else if(matrix[i][j]<target)
             {
-                j--;
+                i++;
             }
             else
             {
-                i++;
+                j--;
             }
         }
         return false;
