@@ -9,7 +9,11 @@ public:
         bool dec = false;
         for(int i=1;i<nums.size();i++)
         {
-            if(nums[i]>nums[i-1])
+            if(inc and dec)
+            {
+                return false;
+            }
+            else if(nums[i]>nums[i-1])
             {
                 inc=true;
             }
