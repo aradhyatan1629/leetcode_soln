@@ -1,89 +1,89 @@
 class Solution {
 public:
     
-    vector<int> nearestSmallertoLeft(vector<int> &h)
+    vector<int> NSL(vector<int> &heights)
     {
-        vector<int> ans;
-        stack<pair<int,int>> st;
-        for(int i=0;i<h.size();i++)
+        stack<pair<int,int>> st;     //{height,index}
+        vector<int> v;
+        for(int i=0;i<heights.size();i++)
         {
-            if(st.size()==0)
+            if(st.empty())
             {
-                ans.push_back(-1);
+                v.push_back(-1);
             }
-            else if(st.size()>0 and st.top().first<h[i])
+            else if(!st.empty() and st.top().first<heights[i])
             {
-                ans.push_back(st.top().second);
+                v.push_back(st.top().second);
             }
-            else if(st.size()>0 and st.top().first>=h[i])
+            else if(!st.empty() and st.top().first>=heights[i])
             {
-                while(st.size()>0 and st.top().first>=h[i])
+                while(!st.empty() and st.top().first>=heights[i])
                 {
                     st.pop();
                 }
-                if(st.size()==0)
+                if(st.empty())
                 {
-                    ans.push_back(-1);
+                    v.push_back(-1);
                 }
                 else
                 {
-                    ans.push_back(st.top().second);
+                    v.push_back(st.top().second);
                 }
             }
-            st.push({h[i],i});
+            st.push({heights[i],i});
         }
-        return ans;
+        return v;
     }
     
-    vector<int> nearestSmallertoRight(vector<int> &h)
+    vector<int> NSR(vector<int> &heights)
     {
-        stack<pair<int,int>> st;
-        vector<int> ans;
-        for(int i=h.size()-1;i>=0;i--)
+        stack<pair<int,int>> st;         //{height,index}
+        vector<int> v;
+        for(int i=heights.size()-1;i>=0;i--)
         {
-            if(st.size()==0)
+            if(st.empty())
             {
-                ans.push_back(h.size());
+                v.push_back(heights.size());
             }
-            else if(st.size()>0 and st.top().first<h[i])
+            else if(!st.empty() and st.top().first<heights[i])
             {
-                ans.push_back(st.top().second);
+                v.push_back(st.top().second);
             }
-            else if(st.size()>0 and st.top().first>=h[i])
+            else if(!st.empty() and st.top().first>=heights[i])
             {
-                while(st.size()>0 and st.top().first>=h[i])
+                while(!st.empty() and st.top().first>=heights[i])
                 {
                     st.pop();
                 }
-                if(st.size()==0)
+                if(st.empty())
                 {
-                    ans.push_back(h.size());
+                    v.push_back(heights.size());
                 }
                 else
                 {
-                    ans.push_back(st.top().second);
+                    v.push_back(st.top().second);
                 }
             }
-            st.push({h[i],i});
+            st.push({heights[i],i});
         }
-        reverse(ans.begin(),ans.end());
-        return ans;
+        reverse(v.begin(),v.end());
+        return v;
     }
     
     int largestRectangleArea(vector<int>& heights) {
-        vector<int> nsl = nearestSmallertoLeft(heights);
-        vector<int> nsr = nearestSmallertoRight(heights);
+        vector<int> nsl = NSL(heights); 
+        vector<int> nsr = NSR(heights);
         vector<int> widths;
-        int mx=0;
+        
         for(int i=0;i<nsl.size();i++)
         {
             widths.push_back(nsr[i]-nsl[i]-1);
         }
+        int mx=0;
         for(int i=0;i<heights.size();i++)
         {
-            mx = max(mx,heights[i]*widths[i]);
+            mx=max(mx,widths[i]*heights[i]);
         }
         return mx;
-        
     }
 };
