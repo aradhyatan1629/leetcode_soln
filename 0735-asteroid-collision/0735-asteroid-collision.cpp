@@ -1,85 +1,39 @@
-    class Solution {
-    public:
-        bool check(int st_top,int ast)
+class Solution {
+public:
+    vector<int> asteroidCollision(vector<int>& asteroids) {
+        stack<int> st;
+        for(int i=0;i<asteroids.size();i++)
         {
-            if(st_top>0 and ast<0)
+            if(st.empty() or asteroids[i]>0)
             {
-                return true;
+                st.push(asteroids[i]);
             }
-            return false;
-        }
-        vector<int> asteroidCollision(vector<int>& asteroids) {
-            stack<int> st;
-            vector<int> ans;
-            for(int i=0;i<asteroids.size();i++)
+            else
             {
-                if(st.empty())
+                while(!st.empty() and (st.top()>0 and st.top()<abs(asteroids[i])))
                 {
-                    st.push(asteroids[i]);
+                    st.pop();
                 }
-                else if(check(st.top(),asteroids[i]))
+                if(!st.empty() and (st.top()) == abs(asteroids[i]))
                 {
-                    if(abs(st.top())==abs(asteroids[i]))
-                    {
-                        st.pop();
-                    }
-                    else if(abs(st.top())<abs(asteroids[i]))
-                    {
-                        int flag=-1;
-                        while(abs(st.top())<abs(asteroids[i]) and check(st.top(),asteroids[i]))
-                        {
-                            st.pop();
-                            flag=1;
-                            if(st.empty())
-                            {
-                                break;
-                            }
-                        }
-                        if(st.empty())
-                        {
-                            st.push(asteroids[i]);
-                        }
-                        else if(abs(st.top())==abs(asteroids[i]) and check(st.top(),asteroids[i]))
-                        {
-                            st.pop();
-                            if(st.empty())
-                            {
-                                continue;
-                            }
-                        }
-                        else if(abs(st.top())==abs(asteroids[i]) and check(st.top(),asteroids[i])==false)
-                        {
-                            st.push(asteroids[i]);
-                        }
-                        else if(st.top()>0 and asteroids[i]>0 or st.top()<0 and asteroids[i]<0)
-                        {
-                            st.push(asteroids[i]);
-                        }
-                        else if(flag==1)
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            st.push(asteroids[i]);
-                        }
-                    }
+                    st.pop();
                 }
                 else
                 {
-                    st.push(asteroids[i]);
+                    if(st.empty() or st.top()<0)
+                    {
+                        st.push(asteroids[i]);
+                    }
                 }
             }
-            if(st.empty())
-            {
-                return {};
-            }
-            while(!st.empty())
-            {
-                ans.push_back(st.top());
-                st.pop();
-            }
-            reverse(ans.begin(),ans.end());
-            return ans;
         }
-    };
+        vector<int> ans;
+        while(!st.empty())
+        {
+            ans.push_back(st.top());
+            st.pop();
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+};
