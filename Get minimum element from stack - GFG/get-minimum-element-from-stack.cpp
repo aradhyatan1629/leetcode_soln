@@ -17,37 +17,50 @@ public :
 */
 
 class Solution{
-    int minEle;
-    stack<int> st1,st2;
+    
+    int minEle=-1;
+    stack<int> s;
     public:
     
        int getMin(){
-           if(st2.empty())
+           if(s.size()==0)
            {
                return -1;
            }
-           return st2.top();
+           return minEle;
        }
        
-       int pop(){
-           if(st1.empty())
-           {
-               return -1;
-           }
-           if(st1.top() == st2.top())
-           {
-               st2.pop();
-           }
-           int x = st1.top();
-           st1.pop();
-           return x;
-       }
+       int pop() {
+    if (s.empty()) {
+        return -1;
+    } else {
+        int topElement = s.top();
+        s.pop();
+        if (topElement <= minEle) {
+            int prevMin = minEle;
+            minEle = 2 * minEle - topElement;
+            return prevMin;
+        } else {
+            return topElement;
+        }
+    }
+}
+
        
        void push(int x){
-           st1.push(x);
-           if(st2.empty() or x<=st2.top())
+           if(s.empty())
            {
-               st2.push(x);
+               s.push(x);
+               minEle = x;
+           }
+           else if(x >= minEle)
+           {
+               s.push(x);
+           }
+           else if(x < minEle)
+           {
+               s.push(2*x - minEle);
+               minEle = x;
            }
        }
 };
