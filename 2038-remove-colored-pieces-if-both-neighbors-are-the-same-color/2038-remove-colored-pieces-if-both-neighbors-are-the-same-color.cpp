@@ -1,21 +1,57 @@
 class Solution {
 public:
     bool winnerOfGame(string colors) {
-        int a=0,b=0;
-        for(int i=1;i<colors.size()-1;i++)
+        if(colors.size()<=2)
         {
-            if(colors[i-1]==colors[i] and colors[i+1]==colors[i])
+            return false;
+        }
+        
+        int i=0;
+        int movesA=0,movesB=0;
+        while(i<colors.size())
+        {
+            if(colors[i]=='A')
             {
-                if(colors[i]=='A')
+                int cntA=0;
+                while(i<colors.size() and colors[i]=='A')
                 {
-                    a++;
+                    cntA++;
+                    i++;
                 }
-                else
+                if(cntA>=3)
                 {
-                    b++;
+                    movesA+=(cntA-2);
+                }
+            }
+            else
+            {
+                int cntB=0;
+                while(i<colors.size() and colors[i]=='B')
+                {
+                    cntB++;
+                    i++;
+                }
+                if(cntB>=3)
+                {
+                    movesB+=(cntB-2);
                 }
             }
         }
-        return a>b;
+        if(movesA>movesB)
+        {
+            return true;
+        }
+        return false;
     }
 };
+
+
+/*
+AAA   3-2 = 1
+AAAA  4-2 = 2
+AAAAA 5-2 = 3
+
+
+
+
+*/
