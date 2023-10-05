@@ -25,10 +25,7 @@ public:
                     }
                     i++;
                 }
-                if(m.size()<=k)
-                {
-                    cnt+=(j-i+1);
-                }
+                cnt+=(j-i+1);
                 j++;
             }
         }
