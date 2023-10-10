@@ -1,34 +1,29 @@
 class Solution {
 public:
     int equalPairs(vector<vector<int>>& grid) {
-        unordered_map<int,vector<int>> r;
-        unordered_map<int,vector<int>> c;
-        int cnt=0;
-        for(int i=0;i<grid.size();i++)
+        map<vector<int>,int> mp;
+        
+        int m=grid.size(),n=grid[0].size();
+        
+        for(int j=0;j<n;j++)
         {
             vector<int> v;
-            vector<int> v1;
-            for(int j=0;j<grid[i].size();j++)
+            for(int i=0;i<m;i++)
             {
                 v.push_back(grid[i][j]);
-                v1.push_back(grid[j][i]);
             }
-            r[i]=v;
-            c[i]=v1;
+            mp[v]++;
         }
-        for(auto x:r)
+        
+        int cnt=0;
+        for(int i=0;i<m;i++)
         {
-            for(auto y:c)
-            {
-                if(x.second==y.second)
-                {
-                    cnt++;
-                }
-            }
+            cnt+=mp[grid[i]];
         }
         return cnt;
     }
 };
+
 
 
 
