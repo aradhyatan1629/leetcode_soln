@@ -6,49 +6,38 @@ using namespace std;
 class Solution {
   public:
     
-    void bfs(int row,int col,vector<vector<int>> &vis,vector<vector<char>> &grid)
+    void dfs(int row,int col,vector<vector<int>> &vis,vector<vector<char>> &grid,int delRow[],int delCol[])
     {
-        vis[row][col] = 1;
-        queue<pair<int,int>> q;
-        q.push({row,col});
-        int n = grid.size();
-        int m = grid[0].size();
-        
-        while(!q.empty())
+        vis[row][col]=1;
+        int n=grid.size(),m=grid[0].size();
+        for(int i=0;i<8;i++)
         {
-            int row = q.front().first;
-            int col = q.front().second;
-            q.pop();
-            
-            for(int delrow=-1;delrow<=1;delrow++)
+            int nrow = row+delRow[i];
+            int ncol = col+delCol[i];
+            if(nrow>=0 and nrow<n and ncol>=0 and ncol<m and !vis[nrow][ncol] and grid[nrow][ncol]=='1')
             {
-                for(int delcol=-1;delcol<=1;delcol++)
-                {
-                    int nrow = row+delrow;
-                    int ncol = col+delcol;
-                    if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && grid[nrow][ncol]=='1' && !vis[nrow][ncol])
-                    {
-                        vis[nrow][ncol] = 1;
-                        q.push({nrow,ncol});
-                    }
-                }
+                dfs(nrow,ncol,vis,grid,delRow,delCol);
             }
         }
     }
     
+    
     int numIslands(vector<vector<char>>& grid) {
-        int n = grid.size();
-        int m = grid[0].size();
+        int n=grid.size(),m=grid[0].size();
         vector<vector<int>> vis(n,vector<int>(m,0));
+        
+        int delRow[] = {-1,0,+1,0,-1,+1,-1,+1};
+        int delCol[] = {0,+1,0,-1,+1,+1,-1,-1};
+        
         int cnt=0;
-        for(int row=0;row<n;row++)
+        for(int i=0;i<n;i++)
         {
-            for(int col=0;col<m;col++)
+            for(int j=0;j<m;j++)
             {
-                if(!vis[row][col] && grid[row][col]=='1')
+                if(grid[i][j]=='1' and !vis[i][j])
                 {
                     cnt++;
-                    bfs(row,col,vis,grid);
+                    dfs(i,j,vis,grid,delRow,delCol);
                 }
             }
         }
