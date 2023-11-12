@@ -6,21 +6,31 @@ using namespace std;
 class Solution {
   public:
     
-    void dfs(int row,int col,vector<vector<int>> &vis,vector<vector<char>> &grid,int delRow[],int delCol[])
+    void bfs(int i,int j,vector<vector<int>> &vis,vector<vector<char>> &grid,int delRow[],int delCol[])
     {
-        vis[row][col]=1;
+        queue<pair<int,int>> q;
+        vis[i][j]=1;
+        q.push({i,j});
+        
         int n=grid.size(),m=grid[0].size();
-        for(int i=0;i<8;i++)
+        
+        while(!q.empty())
         {
-            int nrow = row+delRow[i];
-            int ncol = col+delCol[i];
-            if(nrow>=0 and nrow<n and ncol>=0 and ncol<m and !vis[nrow][ncol] and grid[nrow][ncol]=='1')
+            int row = q.front().first;
+            int col = q.front().second;
+            q.pop();
+            for(int i=0;i<8;i++)
             {
-                dfs(nrow,ncol,vis,grid,delRow,delCol);
+                int nrow = row + delRow[i];
+                int ncol = col + delCol[i];
+                if(nrow>=0 and nrow<n and ncol>=0 and ncol<m and !vis[nrow][ncol] and grid[nrow][ncol]=='1')
+                {
+                    vis[nrow][ncol]=1;
+                    q.push({nrow,ncol});
+                }
             }
         }
     }
-    
     
     int numIslands(vector<vector<char>>& grid) {
         int n=grid.size(),m=grid[0].size();
@@ -34,10 +44,10 @@ class Solution {
         {
             for(int j=0;j<m;j++)
             {
-                if(grid[i][j]=='1' and !vis[i][j])
+                if(!vis[i][j] and grid[i][j]=='1')
                 {
                     cnt++;
-                    dfs(i,j,vis,grid,delRow,delCol);
+                    bfs(i,j,vis,grid,delRow,delCol);
                 }
             }
         }
