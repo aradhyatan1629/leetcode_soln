@@ -3,7 +3,7 @@ public:
     
     void dfs(int row,int col,vector<vector<int>> &vis,vector<vector<int>> &grid,int delRow[],int delCol[])
     {
-        vis[row][col] = 1;
+        vis[row][col]=1;
         int m=grid.size(),n=grid[0].size();
         for(int i=0;i<4;i++)
         {
@@ -17,8 +17,7 @@ public:
     }
     
     int numEnclaves(vector<vector<int>>& grid) {
-        int m = grid.size();
-        int n = grid[0].size();
+        int m=grid.size(),n=grid[0].size();
         vector<vector<int>> vis(m,vector<int>(n,0));
         
         int delRow[] = {-1,0,+1,0};
@@ -39,10 +38,7 @@ public:
         {
             for(int j=0;j<n;j++)
             {
-                if(grid[i][j]==1 and vis[i][j]==0)
-                {
-                    cnt++;
-                }
+                if(grid[i][j]==1 and vis[i][j]==0)cnt++;
             }
         }
         return cnt;
