@@ -10,42 +10,42 @@ using namespace std;
 
 class Solution {
   public:
-    int shortestPath(vector<vector<int>> &grid, pair<int, int> source,
-                     pair<int, int> destination) 
-    {
+    int shortestPath(vector<vector<int>> &grid, pair<int, int> source,pair<int, int> destination) {
+        int n=grid.size(),m=grid[0].size();
+        int sx = source.first,sy=source.second;
+        int dx = destination.first,dy=destination.second;
         
-         if (source.first == destination.first &&
-            source.second == destination.second)
+        if(sx==dx and sy==dy)
             return 0;
         
+        if(!grid[dx][dy])
+            return -1;
         
-        int n=grid.size(),m=grid[0].size();
-        queue<pair<int,pair<int,int>>> q;  //{dist,{i,j}}
+        queue<pair<int,pair<int,int>>> q;
         vector<vector<int>> dist(n,vector<int>(m,1e9));
-        
-        dist[source.first][source.second]=0;
-        q.push({0,{source.first,source.second}});
         
         int delRow[] = {-1,0,+1,0};
         int delCol[] = {0,+1,0,-1};
         
+        dist[sx][sy]=0;
+        q.push({0,{sx,sy}});
+        
         while(!q.empty())
         {
-            auto it = q.front();
+            int dis = q.front().first;
+            int row = q.front().second.first;
+            int col = q.front().second.second;
             q.pop();
-            int dis = it.first;
-            int row = it.second.first;
-            int col = it.second.second;
             
             for(int i=0;i<4;i++)
             {
                 int nrow = row + delRow[i];
                 int ncol = col + delCol[i];
-                if(nrow>=0 and nrow<n and ncol>=0 and ncol<m and grid[nrow][ncol]==1 and  dis+1<dist[nrow][ncol])
+                if(nrow>=0 and nrow<n and ncol>=0 and ncol<m and grid[nrow][ncol]==1 and dis+1 < dist[nrow][ncol])
                 {
                     dist[nrow][ncol] = dis+1;
                     q.push({dis+1,{nrow,ncol}});
-                    if(nrow==destination.first and ncol==destination.second)
+                    if(nrow==dx and ncol==dy)
                     {
                         return dis+1;
                     }
