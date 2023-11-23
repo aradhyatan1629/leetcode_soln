@@ -2,31 +2,22 @@ class Solution {
 public:
     vector<bool> checkArithmeticSubarrays(vector<int>& nums, vector<int>& l, vector<int>& r) {
         vector<bool> ans;
-        vector<int> t;
         for(int i=0;i<l.size();i++)
         {
-            int x=l[i];
-            int y=r[i];
-            int flag=1;
-            for(int i=x;i<=y;++i)
-            {
-                t.push_back(nums[i]);
-            }
+            vector<int> t;
+            for(int j=l[i];j<=r[i];j++)
+                t.push_back(nums[j]);
             sort(t.begin(),t.end());
-            for(int i=0;i<t.size()-1;i++)
+            bool flag=true;
+            for(int j=1;j<t.size();j++)
             {
-                if(t[i+1]-t[i]!=t[1]-t[0])
+                if(t[j]-t[j-1] != t[1]-t[0])
                 {
-                    flag=-1;
-                    ans.push_back(false);
+                    flag=false;
                     break;
                 }
             }
-            if(flag==1)
-            {
-                ans.push_back(true);
-            }
-            t.clear();
+            ans.push_back(flag);
         }
         return ans;
     }
