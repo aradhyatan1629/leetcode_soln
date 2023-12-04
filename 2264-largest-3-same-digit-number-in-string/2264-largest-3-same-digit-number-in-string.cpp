@@ -1,17 +1,19 @@
 class Solution {
 public:
     string largestGoodInteger(string num) {
+        int mx=0;
         string ans;
-        int n=num.size();
-        for(int i=0;i<n-2;i++)
+        for(int i=0;i<num.size()-2;i++)
         {
             if(num[i]==num[i+1] and num[i+1]==num[i+2])
             {
-                string temp;
-                temp.push_back(num[i]);
-                temp.push_back(num[i+1]);
-                temp.push_back(num[i+2]);
-                ans=max(ans,temp);
+                string s;
+                s += num[i]; s+=num[i+1]; s+=num[i+2];
+                if(stoi(s)>=mx)
+                {
+                    mx = stoi(s);
+                    ans = s;
+                }
             }
         }
         return ans;
