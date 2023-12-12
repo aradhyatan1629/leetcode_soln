@@ -1,79 +1,25 @@
 class Solution {
 public:
+    static bool compare(int a,int b)
+    {
+        return abs(a) < abs(b);
+    }
+    
     bool canReorderDoubled(vector<int>& arr) {
-        map<int,int> m;
+        sort(arr.begin(),arr.end(),compare);
+        unordered_map<int,int> m;
         for(int i=0;i<arr.size();i++)
             m[arr[i]]++;
         
-       /* for(auto x:m)
+        for(int i=0;i<arr.size();i++)
         {
-            cout<<x.first<<" "<<x.second<<endl;
-        }*/
-        
-        for(auto x:m)
-        {
-            if(m[x.first] > 0)
-            {
-                if(x.first%2!=0 and x.second > m[x.first*2])
-                {
-                    return false;
-                }
-                else if(x.first%2==0 and x.second > (m[x.first*2] + m[x.first/2]))
-                {
-                    return false;
-                }
-                else if(x.first%2!=0)
-                {
-                    m[x.first*2] -= m[x.first];
-                    m[x.first] = 0;
-                }
-                else
-                {
-                    int t = m[x.first];
-                    if(m[x.first*2]>0)
-                    {
-                        m[x.first]-=m[x.first*2];
-                        if(m[x.first]<=0)m[x.first]=0;
-                        m[x.first*2]-=t;
-                        if(m[x.first*2]<=0)m[x.first*2]=0;
-                    }
-                    if(m[x.first]!=0 and m[x.first/2]>0)
-                    {
-                        m[x.first/2]-=m[x.first];
-                    }
-                    m[x.first]=0;
-                }
-            }
+            if(m[arr[i]]==0)
+                continue;
+            else if(m[arr[i]*2]==0)
+                return false;
+            m[arr[i]*2]--;
+            m[arr[i]]--;
         }
         return true;
     }
 };
-
-
-
-/*
- 
-
-
-for i=0
-arr[1] = 2 * arr[0]
-
-
-
-for i=1
-arr[3] = 2 * arr[2]
-
-
-for i=2
-arr[5] = 2 * arr[4]
-
-
-
-
-
-
-
-
-
-
-*/
