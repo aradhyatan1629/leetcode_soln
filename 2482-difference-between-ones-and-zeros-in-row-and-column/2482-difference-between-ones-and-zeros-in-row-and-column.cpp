@@ -1,38 +1,35 @@
 class Solution {
 public:
     vector<vector<int>> onesMinusZeros(vector<vector<int>>& grid) {
-        vector<pair<int,int>> r;
-        vector<pair<int,int>> c;
-        int m=grid.size(),n=grid[0].size();
-        vector<vector<int>> diff(m,vector<int>(n,0));
-        for(int i=0;i<m;++i)
+        int m = grid.size(),n=grid[0].size();
+        vector<vector<int>> ans(m,vector<int>(n,0));
+        
+        vector<int> row0(m,0),row1(m,0),col0(n,0),col1(n,0);
+        
+        for(int i=0;i<m;i++)
         {
-            int row_one = accumulate(grid[i].begin(),grid[i].end(),0);
-            int row_zero = n-row_one;
-            r.push_back({row_one,row_zero});
-        }
-        for(int j=0;j<n;++j)
-        {
-            int col_one=0;
-            int col_zero=0;
-            for(int i=0;i<m;++i)
+            for(int j=0;j<n;j++)
             {
-                if(grid[i][j]==1)
+                if(grid[i][j]==0)
                 {
-                    col_one++;
+                    row0[i]++;
+                    col0[j]++;
+                }
+                else
+                {
+                    row1[i]++;
+                    col1[j]++;
                 }
             }
-            col_zero=m-col_one;
-            c.push_back({col_one,col_zero});
         }
-        for(int i=0;i<m;++i)
+        
+        for(int i=0;i<m;i++)
         {
-            for(int j=0;j<n;++j)
+            for(int j=0;j<n;j++)
             {
-                diff[i][j] = r[i].first + c[j].first - r[i].second - c[j].second;
+                ans[i][j] = (row1[i]+col1[j] - row0[i] - col0[j]);
             }
         }
-        return diff;
+        return ans;
     }
 };
-
