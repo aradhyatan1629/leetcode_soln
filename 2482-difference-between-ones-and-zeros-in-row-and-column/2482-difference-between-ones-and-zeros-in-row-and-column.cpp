@@ -4,21 +4,16 @@ public:
         int m = grid.size(),n=grid[0].size();
         vector<vector<int>> ans(m,vector<int>(n,0));
         
-        vector<int> row0(m,0),row1(m,0),col0(n,0),col1(n,0);
+        vector<int> row(m,0),col(n,0);
         
         for(int i=0;i<m;i++)
         {
             for(int j=0;j<n;j++)
             {
-                if(grid[i][j]==0)
+                if(grid[i][j]==1)
                 {
-                    row0[i]++;
-                    col0[j]++;
-                }
-                else
-                {
-                    row1[i]++;
-                    col1[j]++;
+                    row[i]++;
+                    col[j]++;
                 }
             }
         }
@@ -27,7 +22,9 @@ public:
         {
             for(int j=0;j<n;j++)
             {
-                ans[i][j] = (row1[i]+col1[j] - row0[i] - col0[j]);
+                int row1 = row[i],col1 = col[j];
+                int row0 = n-row[i],col0 = m-col[j];
+                ans[i][j] = (row1 + col1 - row0 - col0);
             }
         }
         return ans;
