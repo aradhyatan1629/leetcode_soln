@@ -15,9 +15,6 @@ public:
             {
                 mx2=nums[i];
             }
-        }
-        for(int i=0;i<nums.size();i++)
-        {
             if(nums[i]<mn1)
             {
                 mn2=mn1;
