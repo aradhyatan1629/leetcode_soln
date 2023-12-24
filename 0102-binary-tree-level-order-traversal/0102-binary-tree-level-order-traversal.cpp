@@ -11,16 +11,18 @@
  */
 class Solution {
 public:
-    
-    vector<vector<int>> bfs(TreeNode *root)
-    {
-        queue<TreeNode*> q;
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        if(root==NULL)
+            return {};
         vector<vector<int>> ans;
+        queue<TreeNode*> q;
         q.push(root);
+        
         while(!q.empty())
         {
             vector<int> v;
             int sz = q.size();
+            
             for(int i=0;i<sz;i++)
             {
                 TreeNode *node = q.front();
@@ -38,13 +40,5 @@ public:
             ans.push_back(v);
         }
         return ans;
-    }
-    
-    vector<vector<int>> levelOrder(TreeNode* root) {
-        if(root==NULL)
-        {
-            return {};
-        }
-        return bfs(root);
     }
 };
