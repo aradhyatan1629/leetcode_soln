@@ -21,16 +21,16 @@ public:
             if(node)
             {
                 st.push(node);
-                node = node->left;
+                node = node->left;                 //left
             }
             else
             {
-                if(st.empty())
+                if(st.empty())                   //return
                     break;
-                node = st.top();
+                node=st.top();
                 st.pop();
-                ans.push_back(node->val);
-                node = node->right;
+                ans.push_back(node->val);        //root
+                node=node->right;                //right
             }
         }
         return ans;
