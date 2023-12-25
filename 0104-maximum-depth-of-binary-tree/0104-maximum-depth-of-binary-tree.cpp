@@ -11,23 +11,30 @@
  */
 class Solution {
 public:
-    
-    int maxD(TreeNode *root)
+    int mxDepth(TreeNode *root)
     {
-        if(root==NULL)
+        int levels=0;
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty())
         {
-            return 0;
+            int sz = q.size();
+            levels++;
+            for(int i=0;i<sz;i++)
+            {
+                TreeNode *node = q.front();
+                q.pop();
+                if(node->left)
+                    q.push(node->left);
+                if(node->right)
+                    q.push(node->right);
+            }
         }
-        int l = maxD(root->left);
-        int r = maxD(root->right);
-        return 1+max(r,l);
+        return levels;
     }
-    
     int maxDepth(TreeNode* root) {
-        if(root==NULL)
-        {
-            return 0;
-        }
-        return maxD(root);
+        if(!root)
+            return {};
+        return mxDepth(root);
     }
 };
