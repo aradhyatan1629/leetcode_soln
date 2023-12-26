@@ -9,25 +9,36 @@
  */
 class Solution {
 public:
+    bool dfs(TreeNode *root,TreeNode *target,vector<TreeNode*> &v)
+    {
+        if(root==NULL)
+        {
+            return false;
+        }
+        v.push_back(root);
+        if(root->val == target->val)
+        {
+            return true;
+        }
+        bool left = dfs(root->left,target,v);
+        bool right = dfs(root->right,target,v);
+        if(left or right)
+            return true;
+        v.pop_back();
+        return false;
+    }
+    
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        if(root==NULL or root==p or root==q)    //base case
+        vector<TreeNode*> v1,v2;
+        dfs(root,p,v1);
+        dfs(root,q,v2);
+        int i=0,j=0;
+        while(i<v1.size() and j<v2.size())
         {
-            return root;
+            if(v1[i]!=v2[i])
+                break;
+            i++,j++;
         }
-        TreeNode *left = lowestCommonAncestor(root->left,p,q);
-        TreeNode *right = lowestCommonAncestor(root->right,p,q);
-        
-        if(left==NULL)
-        {
-            return right;
-        }
-        else if(right==NULL)
-        {
-            return left;
-        }
-        else                //if both left and right are not null then we found our answer
-        {
-            return root;
-        }
+        return v1[i-1];
     }
 };
