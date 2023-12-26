@@ -11,34 +11,28 @@
  */
 class Solution {
 public:
-    
-    vector<vector<int>> solve(TreeNode *root)
-    {
-        queue<pair<TreeNode*,pair<int,int>>> q;
-        map<int,map<int,multiset<int>>> m;
-        q.push({root,{0,0}});
+    vector<vector<int>> verticalTraversal(TreeNode* root) {
+        map<int,map<int,multiset<int>>> m;  //{vertical,{level,nodes}}
+        queue<pair<TreeNode*,pair<int,int>>> q; //{node,{vertical,level}}
         
+        q.push({root,{0,0}});// the root node is at (0,0) i.e. 0th vertical and 0th level
         while(!q.empty())
         {
-            auto it = q.front();
-            q.pop();
-            
+            auto it = q.front();q.pop();
             TreeNode *node = it.first;
-            int x = it.second.first;
-            int y = it.second.second;
+            int vertical = it.second.first;
+            int level = it.second.second;
             
-            m[x][y].insert(node->val);
-            
+            m[vertical][level].insert(node->val);
             if(node->left)
             {
-                q.push({node->left,{x-1,y+1}});
+                q.push({node->left,{vertical-1,level+1}});
             }
             if(node->right)
             {
-                q.push({node->right,{x+1,y+1}});
+                q.push({node->right,{vertical+1,level+1}});
             }
         }
-        
         vector<vector<int>> ans;
         for(auto x:m)
         {
@@ -51,8 +45,24 @@ public:
         }
         return ans;
     }
-    
-    vector<vector<int>> verticalTraversal(TreeNode* root) {
-        return solve(root);
-    }
 };
+
+
+/*
+
+every vertical has multiple levels and every level can have multiple nodes 
+therefore we have used map<int,map<int,multiset<int>>> m data structure
+
+in map<int,map<int,multiset<int>>> m   {vertical,{level,nodes on level}}
+
+*/
+
+
+
+
+
+
+
+
+
+
