@@ -9,13 +9,15 @@
  */
 class Solution {
 public:
+    //convert the tree to undirected graph and then do simple bfs on the graph
+    
     vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
         vector<int> adj[501];
         queue<TreeNode*> q;
         
         q.push(root);
         
-        while(!q.empty())
+        while(!q.empty())  // creating adjacency list
         {
             int sz = q.size();
             for(int i=0;i<sz;i++)
@@ -44,7 +46,7 @@ public:
         vis[target->val] = 1;
         q1.push({target->val,0});
         
-        while(!q1.empty())
+        while(!q1.empty())  //bfs traversal on graph
         {
             int node = q1.front().first;
             int level = q1.front().second;
