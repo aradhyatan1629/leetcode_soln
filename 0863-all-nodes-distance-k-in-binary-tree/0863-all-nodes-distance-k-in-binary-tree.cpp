@@ -9,10 +9,10 @@
  */
 class Solution {
 public:
-    
-    void bfs(TreeNode *root,unordered_map<TreeNode*,TreeNode*> &parent)
-    {
+    vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
+        vector<int> adj[501];
         queue<TreeNode*> q;
+        
         q.push(root);
         
         while(!q.empty())
@@ -22,64 +22,43 @@ public:
             {
                 TreeNode *node = q.front();
                 q.pop();
-                
                 if(node->left)
                 {
-                    parent[node->left] = node;
                     q.push(node->left);
+                    adj[node->val].push_back(node->left->val);
+                    adj[node->left->val].push_back(node->val);
                 }
                 if(node->right)
                 {
-                    parent[node->right] = node;
                     q.push(node->right);
+                    adj[node->val].push_back(node->right->val);
+                    adj[node->right->val].push_back(node->val);
                 }
             }
+          
         }
-    }
-    vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
-        unordered_map<TreeNode*,TreeNode*> parent;
-        bfs(root,parent);
         
-        unordered_map<TreeNode*,bool> visited;
-        queue<TreeNode*> q;
-        q.push(target);
-        visited[target]=true;
-        int curr_level=0;
+        queue<pair<int,int>> q1;
+        vector<int> vis(500,0),ans;
         
-        while(!q.empty())
+        vis[target->val] = 1;
+        q1.push({target->val,0});
+        
+        while(!q1.empty())
         {
-            int sz = q.size();
-            if(curr_level++ == k)
+            int node = q1.front().first;
+            int level = q1.front().second;
+            if(level == k)
+                ans.push_back(node);
+            q1.pop();
+            for(auto it:adj[node])
             {
-                break;
-            }
-            for(int i=0;i<sz;i++)
-            {
-                TreeNode *node = q.front();
-                q.pop();
-                
-                if(node->left and visited[node->left]==false)
+                if(!vis[it])
                 {
-                    q.push(node->left);
-                    visited[node->left] = true;
-                }
-                if(node->right and visited[node->right]==false)
-                {
-                    q.push(node->right);
-                    visited[node->right] = true;
-                }
-                if(parent[node] and visited[parent[node]]==false)
-                {
-                    q.push(parent[node]);
-                    visited[parent[node]] = true;
+                    vis[it]=1;
+                    q1.push({it,level+1});
                 }
             }
-        }
-        vector<int> ans;
-        while(!q.empty())
-        {
-            ans.push_back(q.front()->val);
-            q.pop();
         }
         return ans;
     }
