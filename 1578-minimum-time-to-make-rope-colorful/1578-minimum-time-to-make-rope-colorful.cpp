@@ -1,25 +1,33 @@
 class Solution {
 public:
-    int minCost(string colors, vector<int>& neededtime) {
-        stack<pair<char,int>> st;
+    int minCost(string colors, vector<int>& neededTime) {
+        stack<pair<int,int>> st;  //{color,time}
+        int n = neededTime.size();
         int ans=0;
-        for(int i=0;i<colors.size();i++)
+        
+        for(int i=0;i<n;i++)
         {
             if(st.empty())
             {
-                st.push({colors[i],neededtime[i]});
+                st.push({colors[i],neededTime[i]});
             }
-            else if(st.top().first==colors[i])
+            else if(st.top().first != colors[i])
             {
-                ans+=min(st.top().second,neededtime[i]);
-                if(st.top().second<neededtime[i])
-                {
-                    st.top().second=neededtime[i];
-                }
+                st.push({colors[i],neededTime[i]});
             }
             else
             {
-                st.push({colors[i],neededtime[i]});
+                int mn = min(st.top().second,neededTime[i]);
+                if(mn == st.top().second)
+                {
+                    ans+=mn;
+                    st.pop();
+                    st.push({colors[i],neededTime[i]});
+                }
+                else
+                {
+                    ans+=mn;
+                }
             }
         }
         return ans;
