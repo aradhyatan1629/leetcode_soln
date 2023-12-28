@@ -19,7 +19,7 @@ public:
         TreeNode *node = root;
         vector<int> ans;
         
-        while(true)
+        while(node or !st.empty())
         {
             if(node)
             {
@@ -28,8 +28,6 @@ public:
             }
             else
             {
-                if(st.empty())
-                    break;
                 node = st.top();
                 st.pop();
                 ans.push_back(node->val);
