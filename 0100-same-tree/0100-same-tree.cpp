@@ -14,11 +14,7 @@ public:
     bool isSameTree(TreeNode* p, TreeNode* q) {
         if(p==NULL or q==NULL)
             return p==q;
-        if(p->val!=q->val)
-            return false;
-        bool l = isSameTree(p->left,q->left);
-        bool r = isSameTree(p->right,q->right);
-        if(!l or !r)
+        if(p->val != q->val or !isSameTree(p->left,q->left) or !isSameTree(p->right,q->right))
             return false;
         return true;
     }
