@@ -12,65 +12,29 @@
 class Solution {
 public:
     
-    string ans;
-    
-    string findSmaller(string s1,string s2)
-    {
-        /*int i=0,j=0;
-        while(i<s1.size() and j<s2.size())
-        {
-            if(s1[i]<s2[j])
-            {
-                return s1;
-            }
-            else if(s2[j]<s1[i])
-            {
-                return s2;
-            }
-            i++,j++;
-        }*/
-        if(s1<s2)
-        {
-            return s1;
-        }
-        if(s2<s1)
-        {
-            return s2;
-        }
-        return s1;
-    }
-    
-    void dfs(TreeNode *root,string t)
+    void solve(TreeNode *root,unordered_map<string,int> &m,string &s)
     {
         if(root==NULL)
-        {
             return;
-        }
-        t+=(char(root->val)+97);
-        dfs(root->left,t);
-        dfs(root->right,t);
+        s += char(root->val+97);
+        solve(root->left,m,s);
+        solve(root->right,m,s);
         if(root->left==NULL and root->right==NULL)
-        {
-            reverse(t.begin(),t.end());
-            if(ans.size()==0)
-            {
-                ans = t;
-            }
-            else
-            {
-                ans = findSmaller(ans,t);
-            }
-        }
+            m[s]++;
+        s.pop_back();
     }
     
     string smallestFromLeaf(TreeNode* root) {
-        dfs(root,"");
+        unordered_map<string,int> m;
+        string s,ans;
+        solve(root,m,s);
+        
+        for(auto x:m)
+        {
+            string t = x.first;
+            reverse(t.begin(),t.end());
+            if(t<ans or ans=="")ans=t;
+        }
         return ans;
     }
 };
-
-/*
-dba eda 
-acd afg
-efsd eda
-*/
