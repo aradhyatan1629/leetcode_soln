@@ -12,26 +12,24 @@
 class Solution {
 public:
     vector<vector<int>> verticalTraversal(TreeNode* root) {
-        map<int,map<int,multiset<int>>> m;  //{vertical,{level,nodes}}
-        queue<pair<TreeNode*,pair<int,int>>> q; //{node,{vertical,level}}
+        map<int,map<int,multiset<int>>> m;    //{vertical,{level,{nodes}}}
+        queue<pair<TreeNode*,pair<int,int>>> q;     // {node,{vertical,level}}
         
-        q.push({root,{0,0}});// the root node is at (0,0) i.e. 0th vertical and 0th level
+        q.push({root,{0,0}});
         while(!q.empty())
         {
-            auto it = q.front();q.pop();
+            auto it = q.front();
+            q.pop();
             TreeNode *node = it.first;
             int vertical = it.second.first;
             int level = it.second.second;
             
             m[vertical][level].insert(node->val);
+            
             if(node->left)
-            {
                 q.push({node->left,{vertical-1,level+1}});
-            }
             if(node->right)
-            {
                 q.push({node->right,{vertical+1,level+1}});
-            }
         }
         vector<vector<int>> ans;
         for(auto x:m)
@@ -48,21 +46,8 @@ public:
 };
 
 
+
 /*
-
-every vertical has multiple levels and every level can have multiple nodes 
-therefore we have used map<int,map<int,multiset<int>>> m data structure
-
-in map<int,map<int,multiset<int>>> m   {vertical,{level,nodes on level}}
-
+vertical - is like points on x axis
+levels - is like points on y axis
 */
-
-
-
-
-
-
-
-
-
-
