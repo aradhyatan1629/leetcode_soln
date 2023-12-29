@@ -11,6 +11,8 @@
  */
 class Solution {
 public:
+    
+    //O(n) and O(n) soln using only the Trees nodes without creating extra nodes
     void preorder(TreeNode *root,vector<TreeNode*> &v)
     {
         if(!root)
@@ -28,9 +30,7 @@ public:
         for(int i=1;i<v.size();i++)
         {
             v[i-1]->left = NULL;
-            TreeNode *node = new TreeNode(v[i]->val);
-            v[i-1]->right = node;
-            v[i] = node;
+            v[i-1]->right = v[i];
         }
     }
 };
