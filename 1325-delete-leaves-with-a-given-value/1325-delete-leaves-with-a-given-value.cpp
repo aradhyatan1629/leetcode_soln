@@ -11,7 +11,7 @@
  */
 class Solution {
 public:
-    TreeNode *solve(TreeNode *root,int target)
+    TreeNode *solve(TreeNode *&root,int &target)
     {
         if(root==NULL)
             return NULL;
