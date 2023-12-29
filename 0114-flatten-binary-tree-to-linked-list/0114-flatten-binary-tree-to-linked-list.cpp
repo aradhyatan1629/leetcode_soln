@@ -11,61 +11,26 @@
  */
 class Solution {
 public:
-    
-    
-    void preorder(TreeNode *root,vector<int> &v)
+    void preorder(TreeNode *root,vector<TreeNode*> &v)
     {
-        if(root==NULL)
-        {
+        if(!root)
             return;
-        }
-        v.push_back(root->val);
+        v.push_back(root);
         preorder(root->left,v);
         preorder(root->right,v);
     }
     
     void flatten(TreeNode* root) {
-        vector<int> v;
-        preorder(root,v);
-        if(v.size()==0 or v.size()==1)
-        {
+        if(!root)
             return;
-        }
-        
-        TreeNode *node = root;
-        TreeNode *prev = node;
-        root->left=NULL;
-        int i=0;
-        
-        while(i<v.size())
+        vector<TreeNode*> v;
+        preorder(root,v);
+        for(int i=1;i<v.size();i++)
         {
-            if(node and node->val == v[i])
-            {
-                prev=node;
-                node->left=NULL;
-                node=node->right;
-            }
-            else if(node and node->val!=v[i])
-            {
-                prev=node;
-                node->left=NULL;
-                node->val=v[i];
-                node=node->right;
-            }
-            else if(node==NULL)
-            {
-                while(i<v.size() and node==NULL)
-                {
-                    TreeNode *t = new TreeNode();
-                    t->val = v[i];
-                    prev->right = t;
-                    node=t;
-                    prev=node;
-                    node=node->right;
-                    i++;
-                }
-            }
-            i++;
+            v[i-1]->left = NULL;
+            TreeNode *node = new TreeNode(v[i]->val);
+            v[i-1]->right = node;
+            v[i] = node;
         }
     }
 };
