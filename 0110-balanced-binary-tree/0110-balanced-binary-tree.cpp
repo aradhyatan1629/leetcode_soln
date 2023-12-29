@@ -11,7 +11,6 @@
  */
 class Solution {
 public:
-    //O(n) using the postorder traversal
     int solve(TreeNode *root)
     {
         if(root==NULL)
