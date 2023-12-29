@@ -14,7 +14,8 @@ public:
     vector<int> inorderTraversal(TreeNode* root) {
         vector<int> ans;
         TreeNode *curr = root;
-        while(curr != NULL)
+        
+        while(curr)
         {
             if(curr->left == NULL)
             {
