@@ -27,16 +27,16 @@ public:
                 TreeNode *prev = curr->left;
                 while(prev->right!=NULL and prev->right!=curr)
                 {
-                    prev = prev->right;
+                    prev = prev->right;//finding the righmost node on left subtree
                 }
                 if(prev->right == NULL)
                 {
-                    prev->right = curr;
+                    prev->right = curr;      //creating the thread 
                     curr = curr->left;
                 }
                 else
                 {
-                    prev->right = NULL;
+                    prev->right = NULL;    //removing the created thread
                     ans.push_back(curr->val);
                     curr = curr->right;
                 }
