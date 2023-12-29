@@ -11,43 +11,57 @@
  */
 class Solution {
 public:
-    
-    //T.c. - (logn)^2
-    
     int findLeftHeight(TreeNode *node)
     {
-        int h = 0;
+        int height = 0;
         while(node)
         {
-            h++;
-            node=node->left;
+            height++;
+            node = node->left;
         }
-        return h;
+        return height;
     }
-    
     int findRightHeight(TreeNode *node)
     {
-        int h = 0;
+        int height = 0;
         while(node)
         {
-            h++;
-            node=node->right;
+            height++;
+            node = node->right;
         }
-        return h;
+        return height;
     }
     
     int countNodes(TreeNode* root) {
         if(root==NULL)
-        {
             return 0;
-        }
         int leftH = findLeftHeight(root);
         int rightH = findRightHeight(root);
         
-        if(leftH==rightH)
-        {
-            return pow(2,leftH) - 1;
-        }
+        if(leftH == rightH)     
+            return pow(2,leftH)-1;
+        
         return 1 + countNodes(root->left) + countNodes(root->right);
     }
 };
+
+
+/*
+
+If leftHeight == rightHeight, then the last level nodes are completely filled
+and hence it is a perfect binary tree so we can use the formulae 2^h -1 to get the total
+number of nodes where h is the height of subtree
+
+If leftHeight != rightHeight, then the last level nodes are not completely filled
+when leftHeight != rightHeight, we can take the help of recursion and say to recursively find the number of nodes in the left subtree (say leftNodes) and in the right subtree(say rightNodes) and then return 1 + leftNodes + rightNodes.
+
+
+*/
+
+
+
+
+
+
+
+
