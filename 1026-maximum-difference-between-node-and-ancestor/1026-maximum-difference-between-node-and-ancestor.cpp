@@ -20,11 +20,9 @@ public:
         pair<int,int> pRight = solve(root->right,ans);
         int mn = min(root->val,min(pLeft.first,pRight.first));
         int mx = max(root->val,max(pLeft.second,pRight.second));
-        if(mn!=root->val or mx!=root->val)
-        {
-            ans = max(ans,abs(root->val-mn));
-            ans = max(ans,abs(root->val-mx));
-        }
+        
+        ans = max(ans,abs(root->val-mn));
+        ans = max(ans,abs(root->val-mx));
         return {mn,mx};
     }
     
