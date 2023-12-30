@@ -14,7 +14,6 @@ public:
     vector<int> inorderTraversal(TreeNode* root) {
         vector<int> ans;
         TreeNode *curr = root;
-        
         while(curr)
         {
             if(curr->left == NULL)
@@ -26,17 +25,15 @@ public:
             {
                 TreeNode *prev = curr->left;
                 while(prev->right!=NULL and prev->right!=curr)
-                {
-                    prev = prev->right;//finding the righmost node on left subtree
-                }
+                    prev = prev->right;
                 if(prev->right == NULL)
                 {
-                    prev->right = curr;      //creating the thread 
+                    prev->right = curr;
                     curr = curr->left;
                 }
                 else
                 {
-                    prev->right = NULL;    //removing the created thread
+                    prev->right = NULL;
                     ans.push_back(curr->val);
                     curr = curr->right;
                 }
