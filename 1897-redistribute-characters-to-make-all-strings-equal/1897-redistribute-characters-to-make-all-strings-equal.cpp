@@ -1,10 +1,6 @@
 class Solution {
 public:
     bool makeEqual(vector<string>& words) {
-        if(words.size()==1)
-        {
-            return true;
-        }
         unordered_map<char,int> m;
         for(int i=0;i<words.size();i++)
         {
@@ -13,14 +9,12 @@ public:
                 m[words[i][j]]++;
             }
         }
-        int n = words.size();
-         for(auto x:m)
-         {
-             if(x.second%n!=0)
-             {
-                 return false;
-             }
-         }
+        
+        for(auto x:m)
+        {
+            if(x.second%words.size() != 0)
+                return false;
+        }
         return true;
     }
 };
