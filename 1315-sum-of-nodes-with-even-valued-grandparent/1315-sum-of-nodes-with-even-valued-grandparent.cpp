@@ -11,27 +11,19 @@
  */
 class Solution {
 public:
-    void solve(TreeNode *root,int &sum)
+    void solve(TreeNode *root,TreeNode *parent,TreeNode *grandParent,int &sum)
     {
-        // cout<<root->val<<endl;
         if(root==NULL)
             return;
-        if((root->left and root->left->left) and root->val%2==0)
-            sum+=root->left->left->val;
-        if((root->right and root->right->right) and root->val%2==0)
-            sum+=root->right->right->val;
-        if((root->left and root->left->right) and root->val%2==0)
-            sum+=root->left->right->val;
-        if((root->right and root->right->left) and root->val%2==0)
-            sum+=root->right->left->val;
-        
-        solve(root->left,sum);
-        solve(root->right,sum);
+        if(grandParent and grandParent->val%2==0)
+            sum += root->val;
+        solve(root->left,root,parent,sum);
+        solve(root->right,root,parent,sum);
     }
     
     int sumEvenGrandparent(TreeNode* root) {
         int sum = 0;
-        solve(root,sum);
+        solve(root,NULL,NULL,sum);     //child,parent,grandparent
         return sum;
     }
 };
