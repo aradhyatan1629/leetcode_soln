@@ -18,11 +18,11 @@ public:
         for(int i=0;i<n;i++)
         {
             int p=descriptions[i][0],c=descriptions[i][1],isLeft=descriptions[i][2];
-            if(m.find(p)==m.end() or m.find(c) == m.end())
+            if(m[p]==NULL or m[c]==NULL)
             {
-                if(m.find(p) == m.end())
+                if(m[p]==NULL)
                     m[p] = new TreeNode(p);
-                if(m.find(c) == m.end())
+                if(m[c]==NULL)
                     m[c] = new TreeNode(c);
                 if(isLeft==1)
                     m[p]->left = m[c];
