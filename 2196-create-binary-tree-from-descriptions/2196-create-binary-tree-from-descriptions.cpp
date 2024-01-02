@@ -12,49 +12,50 @@
 class Solution {
 public:
     TreeNode* createBinaryTree(vector<vector<int>>& descriptions) {
+        TreeNode *root;
         int n = descriptions.size();
-        unordered_map<int,TreeNode*> m;     // node_val,node_address
+        unordered_set<int> st;
+        for(int i=0;i<n;i++)
+            st.insert(descriptions[i][1]);
+        for(int i=0;i<n;i++)
+            if(st.find(descriptions[i][0]) == st.end())
+            {
+                root = new TreeNode(descriptions[i][0]);
+                break;
+            }
         
+        unordered_map<int,pair<int,int>> m;  //{node,{lchild,rchild}}
         for(int i=0;i<n;i++)
         {
-            int p=descriptions[i][0],c=descriptions[i][1],isLeft=descriptions[i][2];
-            if(m[p]==NULL or m[c]==NULL)
+            if(descriptions[i][2])
+                m[descriptions[i][0]].first = descriptions[i][1];
+            else
+                m[descriptions[i][0]].second = descriptions[i][1];
+        }
+        
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty())
+        {
+            int sz = q.size();
+            for(int i=0;i<sz;i++)
             {
-                if(m[p]==NULL)
-                    m[p] = new TreeNode(p);
-                if(m[c]==NULL)
-                    m[c] = new TreeNode(c);
-                if(isLeft==1)
-                    m[p]->left = m[c];
-                if(isLeft==0)
-                    m[p]->right = m[c];
-            }
-            else      //if both parent and child have already been created
-            {
-                if(isLeft==1)
-                    m[p]->left = m[c];
-                if(isLeft==0)
-                    m[p]->right = m[c];
+                TreeNode *node = q.front();
+                q.pop();
+                if(m[node->val].first != 0)
+                {
+                    TreeNode *t = new TreeNode(m[node->val].first);
+                    node->left = t;
+                    q.push(t);
+                }
+                if(m[node->val].second != 0)
+                {
+                    TreeNode *t = new TreeNode(m[node->val].second);
+                    node->right = t;
+                    q.push(t);
+                }
             }
         }
-        // for(auto x:m)
-        // {
-        //     cout<<x.first<<" ";
-        //     if(m[x.first]->left!=NULL)
-        //         cout<<"lchild "<<m[x.first]->left->val<<" ";
-        //     if(m[x.first]->right!=NULL)
-        //         cout<<"rchild "<<m[x.first]->right->val<<" ";
-        //     cout<<endl;
-        // }
-        
-         unordered_set<int> st;
-         for(int i=0;i<n;i++)
-             st.insert(descriptions[i][1]);
-         for(int i=0;i<n;i++)
-             if(st.find(descriptions[i][0]) == st.end())
-                 return m[descriptions[i][0]];
-        
-        return NULL;
-        
+        return root;
     }
 };
