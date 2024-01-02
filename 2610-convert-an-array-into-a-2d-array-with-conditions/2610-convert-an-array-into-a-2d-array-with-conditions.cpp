@@ -1,35 +1,27 @@
 class Solution {
 public:
     vector<vector<int>> findMatrix(vector<int>& nums) {
-        unordered_set<int> st1;
-        unordered_set<int> st2;
+        unordered_map<int,int> m,m1;
+        for(int i=0;i<nums.size();i++)
+            m[nums[i]]++;
+     
         vector<vector<int>> ans;
-        while(st1.size()!=nums.size())
+        while(m1.size()!=m.size())
         {
             vector<int> v;
-            for(int i=0;i<nums.size();i++)
+            for(auto x:m)
             {
-                if(st1.find(i)==st1.end() and st2.find(nums[i])==st2.end())
-                {
-                    v.push_back(nums[i]);
-                    st1.insert(i);
-                    st2.insert(nums[i]);
-                }
+                if(m[x.first]>0)
+                    v.push_back(x.first);
+                else if(m[x.first]==0)
+                    m1[x.first]=1;
+                m[x.first]--;                
             }
-            st2.clear();
-            ans.push_back(v);
+            if(v.size()>0)
+                ans.push_back(v);
         }
         return ans;
     }
 };
 
 
-
-
-
-/*
-1 - 3
-2 - 1
-3 - 2
-4 - 1
-*/
