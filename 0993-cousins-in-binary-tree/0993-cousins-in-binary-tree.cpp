@@ -11,28 +11,30 @@
  */
 class Solution {
 public:
-    bool getPath(TreeNode *root,int target,vector<TreeNode*> &v)
+    
+    int xDepth,yDepth,xParent,yParent;
+    void solve(TreeNode *root,int x,int y,int depth,int parent)
     {
         if(root==NULL)
-            return false;
-        v.push_back(root);
-        if(root->val == target)
-            return true;
-        bool left = getPath(root->left,target,v);
-        bool right = getPath(root->right,target,v);
-        if(left or right)
-            return true;
-        v.pop_back();
-        return false;
+            return;
+        
+        if(root->val == x)
+        {
+            xDepth = depth;
+            xParent = parent;
+        }
+        if(root->val == y)
+        {
+            yDepth = depth;
+            yParent = parent;
+        }
+        solve(root->left,x,y,depth+1,root->val);
+        solve(root->right,x,y,depth+1,root->val);
     }
     
     bool isCousins(TreeNode* root, int x, int y) {
-        vector<TreeNode*> v1,v2;
-        getPath(root,x,v1);
-        getPath(root,y,v2);
-        if(v1.size()<=1 or v2.size()<=1 or v1.size()!=v2.size())
-            return false;
-        if(v1[v1.size()-2]->val == v2[v2.size()-2]->val)
+        solve(root,x,y,0,-1);
+        if(xDepth != yDepth or xParent == yParent)
             return false;
         return true;
     }
