@@ -2,18 +2,17 @@ class Solution {
 public:
     int numberOfBeams(vector<string>& banks) {
         int ans = 0;
-        for(int i=0;i<banks.size()-1;i++)
+        int prev = 0;
+        for(int i=0;i<banks.size();i++)
         {
-            int t = count(banks[i].begin(),banks[i].end(),'1');
-            for(int j=i+1;j<banks.size();j++)
+            int cnt1=0;
+            for(int j=0;j<banks[i].size();j++)
             {
-                int cnt1 = count(banks[j].begin(),banks[j].end(),'1');
-                if(cnt1>0)
-                {
-                    ans+=t*cnt1;
-                    break;
-                }
+                if(banks[i][j] == '1')
+                    cnt1++;
             }
+            ans += prev*cnt1;
+            prev = (cnt1>0) ? cnt1 : prev;
         }
         return ans;
     }
