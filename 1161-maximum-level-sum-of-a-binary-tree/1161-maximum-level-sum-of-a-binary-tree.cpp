@@ -11,42 +11,28 @@
  */
 class Solution {
 public:
-    
-    int bfs(TreeNode *root)
-    {
-        int ansLevel = 1,level=1;
-        long mxSum = LONG_MIN;
+    int maxLevelSum(TreeNode* root) {
+        int ans = INT_MAX,level=1;
+        long long mxSum = INT_MIN;
         queue<TreeNode*> q;
         q.push(root);
         while(!q.empty())
         {
-            long sum = 0;
             int sz = q.size();
+            long long sum = 0;
             for(int i=0;i<sz;i++)
             {
-                TreeNode *node = q.front();
-                q.pop();
-                sum+=node->val;
+                TreeNode *node = q.front();q.pop();
+                sum += node->val;
                 if(node->left)
-                {
                     q.push(node->left);
-                }
                 if(node->right)
-                {
                     q.push(node->right);
-                }
             }
-            if(sum>mxSum)
-            {
-                mxSum = sum;
-                ansLevel = level;
-            }
+            if(sum > mxSum){ans = level;mxSum = sum;}
             level++;
         }
-        return ansLevel;
-    }
-    
-    int maxLevelSum(TreeNode* root) {
-        return bfs(root);
+        ans = (ans == INT_MAX) ? 0 : ans;
+        return ans;
     }
 };
