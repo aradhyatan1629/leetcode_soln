@@ -1,45 +1,49 @@
 class Solution {
 public:
-    //DFS soln-
-    void dfs(int node,vector<int> &vis,vector<int> adjList[])
+    
+    void bfs(int node,vector<int> &vis,vector<int> adj[])
     {
+        queue<int> q;
         vis[node]=1;
-        for(auto it:adjList[node])
+        q.push(node);
+        while(!q.empty())
         {
-            if(!vis[it])
+            int node = q.front();q.pop();
+            for(auto it:adj[node])
             {
-                dfs(it,vis,adjList);
+                if(!vis[it])
+                {
+                    vis[it]=1;
+                    q.push(it);
+                }
             }
         }
     }
     
     int findCircleNum(vector<vector<int>>& isConnected) {
-        int V = isConnected.size();
-        int m = isConnected.size();
-        int n = isConnected[0].size();
-        vector<int> vis(V+1,0);
-        vector<int> adjList[V+1];
-        
-        for(int i=0;i<m;i++)
+        int n = isConnected.size();
+        vector<int> adj[n+1];
+        for(int i=0;i<isConnected.size();i++)
         {
-            for(int j=0;j<n;j++)
+            for(int j=0;j<isConnected[i].size();j++)
             {
-                if(i!=j and isConnected[i][j]==1)
+                if(isConnected[i][j] == 1)
                 {
-                    adjList[i+1].push_back(j+1);
-                    adjList[j+1].push_back(i+1);
+                    adj[i+1].push_back(j+1);
+                    adj[j+1].push_back(i+1);
                 }
             }
         }
-        int cnt=0;
-        for(int i=1;i<=V;i++)
+        vector<int> vis(n+1,0);
+        int ans = 0;
+        for(int i=1;i<=n;i++)
         {
             if(!vis[i])
             {
-                cnt++;
-                dfs(i,vis,adjList);
+                ans++;
+                bfs(i,vis,adj);
             }
         }
-        return cnt;
+        return ans;
     }
 };
