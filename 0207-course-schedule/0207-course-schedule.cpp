@@ -1,26 +1,6 @@
 class Solution {
-public:
-    // Just have to find the if cycle exists or not in a dag.
-    bool dfs(int node,vector<int> &vis,vector<int> &pathvis,vector<int> adj[])
-    {
-        vis[node]=1;
-        pathvis[node]=1;
-        for(auto it:adj[node])
-        {
-            if(!vis[it])
-            {
-                if(dfs(it,vis,pathvis,adj))
-                    return true;
-            }
-            else if(vis[it]==1 and pathvis[it]==1)
-            {
-                return true;
-            }
-        }
-        pathvis[node]=0;
-        return false;
-    }
-    
+public: 
+    //Finding cycle in dag using bfs (topo sort)
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
         int n = numCourses;
         vector<int> adj[n];
@@ -28,16 +8,33 @@ public:
         {
             adj[prerequisites[i][0]].push_back(prerequisites[i][1]);
         }
-        
-        vector<int> vis(n,0),pathvis(n,0);
+        vector<int> indegree(n,0);
         for(int i=0;i<n;i++)
         {
-            if(!vis[i])
+            for(auto it:adj[i])
+                indegree[it]++;
+        }
+        
+        queue<int> q;
+        for(int i=0;i<indegree.size();i++)
+        {
+            if(indegree[i]==0)
+                q.push(i);
+        }
+        int cnt=0;
+        while(!q.empty())
+        {
+            int node = q.front();q.pop();
+            cnt++;
+            for(auto it:adj[node])
             {
-                if(dfs(i,vis,pathvis,adj))
-                    return false;
+                indegree[it]--;
+                if(indegree[it]==0)
+                {
+                    q.push(it);
+                }
             }
         }
-        return true;
+        return cnt==n;
     }
 };
