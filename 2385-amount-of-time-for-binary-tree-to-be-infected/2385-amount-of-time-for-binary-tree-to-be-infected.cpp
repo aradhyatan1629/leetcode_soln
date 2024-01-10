@@ -11,55 +11,48 @@
  */
 class Solution {
 public:
+    void dfs(TreeNode *root,unordered_map<int,vector<int>> &m)
+    {
+        if(root==NULL)
+            return;
+        if(root->left)
+        {
+            m[root->val].push_back(root->left->val);
+            m[root->left->val].push_back(root->val);
+        }
+        dfs(root->left,m);
+        if(root->right)
+        {
+            m[root->val].push_back(root->right->val);
+            m[root->right->val].push_back(root->val);
+        }
+        dfs(root->right,m);
+    }
+    
     int amountOfTime(TreeNode* root, int start) {
-        unordered_map<int,vector<int>> m;   //adjacency list {node,{neighbours}}
+        unordered_map<int,vector<int>> m;
+        dfs(root,m);
         
-        queue<TreeNode*> q;
-        q.push(root);
+        int ans = 0;
+        unordered_map<int,int> vis;
+        queue<pair<int,int>> q;
+        vis[start]=1;
+        q.push({start,0});
         while(!q.empty())
         {
-            int sz = q.size();
-            for(int i=0;i<sz;i++)
-            {
-                TreeNode *node = q.front();
-                q.pop();
-                if(node->left)
-                {
-                    q.push(node->left);
-                    m[node->val].push_back(node->left->val);
-                    m[node->left->val].push_back(node->val);
-                }
-                if(node->right)
-                {
-                    q.push(node->right);
-                    m[node->val].push_back(node->right->val);
-                    m[node->right->val].push_back(node->val);
-                }
-            }
-        }
-        unordered_map<int,int> vis;
-        queue<pair<int,int>> q1;
-        q1.push({start,0});
-        vis[start]=1;
-        int ans=0;
-        
-        while(!q1.empty())
-        {
-            int node = q1.front().first;
-            int time = q1.front().second;
+            int node = q.front().first;
+            int time = q.front().second;
+            q.pop();
             ans = max(ans,time);
-            q1.pop();
-            
             for(auto it:m[node])
             {
-                if(!vis[it])
+                if(vis[it]!=1)
                 {
                     vis[it]=1;
-                    q1.push({it,time+1});
+                    q.push({it,time+1});
                 }
             }
         }
         return ans;
-        
     }
 };
