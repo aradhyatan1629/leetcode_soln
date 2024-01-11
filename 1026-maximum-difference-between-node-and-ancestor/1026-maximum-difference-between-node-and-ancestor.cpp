@@ -14,16 +14,16 @@ public:
     pair<int,int> solve(TreeNode *root,int &ans)
     {
         if(root==NULL)
-            return {INT_MAX,INT_MIN};
+            return {INT_MIN,INT_MAX};
         
-        pair<int,int> pLeft = solve(root->left,ans);
-        pair<int,int> pRight = solve(root->right,ans);
-        int mn = min(root->val,min(pLeft.first,pRight.first));
-        int mx = max(root->val,max(pLeft.second,pRight.second));
-        
+        pair<int,int> left = solve(root->left,ans);
+        pair<int,int> right = solve(root->right,ans);
+    
+        int mx = max(root->val,max(left.first,right.first));
+        int mn = min(root->val,min(left.second,right.second));
         ans = max(ans,abs(root->val-mn));
         ans = max(ans,abs(root->val-mx));
-        return {mn,mx};
+        return {mx,mn};
     }
     
     int maxAncestorDiff(TreeNode* root) {
