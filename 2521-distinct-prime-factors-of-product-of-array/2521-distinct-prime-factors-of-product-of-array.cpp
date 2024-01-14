@@ -27,8 +27,6 @@ public:
         {
             PrimeFactors(nums[i]);
         }
-        for(auto x:st)
-            cout<<x<<" ";
         return st.size();
     }
 };
