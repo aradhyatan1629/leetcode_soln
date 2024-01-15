@@ -1,33 +1,56 @@
 class Solution {
 public:
     vector<vector<int>> findWinners(vector<vector<int>>& matches) {
-        unordered_map<int,pair<int,int>> w;
-        unordered_map<int,pair<int,int>> l;
-        vector<vector<int>> ans;
+        map<int,int> w,l;
         for(int i=0;i<matches.size();i++)
         {
-            w[matches[i][0]].first++;
-            w[matches[i][1]].first++;
-            w[matches[i][1]].second++;
+            if(w[matches[i][0]]!=-1)
+            {
+                w[matches[i][0]]++;
+                w[matches[i][1]]=-1;
+                l[matches[i][1]]++;
+            }
+            else
+            {
+                // l[matches[i][0]]++;
+                l[matches[i][1]]++;
+                w[matches[i][1]]=-1;
+            }
         }
-        vector<int> v1;
-        vector<int> v2;
+        
+        // for(auto x:w)cout<<x.first<<" "<<x.second<<endl;
+        // cout<<endl;
+        // for(auto x:l)cout<<x.first<<" "<<x.second<<endl;
+        
+        vector<vector<int>> ans;
+        vector<int> v;
         for(auto x:w)
-        {
-            if(x.second.second==0)
-            {
-                v1.push_back(x.first);
-            }
-            else if(x.second.second==1)
-            {
-                v2.push_back(x.first);
-            }
-        }
-        sort(v1.begin(),v1.end());
-        sort(v2.begin(),v2.end());
-        ans.push_back(v1);
-        ans.push_back(v2);
+            if(w[x.first]!=-1)
+                v.push_back(x.first);
+        ans.push_back(v);
+        v.clear();
+        
+        for(auto x:l)
+            if(l[x.first]==1)
+                v.push_back(x.first);
+        ans.push_back(v);
         return ans;
+        
     }
 };
-// pair <total matches,matches lost>
+
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+*/
