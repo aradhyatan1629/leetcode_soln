@@ -37,12 +37,8 @@ public:
 
 
 /*
-
 count the no. of edges and components
-if(edges < compontents-1)return -1
-
-
-
-
-
+if(edges < no of nodes-1)return -1
+else
+return components-1
 */
