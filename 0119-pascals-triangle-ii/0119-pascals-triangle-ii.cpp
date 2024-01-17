@@ -12,17 +12,13 @@ public:
     }
     
     vector<int> getRow(int rowIndex) {
-        int n=rowIndex;
+        int n = rowIndex+1;
         vector<int> v;
-        for(int c=0;c<=n;c++)
+        for(int c=1;c<=n;c++)
         {
-            v.push_back(findNCR(n,c));
+            v.push_back(findNCR(n-1,c-1));
         }
         return v;
     }
 };
 
-/*
-Time complexity - O(n*r)
-since for each index we are finding its ncr value
-*/
