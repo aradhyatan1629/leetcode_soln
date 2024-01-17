@@ -23,5 +23,6 @@ public:
 };
 
 /*
-
+Time complexity - O(n*r)
+since for each index we are finding its ncr value
 */
