@@ -1,27 +1,17 @@
 class Solution {
 public:
-    //O(log(m*n))
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
-        int m = matrix.size(),n=matrix[0].size();
-        int low=0,high=(m*n)-1;
-        while(low<=high)
+        int m=matrix.size(),n=matrix[0].size();
+        for(int i=0;i<m;i++)
         {
-            int mid = low + (high-low)/2;
-            int i = mid/n;
-            int j = mid%n;
-            if(matrix[i][j]==target)
+            for(int j=0;j<n;j++)
             {
-                return true;
-            }
-            else if(matrix[i][j]<target)
-            {
-                low=mid+1;
-            }
-            else
-            {
-                high=mid-1;
+                if(matrix[i][j]==target)
+                    return true;
             }
         }
         return false;
     }
 };
+
+// O(m*n)
