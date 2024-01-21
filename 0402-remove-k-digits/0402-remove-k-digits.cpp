@@ -1,28 +1,37 @@
 class Solution {
 public:
     string removeKdigits(string num, int k) {
-        int n = num.size();
-        stack<char> st;
-        for(int i=0;i<n;i++)
+        stack<int> st;
+        for(int i=0;i<num.size();i++)
         {
-            while(k>0 and (!st.empty() and st.top() > num[i]))
+            while(k>0 and (!st.empty() and st.top()>num[i]-'0'))
+            {
+                st.pop();
+                k--;
+            }
+            st.push(num[i]-'0');
+        }
+        if(k)
+        {
+            while(k)
             {
                 st.pop();k--;
             }
-            st.push(num[i]);
         }
-        if(k>0)   // a case such as 12345
+        num="";
+        while(!st.empty())
         {
-            while(k!=0)
-            {
-                st.pop(); k--;
-            }
+            num += char(st.top()+'0');
+            st.pop();   
         }
-        stack<int> temp;
-        while(!st.empty()){temp.push(st.top());st.pop();} 
-        while(!temp.empty() and temp.top()=='0'){temp.pop();}//removing the leading zeroes
-        string ans="";
-        while(!temp.empty()){ans+=temp.top();temp.pop();};
-        return ans = (ans=="")?"0":ans;
+        reverse(num.begin(),num.end());
+        int i=0;
+        for(;i<num.size();i++)
+        {
+            if(num[i]!='0')
+                break;
+        }
+        if(num=="" or i>=num.size())return "0";
+        return num.substr(i,num.size()-i);
     }
 };
