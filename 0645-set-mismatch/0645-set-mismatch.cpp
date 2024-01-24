@@ -16,3 +16,4 @@ public:
         return ans;
     }
 };
+//O(n) and O(n)
