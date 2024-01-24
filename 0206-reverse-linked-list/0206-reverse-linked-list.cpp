@@ -10,19 +10,26 @@
  */
 class Solution {
 public:
-    ListNode* reverseList(ListNode* head) {
-        ListNode *p=NULL,*q=NULL,*r=NULL;
-        p=head;
-        while(p)
+    void reverse(ListNode *p,ListNode *q,ListNode *&head)
+    {
+        if(p!=NULL)
         {
-            r=q;
-            q=p;
-            p=p->next;
-            q->next=r;
+            reverse(p->next,p,head);
+            p->next=q;
         }
-        head=q;
+        else
+        {
+            head = q;
+        }
+    }
+    
+    ListNode* reverseList(ListNode* head) {
+        ListNode *p=NULL,*q=NULL;
+        p=head;
+        reverse(p,q,head);
         return head;
     }
 };
 
-//Using sliding pointers (iterative) O(n) and O(1)
+//Using sliding pointers (RECURSIVE) O(n) and O(1)
+//We are reversing the links on backtracking
