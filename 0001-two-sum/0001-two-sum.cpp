@@ -2,16 +2,21 @@ class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
         int n=nums.size();
-        for(int i=0;i<n;i++)
+        unordered_map<int,int> m;
+        for(int i=0;i<nums.size();i++)
         {
-            for(int j=i+1;j<n;j++)
+            int x = target-nums[i];
+            if(m.find(x)!=m.end())
             {
-                if(nums[i]+nums[j]==target)
-                    return {i,j};
+                return {m[x],i};
             }
+            m[nums[i]]=i;
         }
         return {};
     }
 };
 
-// O(n^2) and O(1)
+// tc - O(n) on best case 
+/*
+In the worst case(which rarely happens), the unordered_map takes O(N) to find an element. In that case, the time complexity will be O(N2). If we use map instead of unordered_map, the time complexity will be O(N* logN) as the map data structure takes logN time to find an element.
+*/
