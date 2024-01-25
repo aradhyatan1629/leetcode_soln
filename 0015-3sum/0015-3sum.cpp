@@ -2,24 +2,24 @@ class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
         sort(nums.begin(),nums.end());
+        int n=nums.size();
         vector<vector<int>> ans;
-        int n = nums.size();
         for(int i=0;i<n;i++)
         {
             if(i>0 and nums[i]==nums[i-1])
                 continue;
-            int j = i+1;
-            int k = n-1;
+            int j=i+1;
+            int k=n-1;
             while(j<k)
             {
                 int sum = nums[i]+nums[j]+nums[k];
-                if(sum<0)
-                {
-                    j++;
-                }
-                else if(sum>0)
+                if(sum>0)
                 {
                     k--;
+                }
+                else if(sum<0)
+                {
+                    j++;
                 }
                 else
                 {
@@ -33,3 +33,5 @@ public:
         return ans;
     }
 };
+// tc - O(n^2) + O(nlogn)
+// sc - O(1)
