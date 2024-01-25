@@ -1,42 +1,31 @@
 class Solution {
 public:
     vector<vector<int>> fourSum(vector<int>& nums, int target) {
-        int n = nums.size();
-        sort(nums.begin(),nums.end());
-        vector<vector<int>> ans;
-        
+        set<vector<int>> s1;
+        int n=nums.size();
         for(int i=0;i<n;i++)
         {
-            if(i>0 and nums[i]==nums[i-1])
-                continue;
             for(int j=i+1;j<n;j++)
             {
-                if(j!=i+1 and nums[j]==nums[j-1])
-                    continue;
-                int k = j+1;
-                int l = n-1;
-                while(k<l)
+                set<long long> s2;
+                for(int k=j+1;k<n;k++)
                 {
                     long long sum = nums[i]+nums[j];
-                    sum += nums[k] + nums[l];
-                    if(sum<target)
+                    sum+=nums[k];
+                    long long fourth = target-sum;
+                    if(s2.find(fourth)!=s2.end())
                     {
-                        k++;
+                        vector<int> v = {nums[i],nums[j],nums[k],(int)(fourth)};
+                        sort(v.begin(),v.end());
+                        s1.insert(v);
                     }
-                    else if(sum>target)
-                    {
-                        l--;
-                    }
-                    else
-                    {
-                        ans.push_back({nums[i],nums[j],nums[k],nums[l]});
-                        k++,l--;
-                        while(k<l and nums[k]==nums[k-1])k++;
-                        while(k<l and nums[l]==nums[l+1])l--;
-                    }
+                    s2.insert(nums[k]);
                 }
             }
         }
+        vector<vector<int>> ans(s1.begin(),s1.end());
         return ans;
     }
 };
+
+// tc - O(n^3 * log(M)) , M is the number of unique quadruples 
