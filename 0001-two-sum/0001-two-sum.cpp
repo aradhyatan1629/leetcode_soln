@@ -1,18 +1,17 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        vector<int> ans;
-        unordered_map<int,int> m;
-        for(int i=0;i<nums.size();i++)
+        int n=nums.size();
+        for(int i=0;i<n;i++)
         {
-            if(m.find(target-nums[i])!=m.end())
+            for(int j=i+1;j<n;j++)
             {
-                ans.push_back(m[target-nums[i]]);
-                ans.push_back(i);
-                break;
+                if(nums[i]+nums[j]==target)
+                    return {i,j};
             }
-            m[nums[i]] = i;
         }
-        return ans;
+        return {};
     }
 };
+
+// O(n^2) and O(1)
