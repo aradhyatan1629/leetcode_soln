@@ -10,55 +10,40 @@
  */
 class Solution {
 public:
-    vector<int> NGR(vector<int> &v)
+    ListNode *reverseList(ListNode *head)
     {
-        stack<int> st;
-        vector<int> ans;
-        int n=v.size();
-        for(int i=n-1;i>=0;i--)
+        ListNode *p=NULL,*q=NULL,*r=NULL;
+        p=head;
+        while(p)
         {
-            while(!st.empty() and st.top()<=v[i])
-                st.pop();
-            if(st.empty())
-                ans.push_back(-1);
-            else
-                ans.push_back(st.top());
-            st.push(v[i]);
+            r=q;
+            q=p;
+            p=p->next;
+            q->next=r;
         }
-        reverse(ans.begin(),ans.end());
-        return ans;
+        head=q;
+        return head;
     }
     
     ListNode* removeNodes(ListNode* head) {
-        ListNode *temp=head,*prev=NULL;
-        vector<int> v;
-        while(temp!=NULL)
+        head = reverseList(head);
+        ListNode *temp=head->next,*prev=head;
+        int mx=head->val;
+        while(temp)
         {
-            v.push_back(temp->val);
-            temp=temp->next;
-        }
-        vector<int> ngr = NGR(v);
-        int i=0,n=v.size();
-        while(i<n-1 and ngr[i]!=-1)
-        {
-            i++;
-            head=head->next;
-        }
-        temp=head,prev=temp;
-        while(i<n-1)
-        {
-            if(ngr[i] != -1)
+            if(temp->val >= mx)
             {
-                prev->next = temp->next;
+                mx = temp->val;
+                prev=temp;
                 temp=temp->next;
             }
             else
             {
-                prev=temp;
+                prev->next=temp->next;
                 temp=temp->next;
             }
-            i++;
         }
+        head=reverseList(head);
         return head;
     }
 };
