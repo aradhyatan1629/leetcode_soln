@@ -16,17 +16,16 @@ public:
             fast=fast->next;
         if(fast==NULL)
         {
-            head=head->next;
-            return head;
+            return head->next;
         }
         while(fast->next)
         {
             slow=slow->next;
             fast=fast->next;
         }
-        ListNode *temp = slow->next;
-        slow->next=slow->next->next;
-        delete(temp);
+        slow->next = slow->next->next;
         return head;
     }
 };
+
+//O(n) O(1)
