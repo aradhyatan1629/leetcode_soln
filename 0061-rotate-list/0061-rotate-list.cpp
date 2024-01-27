@@ -10,28 +10,56 @@
  */
 class Solution {
 public:
-    ListNode* rotateRight(ListNode* head, int k) {
-        if(!head or !head->next)return head;
-        ListNode *temp = head;
-        vector<int> v1,v2;
-        while(temp)
+    ListNode *reverseList(ListNode *head)
+    {
+        ListNode *p=NULL,*q=NULL,*r=NULL;
+        p=head;
+        while(p)
         {
-            v1.push_back(temp->val);
-            temp = temp->next;
+            r=q;
+            q=p;
+            p=p->next;
+            q->next=r;
         }
-        k=k%v1.size();
-        v2.resize(v1.size(),0);
-        for(int i=0;i<v1.size();i++)
-        {
-            int idx = (i+k)%v1.size();
-            v2[idx] = v1[i];
-        }
-        int i=0;temp=head;
-        while(temp)
-        {
-            temp->val=v2[i++];
-            temp=temp->next;
-        }
+        head=q;
         return head;
     }
+    
+    ListNode* rotateRight(ListNode* head, int k) {
+        if(!head or !head->next)return head;
+        int n=0;
+        ListNode *temp=head;
+        while(temp)
+        {
+            n++;
+            temp=temp->next;
+        }
+        k%=n;
+        if(k==0)return head;
+        head=reverseList(head);
+        temp=head;
+        int t=1;
+        while(t<k)
+        {
+            t++;
+            temp = temp->next;
+        }
+        ListNode *temp2 = temp->next;
+        temp->next=NULL;
+        ListNode *newHead1 = reverseList(head);
+        ListNode *newHead2 = reverseList(temp2);
+        head->next=newHead2;
+        return newHead1;
+    }
 };
+
+// Using same concept as rotate array 
+
+
+
+
+
+
+
+
+
