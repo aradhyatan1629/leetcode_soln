@@ -4,11 +4,9 @@ public:
         int low=0,high=nums.size()-1;
         while(low<=high)
         {
-            int mid = low + (high-low)/2;
-            if(nums[mid] == target)
-            {
+            int mid = low+(high-low)/2;
+            if(nums[mid]==target)
                 return mid;
-            }
             else if(nums[low]<=nums[mid])
             {
                 if(nums[low]<=target and target<=nums[mid])
@@ -17,10 +15,10 @@ public:
                 }
                 else
                 {
-                    low=mid+1;
+                    low=mid+1;;
                 }
             }
-            else
+            else if(nums[mid]<=nums[high])
             {
                 if(nums[mid]<=target and target<=nums[high])
                 {
