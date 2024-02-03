@@ -1,23 +1,25 @@
 class Solution {
 public:
-    
-    void f(int ind,vector<int> &subs,vector<int> &nums,vector<vector<int>> &ans,int n)
+    vector<vector<int>> ans;
+    void solve(int ind,int n,vector<int> &nums,vector<int> &v)
     {
         if(ind>=n)
         {
-            ans.push_back(subs);
+            ans.push_back(v);
             return;
         }
-        subs.push_back(nums[ind]); //adding the element in our subsequence array
-        f(ind+1,subs,nums,ans,n);  //take 
-        subs.pop_back();           //bringing the array to the state it was in
-        f(ind+1,subs,nums,ans,n);  //not take
+        v.push_back(nums[ind]);
+        solve(ind+1,n,nums,v);
+        v.pop_back();
+        solve(ind+1,n,nums,v);
     }
     
     vector<vector<int>> subsets(vector<int>& nums) {
-        vector<vector<int>> ans;
-        vector<int> subs;
-        f(0,subs,nums,ans,nums.size());
+        int n = nums.size();
+        vector<int> v;
+        solve(0,n,nums,v);
         return ans;
     }
 };
+
+// tc - O(2^n)
