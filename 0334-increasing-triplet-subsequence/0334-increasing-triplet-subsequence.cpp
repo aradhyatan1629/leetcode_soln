@@ -3,7 +3,7 @@ public:
     bool increasingTriplet(vector<int>& nums) {
         int n=nums.size();
         // vector<int> nsl,ngr;
-        unordered_map<int,int> nsl,ngr;
+        map<int,int> nsl,ngr;
         stack<int> st;
         for(int i=0;i<n;i++)
         {
