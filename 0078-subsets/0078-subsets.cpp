@@ -15,11 +15,9 @@ public:
     }
     
     vector<vector<int>> subsets(vector<int>& nums) {
-        int n = nums.size();
+        int n=nums.size();
         vector<int> v;
         solve(0,n,nums,v);
         return ans;
     }
 };
-
-// tc - O(2^n)
