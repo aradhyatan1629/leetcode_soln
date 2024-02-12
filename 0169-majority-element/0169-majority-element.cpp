@@ -6,9 +6,9 @@ public:
         {
             if(cnt==0)
             {
-                element = nums[i];
+                element=nums[i];
             }
-            if(element == nums[i])
+            if(element==nums[i])
             {
                 cnt++;
             }
@@ -20,4 +20,3 @@ public:
         return element;
     }
 };
-
