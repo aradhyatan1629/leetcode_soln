@@ -1,16 +1,18 @@
 class Solution {
 public:
-    set<vector<int>> s;
+    vector<vector<int>> ans;
     void solve(int ind,int n,vector<int> &nums,vector<int> &v)
     {
         if(ind>=n)
         {
-            s.insert(v);
+            ans.push_back(v);
             return;
         }
         v.push_back(nums[ind]);
         solve(ind+1,n,nums,v);
         v.pop_back();
+        while(ind<n-1 and nums[ind]==nums[ind+1])
+            ind++;
         solve(ind+1,n,nums,v);
     }
     
@@ -19,14 +21,13 @@ public:
         int n=nums.size();
         vector<int> v;
         solve(0,n,nums,v);
-        vector<vector<int>> ans(s.begin(),s.end());
         return ans;
     }
 };
 
 /*
-tc - nlogn + (2^n)*(klogk)
-k is the average lenght of each subset
+tc - nlogn + (2^n)*(k)
+k is the average length of each subset
 */
 
 
