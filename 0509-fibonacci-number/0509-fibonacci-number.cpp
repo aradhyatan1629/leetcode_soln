@@ -1,17 +1,15 @@
 class Solution {
 public:
-    int fib(int n) {
-        int a=0,b=1,c;
+    int solve(int n)
+    {
         if(n<=1)
             return n;
-        for(int i=2;i<=n;i++)
-        {
-            c=a+b;
-            a=b;
-            b=c;
-        }
-        return c;
+        return solve(n-1)+solve(n-2);
+    }
+    
+    int fib(int n) {
+        return solve(n);
     }
 };
 
-// Iterative O(n) and O(1)
+// Recursive, O(2^n) and O(n)
