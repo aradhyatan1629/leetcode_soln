@@ -2,17 +2,14 @@ class Solution {
 public:
     vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
         unordered_map<int,int> m;
+        for(auto x:nums1)m[x]++;
         vector<int> ans;
-        for(auto x:nums1)
+        for(int i=0;i<nums2.size();i++)
         {
-            m[x]=1;
-        }
-        for(auto x:nums2)
-        {
-            if(m[x]==1)
+            if(m[nums2[i]]>0)
             {
-                ans.push_back(x);
-                m.erase(x);
+                ans.push_back(nums2[i]);
+                m[nums2[i]]=0;
             }
         }
         return ans;
