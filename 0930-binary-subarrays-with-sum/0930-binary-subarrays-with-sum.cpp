@@ -1,27 +1,22 @@
 class Solution {
 public:
     int numSubarraysWithSum(vector<int>& nums, int goal) {
-        int n=nums.size(),cnt=0;
-        vector<int> pre(n,0);
-        pre[0]=nums[0];
-        for(int i=1;i<nums.size();i++)
-        {
-            pre[i]=pre[i-1]+nums[i];
-        }
+        int n=nums.size();
+        int sum=0,cnt=0;
         unordered_map<int,int> m;
-        for(int i=0;i<pre.size();i++)
+        for(int i=0;i<n;i++)
         {
-            if(pre[i]==goal)
+            sum+=nums[i];
+            if(sum==goal)
             {
                 cnt++;
             }
-            if(m[pre[i]-goal]>0)
+            if(m[sum-goal]>0)
             {
-                cnt+=m[pre[i]-goal];
+                cnt+=m[sum-goal];
             }
-            m[pre[i]]++;
+            m[sum]++;
         }
         return cnt;
     }
 };
-// 1 1 2 2 3
