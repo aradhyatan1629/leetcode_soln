@@ -1,45 +1,48 @@
 class Solution {
 public:
     vector<vector<int>> matrixBlockSum(vector<vector<int>>& mat, int k) {
-        int m=mat.size();
-        int n=mat[0].size();
-        vector<vector<int>> ans(m,vector<int>(n,0));
-        for(int i=0;i<m;++i)
+        int m=mat.size(),n=mat[0].size();
+        vector<vector<int>> pre(m,vector<int>(n,0));
+        pre[0][0] = mat[0][0];
+        for(int j=1;j<n;j++)
+            pre[0][j] = pre[0][j-1] + mat[0][j];
+        for(int i=1;i<m;i++)
+            pre[i][0] = pre[i-1][0] + mat[i][0];
+        for(int i=1;i<m;i++)
         {
-            int sum=0;
-            for(int j=0;j<n;++j)
+            for(int j=1;j<n;j++)
             {
-                sum=0;
-                int rlow=i-k;
-                if(rlow<0)
-                {
-                    rlow=0;
-                }
-                int rhigh=i+k;
-                if(rhigh>m-1)
-                {
-                    rhigh=m-1;
-                }
-                int clow=j-k;
-                if(clow<0)
-                {
-                    clow=0;
-                }
-                int chigh=j+k;
-                if(chigh>n-1)
-                {
-                    chigh=n-1;
-                }
-                for(int i=rlow;i<=rhigh;i++)
-                {
-                    for(int j=clow;j<=chigh;++j)
-                    {
-                        sum+=mat[i][j];
-                    }
-                }
-                ans[i][j]=sum;
+                pre[i][j] = (pre[i-1][j]+pre[i][j-1]+mat[i][j])-pre[i-1][j-1];
+            }
+        }
+        
+        vector<vector<int>> ans(m,vector<int>(n,0));
+        for(int i=0;i<pre.size();i++)
+        {
+            int r1,c1,r2,c2;
+            r1 = (i-k)<0 ? 0 : i-k; r2 = (i+k)>=m ? m-1 : i+k ;
+            for(int j=0;j<pre[i].size();j++)
+            {
+                c1 = (j-k)<0 ? 0 :j-k; c2 = (j+k)>=n ? n-1 : j+k;
+                if(r1==0 and c1==0)
+                    ans[i][j] = pre[r2][c2];
+                else if(r1==0)
+                    ans[i][j] = pre[r2][c2]-pre[r2][c1-1];
+                else if(c1==0)
+                    ans[i][j] = pre[r2][c2]-pre[r1-1][c2];
+                else
+                    ans[i][j] = (pre[r2][c2]-pre[r1-1][c2]-pre[r2][c1-1]) + pre[r1-1][c1-1];
             }
         }
         return ans;
     }
 };
+
+
+/*
+
+1 2 3
+4 5 6
+7 8 9
+
+*/
