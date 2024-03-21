@@ -11,15 +11,16 @@
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        if(head==NULL or head->next==NULL)
-            return head;
-        ListNode *newHead = reverseList(head->next);
-        ListNode *front = head->next;
-        front->next=head;
-        head->next=NULL;
-        return newHead;
+        ListNode *p=NULL,*q=NULL,*r=NULL;
+        p=head;
+        while(p)
+        {
+            r=q;
+            q=p;
+            p=p->next;
+            q->next=r;
+        }
+        head=q;
+        return head;
     }
 };
-
-// Using recursion O(n)
-// Striver approach
