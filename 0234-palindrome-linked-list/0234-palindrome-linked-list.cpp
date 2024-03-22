@@ -32,8 +32,7 @@ public:
             slow=slow->next;
             fast=fast->next->next;
         }
-        ListNode *newHead = reverseList(slow->next);
-        ListNode *first=head,*second=newHead;
+        ListNode *first=head,*second=reverseList(slow->next);
         while(second)
         {
             if(first->val != second->val)
@@ -44,5 +43,5 @@ public:
         return true;
     }
 };
-//tc - O(2n) sc-O(1)
+
 
