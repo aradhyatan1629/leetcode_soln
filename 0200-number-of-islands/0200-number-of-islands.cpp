@@ -1,40 +1,46 @@
 class Solution {
 public:
-    void dfs(int row,int col,vector<vector<int>> &vis,vector<vector<char>> &grid,int delRow[],int delCol[])
+    void bfs(int i,int j,vector<vector<int>> &vis,vector<vector<char>> &grid,int delRow[],int delCol[])
     {
-        vis[row][col] = 1;
+        queue<pair<int,int>> q;
+        vis[i][j] = 1;
+        q.push({i,j});
         int m = grid.size(),n=grid[0].size();
-        
-        for(int i=0;i<4;i++)
+        while(!q.empty())
         {
-            int nrow = row + delRow[i];
-            int ncol = col + delCol[i];
-            if(nrow>=0 and nrow<m and ncol>=0 and ncol<n and !vis[nrow][ncol] and grid[nrow][ncol] == '1')
+            int row = q.front().first;
+            int col = q.front().second;
+            q.pop();
+            for(int i=0;i<4;i++)
             {
-                dfs(nrow,ncol,vis,grid,delRow,delCol);
+                int nrow = row + delRow[i];
+                int ncol = col + delCol[i];
+                if(nrow>=0 and nrow<m and ncol>=0 and ncol<n and !vis[nrow][ncol] and grid[nrow][ncol]=='1')
+                {
+                    vis[nrow][ncol]=1;
+                    q.push({nrow,ncol});
+                }
             }
         }
     }
     
     int numIslands(vector<vector<char>>& grid) {
-        int m = grid.size();
-        int n = grid[0].size();
-        
+        int m = grid.size(),n=grid[0].size();
         vector<vector<int>> vis(m,vector<int>(n,0));
         int delRow[] = {-1,0,+1,0};
         int delCol[] = {0,+1,0,-1};
-        int ans = 0;
+        int cnt=0;
         for(int i=0;i<m;i++)
         {
             for(int j=0;j<n;j++)
             {
-                if(!vis[i][j] and grid[i][j]=='1')
+                if(grid[i][j]=='1' and !vis[i][j])
                 {
-                    ans++;
-                    dfs(i,j,vis,grid,delRow,delCol);
+                    cnt++;
+                    bfs(i,j,vis,grid,delRow,delCol);
                 }
             }
         }
-        return ans;
+        return cnt;
     }
 };
