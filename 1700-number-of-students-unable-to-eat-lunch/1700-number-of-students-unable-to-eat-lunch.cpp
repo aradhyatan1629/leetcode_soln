@@ -2,51 +2,32 @@ class Solution {
 public:
     int countStudents(vector<int>& students, vector<int>& sandwiches) {
         queue<int> q;
-        stack<int> s;
-        int n = sandwiches.size();
-        for(auto x:students)
+        stack<int> st;
+        int sum = 0;
+        reverse(sandwiches.begin(),sandwiches.end());
+        for(int i=0;i<students.size();i++)\
         {
-            q.push(x);
+            q.push(students[i]);
+            sum+=students[i];
+            st.push(sandwiches[i]);
         }
-        for(int i=0;i<sandwiches.size();i++)
+        // cout<<"sum "<<sum<<endl;
+        while(!q.empty())
         {
-            s.push(sandwiches[n-i-1]);
-        }
-        int able=0;
-        while(!s.empty())
-        {
-            if(s.top()==q.front())
+            // cout<<"st "<<st.top()<<" q "<<q.front()<<" sum "<<sum<<endl;
+            if(st.top()==1 and sum==0)
+                return q.size();
+            else if(st.top()==0 and sum==q.size())
+                return q.size();
+            else if(st.top() == q.front())
             {
-                q.pop();
-                s.pop();
-                able++;
+                if(q.front()==1)
+                    sum--;
+                st.pop(),q.pop();
             }
-            else
-            {
-               int cnt=0;
-                while(cnt<q.size() and q.front()!=s.top())
-                {
-                    int x = q.front();
-                    q.pop();
-                    q.push(x);
-                    cnt++;
-                }
-                if(cnt==q.size())
-                {
-                    return n-able;
-                }
-            }
+            else if(st.top() != q.front())
+                q.push(q.front()),q.pop();
         }
         return 0;
     }
 };
-
-
-
-
-
-
-
-
-
-
