@@ -1,31 +1,29 @@
 class Solution {
 public:
-    int solve(int i,int j,int m,int n,vector<vector<int>> &dp,vector<vector<int>> &matrix)
+    int solve(int i,int j,int n,vector<vector<int>> &dp,vector<vector<int>> &matrix)
     {
-        if(j<0 or j>=n)
+        if(j<0 || j>=n)
             return 1e9;
-        if(i==0)
-            return matrix[0][j];
+        if(i==n-1)
+            return matrix[i][j];
         if(dp[i][j]!=1e9)
             return dp[i][j];
-        int up = matrix[i][j] + solve(i-1,j,m,n,dp,matrix);
-        int leftDiagonal = matrix[i][j] + solve(i-1,j-1,m,n,dp,matrix);
-        int rightDiagonal = matrix[i][j] + solve(i-1,j+1,m,n,dp,matrix);
-        dp[i][j] = min(up,min(leftDiagonal,rightDiagonal));
+        int down = matrix[i][j] + solve(i+1,j,n,dp,matrix);
+        int diagonalLeft = matrix[i][j] + solve(i+1,j-1,n,dp,matrix);
+        int diagonalRight = matrix[i][j] + solve(i+1,j+1,n,dp,matrix);
+        dp[i][j] = min(down,min(diagonalLeft,diagonalRight));
         return dp[i][j];
     }
     
     int minFallingPathSum(vector<vector<int>>& matrix) {
+        int n = matrix.size();
         int mn = INT_MAX;
-        int m = matrix.size(),n = matrix[0].size();
-        vector<vector<int>> dp(m,vector<int>(n,1e9));
+        vector<vector<int>> dp(n,vector<int>(n,1e9));
         for(int j=0;j<n;j++)
         {
-            mn = min(mn,solve(m-1,j,m,n,dp,matrix));
+            int ans = solve(0,j,n,dp,matrix);
+            mn = min(mn,ans);
         }
         return mn;
     }
 };
-
-
-
