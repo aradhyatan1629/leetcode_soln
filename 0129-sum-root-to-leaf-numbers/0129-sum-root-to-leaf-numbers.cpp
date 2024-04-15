@@ -11,27 +11,20 @@
  */
 class Solution {
 public:
-    
-    int sum=0,n=0;
-    void dfs(TreeNode *root)
+    void solve(TreeNode *root,int n,int &sum)
     {
         if(root==NULL)
-        {
             return;
-        }
-        n = (n*10)+root->val;
-        dfs(root->left);
-        dfs(root->right);
-        if(root->left==NULL and root->right==NULL)
-        {
-            sum+=n;
-        }
-        n/=10;
-        // cout<<sum<<" "<<n<<endl;
+        n = n*10 + root->val;
+        solve(root->left,n,sum);
+        solve(root->right,n,sum);
+        if(!root->left && !root->right)
+            sum += n;
     }
     
     int sumNumbers(TreeNode* root) {
-        dfs(root);
+        int sum = 0;
+        solve(root,0,sum);
         return sum;
     }
 };
