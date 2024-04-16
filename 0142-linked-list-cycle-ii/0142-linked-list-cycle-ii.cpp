@@ -8,33 +8,25 @@
  */
 class Solution {
 public:
-    //O(n) O(1)
-    //1) Find collision point of slow and fast pointers
-    //2) Find the starting point of loop using entry pointer
-    
     ListNode *detectCycle(ListNode *head) {
-        if(head==NULL)
-        {
+        if(head==NULL || head->next==NULL)
             return NULL;
-        }
-        ListNode *slow=head;
-        ListNode *fast=head;
-        ListNode *entry=head;
-        
-        while(fast->next and fast->next->next) //finding the collision point
+        ListNode *slow=head,*fast=head;
+        while(fast->next && fast->next->next)
         {
-            slow=slow->next;
-            fast=fast->next->next;
-            if(slow==fast)
-            {
-                while(slow!=entry)    //finding the starting point of the loop
-                {
-                    slow=slow->next;
-                    entry=entry->next;
-                }
-                return entry;
-            }
+            slow = slow->next;
+            fast = fast->next->next;
+            if(slow == fast)
+                break;
         }
-        return NULL;
+        if(fast==NULL || fast->next==NULL || fast->next->next==NULL)
+            return NULL;
+        fast=head;
+        while(slow!=fast)
+        {
+            slow = slow->next;
+            fast = fast->next;
+        }
+        return slow;
     }
 };
