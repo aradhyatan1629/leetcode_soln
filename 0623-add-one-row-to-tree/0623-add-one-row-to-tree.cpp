@@ -14,15 +14,16 @@ public:
     TreeNode* addOneRow(TreeNode* root, int val, int depth) {
         if(depth == 1)
         {
-            TreeNode *node = new TreeNode(val);
-            node->left = root;root=node;
+            TreeNode *newNode = new TreeNode(val);
+            newNode->left = root;
+            root = newNode;
             return root;
         }
-        int d = 1;
+        
         queue<TreeNode*> q;
         q.push(root);
-        
-        while(d+1!=depth)
+        int d = 1;
+        while(!q.empty() && d<depth-1)
         {
             int sz = q.size();
             for(int i=0;i<sz;i++)
@@ -38,10 +39,11 @@ public:
         }
         while(!q.empty())
         {
-            TreeNode *node = q.front();q.pop();
-            TreeNode *node1 = new TreeNode(val);TreeNode *node2 = new TreeNode(val);
-            node1->left = node->left;node2->right = node->right;
-            node->left=node1;node->right=node2;
+            TreeNode *node = q.front();
+            q.pop();
+            TreeNode *leftC = new TreeNode(val);TreeNode *rightC = new TreeNode(val);
+            leftC->left = node->left;node->left=leftC;
+            rightC->right = node->right;node->right=rightC;
         }
         return root;
     }
