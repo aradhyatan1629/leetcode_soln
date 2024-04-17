@@ -11,30 +11,25 @@
  */
 class Solution {
 public:
-    
-    void solve(TreeNode *root,unordered_map<string,int> &m,string &s)
+    void solve(TreeNode *root,string curr,string &ans)
     {
         if(root==NULL)
             return;
-        s += char(root->val+97);
-        solve(root->left,m,s);
-        solve(root->right,m,s);
-        if(root->left==NULL and root->right==NULL)
-            m[s]++;
-        s.pop_back();
+        char ch = char(root->val + 'a');
+        curr = ch + curr;
+        if(root->left==NULL && root->right==NULL)
+        {
+            if(ans=="" || curr<ans)
+                ans = curr;
+        }
+        solve(root->left,curr,ans);
+        solve(root->right,curr,ans);
     }
     
     string smallestFromLeaf(TreeNode* root) {
-        unordered_map<string,int> m;
-        string s,ans;
-        solve(root,m,s);
-        
-        for(auto x:m)
-        {
-            string t = x.first;
-            reverse(t.begin(),t.end());
-            if(t<ans or ans=="")ans=t;
-        }
+        string ans = "";
+        string curr = "";
+        solve(root,curr,ans);
         return ans;
     }
 };
