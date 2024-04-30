@@ -1,21 +1,16 @@
 class Solution {
 public:
-    //Without using prefix sum array
     int subarraySum(vector<int>& nums, int k) {
         unordered_map<int,int> m;
-        int sum=0;
-        int cnt=0;
+        int sum = 0;
+        int cnt = 0;
         for(int i=0;i<nums.size();i++)
         {
-            sum+=nums[i];
-            if(sum==k)
-            {
+            sum += nums[i];
+            if(sum == k)
                 cnt++;
-            }
             if(m[sum-k]>0)
-            {
-                cnt+=m[sum-k];
-            }
+                cnt+= m[sum-k];
             m[sum]++;
         }
         return cnt;
