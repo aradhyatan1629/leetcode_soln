@@ -10,7 +10,7 @@
  */
 class Solution {
 public:
-    void reverseList(ListNode *&head)
+    ListNode *reverseList(ListNode *head)
     {
         ListNode *p=NULL,*q=NULL,*r=NULL;
         p=head;
@@ -19,32 +19,34 @@ public:
             r=q;
             q=p;
             p=p->next;
-            q->next=r;
+            q->next = r;
         }
-        head=q;
+        head = q;
+        return head;
     }
+    
     ListNode* doubleIt(ListNode* head) {
-        ListNode *dummy = new ListNode();
-        ListNode *curr = dummy;
-        reverseList(head);
+        head = reverseList(head);
+        ListNode *dummy = new ListNode(0),*newHead = dummy;
         ListNode *temp = head;
-        int carry=0;
-        while(temp or carry)
+        int carry = 0;
+        while(temp || carry)
         {
-            int sum=0;
+            int sum = 0;
             if(temp)
             {
-                sum = (temp->val)*2;
-                temp=temp->next;
+                sum = (temp->val * 2);
+                temp = temp->next;
             }
-            sum+=carry;
-            carry=sum/10;
-            ListNode *t = new ListNode(sum%10);
-            curr->next = t;
-            curr=curr->next;
+            sum += carry;
+            carry = sum/10;
+            sum = sum%10;
+            ListNode *newNode = new ListNode(sum);
+            dummy->next = newNode;
+            dummy = dummy->next;
         }
-        dummy=dummy->next;
-        reverseList(dummy);
-        return dummy;   
+        newHead = newHead->next;
+        newHead = reverseList(newHead);
+        return newHead;
     }
 };
