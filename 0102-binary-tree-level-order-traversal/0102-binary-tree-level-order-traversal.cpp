@@ -17,7 +17,6 @@ public:
         vector<vector<int>> ans;
         queue<TreeNode*> q;
         q.push(root);
-        
         while(!q.empty())
         {
             int sz = q.size();
