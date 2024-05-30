@@ -1,7 +1,6 @@
 class Solution {
 public:
-    vector<vector<int>> ans;
-    void solve(int ind,int n,vector<int> &nums,vector<int> &v)
+    void solve(int ind,int n,vector<int> &v,vector<int> &nums,vector<vector<int>> &ans)
     {
         if(ind>=n)
         {
@@ -9,15 +8,16 @@ public:
             return;
         }
         v.push_back(nums[ind]);
-        solve(ind+1,n,nums,v);
+        solve(ind+1,n,v,nums,ans);
         v.pop_back();
-        solve(ind+1,n,nums,v);
+        solve(ind+1,n,v,nums,ans);
     }
     
     vector<vector<int>> subsets(vector<int>& nums) {
-        int n=nums.size();
+        vector<vector<int>> ans;
         vector<int> v;
-        solve(0,n,nums,v);
+        int n = nums.size();
+        solve(0,n,v,nums,ans);
         return ans;
     }
 };
