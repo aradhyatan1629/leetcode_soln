@@ -1,27 +1,16 @@
 class Solution {
 public:
     int appendCharacters(string s, string t) {
-        int mx=0;
-        int cnt=0;
-        int j=0;
-        for(int i=0;i<s.size();i++)
+        int i=0,j=0;
+        int cnt = 0;
+        while(i<s.size() && j<t.size())
         {
             if(s[i]==t[j])
-            {
-                cnt++;
-                j++;
-            }
-           /* else if(s[i]==t[0])
-            {
-                mx=max(mx,cnt);
-                cnt=1;
-            }*/
-            else
-            {
-                mx=max(mx,cnt);
-            }
+                cnt++,j++;
+            i++;
         }
-        mx=max(mx,cnt);
-        return t.size()-mx;
+        if(j==t.size())
+            return 0;
+        return t.size()-cnt;
     }
 };
