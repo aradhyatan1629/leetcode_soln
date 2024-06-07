@@ -1,53 +1,39 @@
-/*
-["a", "aa", "aaa", "aaaa"]
-"a aa a aaaa aaa aaa aaa aaaaaa bbb baba ababa"
-*/
-
 class Solution {
 public:
     string replaceWords(vector<string>& dictionary, string sentence) {
-        string ans;
-        string temp;
         unordered_map<string,int> m;
-        for(auto x:dictionary)
+        for(int i=0;i<dictionary.size();i++)
         {
-            m[x]=1;
+            m[dictionary[i]]=1;
         }
-        int flag=1;
+        string word;
+        string ans;
         for(int i=0;i<sentence.size();i++)
         {
-            if((sentence[i]>=97 and sentence[i]<=122) and flag==1)
+            if(sentence[i]==' ')
             {
-                temp+=sentence[i];
-            }
-            if(m[temp]==1 and flag==1)
-            {
-                ans+=temp;
-                ans+=" "; 
-                temp.clear();
-                flag=-1;
+                ans += word;
+                ans += " ";
+                word = "";
             }
             else
             {
-                if(sentence[i]==' ' and temp.size()==0)
+                word += sentence[i];
+                if(m.find(word) != m.end())
                 {
-                    flag=1;
-                }
-                else if(sentence[i]==' ' and temp.size()!=0)
-                {
-                    ans+=temp;
-                    ans+=" ";
-                    temp.clear();
-                    flag=1;
+                    ans += word;
+                    ans += " ";
+                    word = "";
+                    while(i<sentence.size() && sentence[i]!=' ')
+                        i++;
                 }
             }
         }
-        if(temp.size()!=0)
-        {
-            ans+=temp;
-            ans+=" ";
-        }
-        ans.erase(ans.end()-1);
+        if(word != "")
+            ans+=word;
+          if(ans[ans.size()-1] == ' ')
+            ans.erase(ans.end()-1);
+        
         return ans;
     }
 };
