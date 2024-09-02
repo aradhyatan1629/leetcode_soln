@@ -1,23 +1,17 @@
 class Solution {
 public:
     int chalkReplacer(vector<int>& chalk, int k) {
-        int index;
         long long sum = 0;
         for(int i=0;i<chalk.size();i++)
             sum += chalk[i];
         
-        k = k%sum;
-        
+        int left = k%sum;
         for(int i=0;i<chalk.size();i++)
         {
-            if(k<chalk[i])
-            {
-                index=i;
-                break;
-            }
-            k-=chalk[i];
+            if(left < chalk[i])
+                return i;
+            left -= chalk[i];
         }
-        return index;
+        return -1;
     }
 };
-
