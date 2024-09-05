@@ -2,50 +2,27 @@ class Solution {
 public:
     vector<int> missingRolls(vector<int>& rolls, int mean, int n) {
         int m = rolls.size();
-        int sum = 0;
-        for(int i=0;i<m;i++)
-            sum += rolls[i];
-                
-        int remSum = mean*(m+n) - sum;
-        if(remSum<=0 || remSum<n || remSum > n*6)
+        int s = accumulate(rolls.begin(),rolls.end(),0);
+        
+        int remSum = mean*(m+n) - s;
+        if(remSum<0 || remSum<n || remSum > n*6)
             return {};
         
         vector<int> ans;
         int k = remSum/n;
+        int extra = remSum - k*n;
+        
         for(int i=0;i<n;i++)
         {
-            ans.push_back(k);
-            remSum -= k;
-        }
-        if(remSum > 0)
-        {
-            int i = 0;
-            while(remSum > 0)
+            int t = k;
+            if(extra > 0)
             {
-                int x = 6 - ans[i];
-                if(remSum >= x)
-                {
-                    ans[i] += x;
-                    remSum -= x;
-                }
-                else
-                {
-                    ans[i] += remSum;
-                    remSum = 0;
-                }
-                i++;
+                if(extra > 6-k)t += 6-k;
+                else t += extra;
+                extra -= (6-k);
             }
+            ans.push_back(t);
         }
-                
         return ans;
     }
 };
-/*
-
-say you have 167 sum and you have to divide it among 40 nos such that each no. is b/w
-[1,6] so do 167/40 = 4.16 something i.e
-now 40*4 = 160
-and then we are left with extra 7 sum
-so we will again distribute this extra 7 sum 
-*/
-
