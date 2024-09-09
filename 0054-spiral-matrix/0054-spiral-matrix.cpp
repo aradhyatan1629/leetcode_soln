@@ -1,82 +1,37 @@
 class Solution {
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
-        vector<int> ans;
         int m = matrix.size(),n=matrix[0].size();
         
-        int i=0,j=0;
-        int rowStart=0,colStart=0;
-        int rowEnd=m-1,colEnd=n-1;
-            
-        while(rowStart<=rowEnd && colStart<=colEnd){
-            
-            for(int j=colStart;j<=colEnd;j++){
-                ans.push_back(matrix[rowStart][j]);
+        int top=0,bottom=m-1;
+        int left=0,right=n-1;
+        vector<int> ans;
+        
+        while(top<=bottom && left<=right){
+            for(int j=left;j<=right;j++){          // top row
+                ans.push_back(matrix[top][j]);
             }
-            for(int i=rowStart+1;i<=rowEnd;i++){
-                ans.push_back(matrix[i][colEnd]);
+            top++;
+             
+            for(int i=top;i<=bottom;i++){         // right column
+                ans.push_back(matrix[i][right]);
             }
-            if (rowStart < rowEnd) {
-                for (int j = colEnd - 1; j >= colStart; j--) {
-                    ans.push_back(matrix[rowEnd][j]);
+            right--;
+            
+            if(top<=bottom){
+                for(int j=right;j>=left;j--){
+                    ans.push_back(matrix[bottom][j]);  // bottom row
                 }
+                bottom--;
             }
-            if (colStart < colEnd) {
-                for (int i = rowEnd - 1; i > rowStart; i--) {
-                    ans.push_back(matrix[i][colStart]);
+            
+            if(left<=right){
+                for(int i=bottom;i>=top;i--){        // left column
+                    ans.push_back(matrix[i][left]);
                 }
+                left++;
             }
-            
-            rowStart++,colStart++;
-            rowEnd--,colEnd--;
-            
         }
         return ans;
-        
     }
 };
-
-
-
-
-/*
-1st iter - row-0,col-changing
-
-1 2 3 4 0 0
-5 6 7 8 0 0
-3 7 1 3 0 0
-1 2 0 4 0 0
-0 0 0 0 0 0
-
-
-
-
-
-
-0 to
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/
-
-
-
