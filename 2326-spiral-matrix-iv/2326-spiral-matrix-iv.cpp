@@ -17,9 +17,7 @@ public:
         int topRow=0,bottomRow=m-1;
         int leftCol=0,rightCol=n-1;
 
-    
-        
-        while(topRow<=bottomRow && leftCol<=rightCol){
+        while(topRow<=bottomRow && leftCol<=rightCol && temp){
             
             for(int j=leftCol;j<=rightCol;j++){
                 if(temp){
@@ -28,7 +26,6 @@ public:
                 }
             }
             topRow++;
-            
             
             for(int i=topRow;i<=bottomRow;i++){
                 if(temp){
