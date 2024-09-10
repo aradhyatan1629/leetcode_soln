@@ -1,33 +1,24 @@
 class Solution {
 public:
-    vector<vector<int>> ans;
-    void solve(int ind,int n,vector<int> &nums,vector<int> &v)
-    {
-        if(ind>=n)
-        {
+    void solve(int ind,vector<int> &nums,vector<int> &v,vector<vector<int>> &ans){
+        if(ind >= nums.size()){
             ans.push_back(v);
             return;
         }
         v.push_back(nums[ind]);
-        solve(ind+1,n,nums,v);
+        solve(ind+1,nums,v,ans);
         v.pop_back();
-        while(ind<n-1 and nums[ind]==nums[ind+1])
+        
+        while(ind<nums.size()-1 && nums[ind]==nums[ind+1])
             ind++;
-        solve(ind+1,n,nums,v);
+        solve(ind+1,nums,v,ans);
     }
     
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
         sort(nums.begin(),nums.end());
-        int n=nums.size();
+        vector<vector<int>> ans;
         vector<int> v;
-        solve(0,n,nums,v);
+        solve(0,nums,v,ans);
         return ans;
     }
 };
-
-/*
-tc - nlogn + (2^n)*(k)
-k is the average length of each subset
-*/
-
-
