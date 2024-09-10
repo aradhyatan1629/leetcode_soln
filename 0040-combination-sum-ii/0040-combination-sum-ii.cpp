@@ -1,43 +1,31 @@
 class Solution {
-public:
-    
+private:
     vector<vector<int>> ans;
-    void solve(int ind,int n,int target,vector<int> &candidates,vector<int> &v)
-    {
-        if(target==0)
-        {
-            ans.push_back(v);
+    
+public:
+    void solve(int ind,vector<int> &nums,vector<int> &v,int k){
+        if(ind>=nums.size()){
+            if(k==0)
+                ans.push_back(v);
             return;
         }
-        if(target<0 or ind>=n)
-        {
-            return;
+        
+        if(nums[ind] <= k){
+            v.push_back(nums[ind]);
+            solve(ind+1,nums,v,k-nums[ind]);
+            v.pop_back();
         }
-        v.push_back(candidates[ind]);
-        solve(ind+1,n,target-candidates[ind],candidates,v);
-        v.pop_back();
-        while(ind<n-1 and candidates[ind]==candidates[ind+1])
+        while(ind<nums.size()-1 && nums[ind]==nums[ind+1])
             ind++;
-        solve(ind+1,n,target,candidates,v);
+        solve(ind+1,nums,v,k);
     }
     
-    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-        sort(candidates.begin(),candidates.end());
-        int n=candidates.size();
+    vector<vector<int>> combinationSum2(vector<int>& nums, int target) {
+        sort(nums.begin(),nums.end());
         vector<int> v;
-        solve(0,n,target,candidates,v);
+        solve(0,nums,v,target);
         return ans;
     }
 };
 
-/*
-
-tc - (2^n)*k where k is the avg length of each combination
-that sums to target, it is due to ans.push_back(v);
-to not take duplicates first sort the array then - 
-while(ind<n and candidates[ind]==candidates[ind+1])
-            ind++;
-*/
-
-
-
+// 1,1,2,5,6,7,10
