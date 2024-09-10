@@ -23,7 +23,6 @@ public:
     }
     
     vector<vector<int>> combinationSum(vector<int>& nums, int target) {
-        sort(nums.begin(),nums.end());
         vector<vector<int>> ans;
         vector<int> v;
         
