@@ -6,19 +6,12 @@ public:
             if(k == 0)ans.push_back(v);
             return;
         }
-        if(k == 0)
-        {
-            ans.push_back(v);
-            return;
-        }
-        
+     
         if(nums[ind] <= k){
             v.push_back(nums[ind]);
             solve(ind,nums,v,ans,k-nums[ind]);
             v.pop_back();
         }
-        while(ind<nums.size()-1 && nums[ind] == nums[ind+1])
-            ind++;
         solve(ind+1,nums,v,ans,k);
     }
     
