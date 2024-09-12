@@ -30,31 +30,31 @@ public:
         return true;
     }
     
-    void solve(int col,int n,vector<string> &board,vector<vector<string>> &ans){
+    void solve(int col,int n,vector<string> &board,int &cnt){
         if(col >= n){
-            ans.push_back(board);
+            cnt++;
             return;
         }
         
         for(int i=0;i<n;i++){
             if(check(i,col,board)){
                 board[i][col] = 'Q';
-                solve(col+1,n,board,ans);
+                solve(col+1,n,board,cnt);
                 board[i][col] = '.';
             }
         }
     }
     
     int totalNQueens(int n) {
-        vector<vector<string>> ans;
         vector<string> board(n);
         string s(n,'.');
         
         for(int i=0;i<board.size();i++)
             board[i] = s;
         
-        solve(0,n,board,ans);
+        int cnt=0;
+        solve(0,n,board,cnt);
         
-        return ans.size();
+        return cnt;
     }
 };
