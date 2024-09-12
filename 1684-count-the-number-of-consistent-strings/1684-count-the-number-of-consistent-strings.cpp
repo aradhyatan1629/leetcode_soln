@@ -2,12 +2,15 @@ class Solution {
 public:
     int countConsistentStrings(string allowed, vector<string>& words) {
         int ans = 0;
-        unordered_set<char> s(allowed.begin(),allowed.end());
+        vector<int> v(26,0);
+        for(int i=0;i<allowed.size();i++){
+            v[allowed[i]-'a']++;
+        }
         
         for(int i=0;i<words.size();i++){
             bool flag = true;
             for(int j=0;j<words[i].size();j++){
-                if(s.find(words[i][j]) == s.end()){
+                if(v[words[i][j]-'a'] == 0){
                     flag=false;
                     break;
                 }
