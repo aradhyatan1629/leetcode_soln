@@ -1,7 +1,7 @@
 <h2><a href="https://leetcode.com/problems/find-numbers-with-even-number-of-digits/">1295. Find Numbers with Even Number of Digits</a></h2><h3>Easy</h3><hr><div><p>Given an array <code>nums</code> of integers, return how many of them contain an <strong>even number</strong> of digits.</p>
 
 <p>&nbsp;</p>
-<p><strong>Example 1:</strong></p>
+<p><strong class="example">Example 1:</strong></p>
 
 <pre><strong>Input:</strong> nums = [12,345,2,6,7896]
 <strong>Output:</strong> 2
@@ -14,7 +14,7 @@
 Therefore only 12 and 7896 contain an even number of digits.
 </pre>
 
-<p><strong>Example 2:</strong></p>
+<p><strong class="example">Example 2:</strong></p>
 
 <pre><strong>Input:</strong> nums = [555,901,482,1771]
 <strong>Output:</strong> 1 
