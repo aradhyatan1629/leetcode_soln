@@ -10,21 +10,12 @@ public:
     
     string largestNumber(vector<int>& nums) {
         sort(nums.begin(),nums.end(),cmp);
-        if(nums[0]=='0')
+        if(nums[0] == 0)
             return "0";
         string ans = "";
         for(int i=0;i<nums.size();i++){
             ans += to_string(nums[i]);
         }
-        bool flag = false;
-        for(int i=0;i<ans.size();i++){
-            if(ans[i]!='0'){
-                flag = true;
-                break;
-            }
-        }
-        if(flag)
-            return ans;
-        return "0";
+        return ans;
     }
 };
