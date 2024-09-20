@@ -1,56 +1,22 @@
 class Solution {
 public:
-    bool solve(string &s,int i,int j){
-        bool flag = true;
-        i++;
+    bool check(string &s,int i,int j){
         while(i<j){
-            if(s[i] != s[j]){
-                flag = false;
-                break;
-            }
+            if(s[i]!=s[j])
+                return false;
             i++,j--;
         }
-        return flag;
+        return true;
     }
     
     bool validPalindrome(string s) {
         int i=0,j=s.size()-1;
-        bool flag = true;
-        
         while(i<j){
-            if(s[i]!=s[j] && !flag)
-                return false;
-            else if(s[i]!=s[j] && flag){
-                flag = false;
-                if(s[i+1] == s[j] && s[i] == s[j-1]){
-                    if(solve(s,i,j))i++;
-                    else j--;
-                }
-                else if(s[i+1] == s[j])i++;
-                else if(s[i] == s[j-1])j--;
-                else i++;
+            if(s[i]!=s[j]){
+                return check(s,i+1,j) || check(s,i,j-1);
             }
-            else
-                i++,j--;
+            i++,j--;
         }
         return true;
     }
 };
-
-
-
-
-/*
-
-efgh
-efeh
-
-abc
-
-
-*/
-
-
-
-
-
