@@ -2,20 +2,21 @@ class Solution {
 public:
     string clearStars(string s) {
         
-        map<char,vector<int>> m;
+        map<char,priority_queue<int>> m;
         set<int> st;
         
         for(int i=0;i<s.size();i++){
             if(s[i] == '*' && m.size()>0){
                 auto it = m.begin();
-                int ind = it->second.back();
+                int ind = it->second.top();
                 st.insert(ind);
-                it->second.pop_back();
-                if(it->second.size() == 0)
+                it->second.pop();
+                if(it->second.empty()){
                     m.erase(it->first);
+                }
             }
             else if(s[i] != '*'){
-                m[s[i]].push_back(i);
+                m[s[i]].push(i);
             }
         }
         
