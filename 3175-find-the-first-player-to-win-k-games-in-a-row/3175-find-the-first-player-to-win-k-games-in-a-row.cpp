@@ -15,28 +15,20 @@ public:
         if (k >= n)
             return mxInd;
         
-        unordered_map<int, int> m;  // {index, wins}
-        deque<int> dq;
+        int totalWins = 0;
+        int playerIndex = 0;
         
-        for (int i = 0; i < skills.size(); i++)
-            dq.push_back(i);
-        
-        while (true) {
-            int ind1 = dq.front(); dq.pop_front(); 
-            int ind2 = dq.front(); dq.pop_front(); 
-            
-            if (skills[ind1] > skills[ind2]) {
-                m[ind1]++;
-                dq.push_front(ind1); 
-                dq.push_back(ind2);  
-                if (m[ind1] == k) return ind1; 
-            } else {
-                m[ind2]++;
-                dq.push_front(ind2); 
-                dq.push_back(ind1);  
-                if (m[ind2] == k) return ind2; 
+        for(int i=1;i<n;i++){
+            if(skills[playerIndex] > skills[i]){
+                totalWins++;
             }
+            else{
+                totalWins = 1;
+                playerIndex = i;
+            }
+            if(totalWins == k)
+                return playerIndex;
         }
-        return -1;
+        return playerIndex;
     }
 };
