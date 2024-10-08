@@ -36,6 +36,6 @@
 
 <ul>
 	<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>
-	<li><code>s[i]</code> is either<code>'('</code> , <code>')'</code>, or lowercase English letter<code>.</code></li>
+	<li><code>s[i]</code> is either&nbsp;<code>'('</code> , <code>')'</code>, or lowercase English letter.</li>
 </ul>
 </div>
