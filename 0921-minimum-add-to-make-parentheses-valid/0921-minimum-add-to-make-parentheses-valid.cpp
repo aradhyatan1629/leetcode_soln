@@ -4,18 +4,16 @@ public:
         if(s.size() == 0)
             return 0;
         
-        stack<char> st;
-        int i = 0;
-        while(i<s.size()){
-            while(i<s.size() && !st.empty() && (st.top() == '(' && s[i] == ')')){
-                st.pop();
-                i++;
-            }
-            if(i<s.size()){
-                st.push(s[i]);
-                i++;
-            }
+        int open = 0;
+        int closed = 0;
+        for(int i=0;i<s.size();i++){
+            if(s[i] == '(')
+                open++;
+            else if(s[i] == ')' && open>0)
+                open--;
+            else if(s[i] == ')')
+                closed++;
         }
-        return st.size();
+        return open+closed;
     }
 };
