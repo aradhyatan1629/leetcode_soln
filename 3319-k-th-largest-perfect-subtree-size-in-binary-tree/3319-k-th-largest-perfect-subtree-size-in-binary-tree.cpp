@@ -11,35 +11,42 @@
  */
 class Solution {
 public:
-    bool check(TreeNode *root,int &subSize){
-        int lvl = 1;
-        queue<TreeNode*> q;
-        q.push(root);
-        unordered_set<int> s;
-        
-        while(!q.empty()){
-            int sz = q.size();
-            subSize += q.size();
-            for(int i=0;i<sz;i++){
-                TreeNode *node = q.front();
-                q.pop();
-                if(node->left == NULL && node->right == NULL){
-                    if(s.size() == 0)
-                        s.insert(lvl);
-                    else if(lvl != *s.begin())
-                        return false;
-                }
-                else if(node->left == NULL || node->right == NULL)
+    bool check(TreeNode *root, int &subSize) {
+    if (!root) return false;
+
+    int lvl = 0; // Initialize level outside
+    queue<TreeNode*> q;
+    q.push(root);
+    int leafLevel = -1;
+    
+    while (!q.empty()) {
+        int sz = q.size();
+        subSize += sz; // Add current level size to subSize
+
+        for (int i = 0; i < sz; i++) {
+            TreeNode *node = q.front();
+            q.pop();
+
+            if (node->left == NULL && node->right == NULL) {
+                // Leaf node case
+                if (leafLevel == -1)
+                    leafLevel = lvl;
+                else if (lvl != leafLevel)
                     return false;
-                if(node->left != NULL)
-                    q.push(node->left);
-                if(node->right != NULL)
-                    q.push(node->right);
+            } else if (node->left == NULL || node->right == NULL) {
+                // Non-leaf node must have both children
+                return false;
             }
-            lvl++;
+            
+            if (node->left != NULL)
+                q.push(node->left);
+            if (node->right != NULL)
+                q.push(node->right);
         }
-        return s.size() == 1;
+        lvl++; // Move to the next level after processing the current one
     }
+    return true;
+}
     
     int kthLargestPerfectSubtree(TreeNode* root, int k) {
         queue<TreeNode*> q;
