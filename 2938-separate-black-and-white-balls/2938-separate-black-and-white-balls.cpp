@@ -1,19 +1,21 @@
 class Solution {
 public:
     long long minimumSteps(string s) {
-        priority_queue<int> pq;
-        long long ans = 0;
+        int low = 0;
+        int high = s.size()-1;
         
-        for(int i=s.size()-1;i>=0;i--){
-            if(s[i] == '0'){
-                pq.push(i);
+        long long ans = 0;
+        while(low <= high){
+            if(s[low] == '1' && s[high] == '0'){
+                swap(s[low],s[high]);
+                ans += (high-low);
+                low++,high--;
             }
-            else if(s[i] == '1'){
-                if(!pq.empty()){
-                    ans += pq.top() - i;
-                    pq.pop();
-                    pq.push(i);
-                }
+            else if(s[low] == '0'){
+                low++;
+            }
+            else if(s[high] == '1'){
+                high--;
             }
         }
         return ans;
