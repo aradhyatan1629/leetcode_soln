@@ -7,7 +7,7 @@ public:
         long long ans = 0;
         while(low <= high){
             if(s[low] == '1' && s[high] == '0'){
-                swap(s[low],s[high]);
+                // swap(s[low],s[high]);
                 ans += (high-low);
                 low++,high--;
             }
