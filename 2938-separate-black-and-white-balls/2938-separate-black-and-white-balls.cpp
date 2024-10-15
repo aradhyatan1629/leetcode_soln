@@ -1,28 +1,21 @@
 class Solution {
 public:
     long long minimumSteps(string s) {
-        long long ans=0;
-        int low=0,high=s.size()-1;
-        while(low<=high)
-        {
-            if(s[low] == '1' and s[high] == '0')
-            {
-                swap(s[low],s[high]);
-                ans+=(high-low);
-                low++,high--;
+        priority_queue<int> pq;
+        long long ans = 0;
+        
+        for(int i=s.size()-1;i>=0;i--){
+            if(s[i] == '0'){
+                pq.push(i);
             }
-            else if(s[low] == '0')
-            {
-                low++;
-            }
-            else
-            {
-                high--;
+            else if(s[i] == '1'){
+                if(!pq.empty()){
+                    ans += pq.top() - i;
+                    pq.pop();
+                    pq.push(i);
+                }
             }
         }
         return ans;
     }
 };
-
-
-
