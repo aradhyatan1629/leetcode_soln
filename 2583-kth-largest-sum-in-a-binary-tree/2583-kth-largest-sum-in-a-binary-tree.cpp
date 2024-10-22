@@ -11,44 +11,31 @@
  */
 class Solution {
 public:
-    
-    void bfs(TreeNode *root,vector<long long> &v)
-    {
+    void bfs(TreeNode *root,vector<long long> &v){
         queue<TreeNode*> q;
         q.push(root);
-        
-        while(!q.empty())
-        {
-            long long sum = 0;
+        while(!q.empty()){
             int sz = q.size();
-            
-            for(int i=0;i<sz;i++)
-            {
+            long long sum = 0;
+            for(int i=0;i<sz;i++){
                 TreeNode *node = q.front();
                 q.pop();
-                sum+=node->val;
-                
+                sum += node->val;
                 if(node->left)
-                {
                     q.push(node->left);
-                }
                 if(node->right)
-                {
                     q.push(node->right);
-                }
             }
             v.push_back(sum);
         }
-    } 
+    }
     
     long long kthLargestLevelSum(TreeNode* root, int k) {
         vector<long long> v;
         bfs(root,v);
         sort(v.begin(),v.end());
-        if(v.size()<k)
-        {
+        if(k > v.size())
             return -1;
-        }
         return v[v.size()-k];
     }
 };
