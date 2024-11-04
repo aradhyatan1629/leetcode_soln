@@ -1,35 +1,19 @@
 class Solution {
 public:
     string compressedString(string word) {
-        int c = 1;
-        int n = word.size();
-        string ans;
+        string comp = "";
+        int len = 1;
         
-        for(int i=0;i<n-1;i++){
-            if(c<9 && word[i]==word[i+1]){
-                c++;
+        for(int i=0;i<word.size()-1;i++){
+            if(len<9 && word[i] == word[i+1]){
+                len++;
             }
             else{
-                if(word[i] == word[i+1])
-                    ans += to_string(9);
-                else
-                    ans += to_string(c);
-                ans += word[i];
-                c = 1;
+                comp += to_string(len) + word[i];
+                len = 1;
             }
-            // else if(word[i] == word[i+1]){
-            //     ans += to_string(9);
-            //     ans += word[i];
-            //     c = 1;
-            // }
-            // else{
-            //     ans += to_string(c);
-            //     ans += word[i];
-            //     c = 1;
-            // }
         }
-        ans += to_string(c);
-        ans += word[n-1];
-        return ans;
+        comp += to_string(len) + word[word.size()-1];
+        return comp;
     }
 };
