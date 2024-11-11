@@ -16,13 +16,25 @@ public:
     }
     
     int findPrime(int x,int y,vector<int> &v){
+        int low = 0;
+        int high = v.size()-1;
         int ans = -1;
-        for(int i=0;i<v.size();i++){
-            if(v[i] < x && x-v[i] < y){
-                ans = v[i];
-                break;
+        
+        while(low <= high){
+            int mid = low + (high-low)/2;
+            if(v[mid] < x){
+                if(x-v[mid] < y){
+                    ans = v[mid];
+                    high = mid-1;
+                }
+                else
+                    low = mid+1;
+            }
+            else{
+                high = mid-1;
             }
         }
+        
         return ans;
     }
     
