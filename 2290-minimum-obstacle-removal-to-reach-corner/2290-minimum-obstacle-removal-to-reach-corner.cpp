@@ -1,35 +1,47 @@
 class Solution {
 public:
-    int minimumObstacles(vector<vector<int>>& mat) {
-        vector<pair<int,int>>d={{-1,0},{0,1},{1,0},{0,-1}};
-        int n=mat.size();
-        int m=mat[0].size();
-        queue<pair<int,int>>q;
-        q.push({0,0});
-        vector<vector<int>>dp(n,vector<int>(m,INT_MAX));
-        dp[0][0]=0;
-        while(q.size())
-        {
-            int size=q.size();
-            for(int i=0;i<size;i++)
-            {
-                auto temp=q.front();
-                q.pop();
-                int x=temp.first;
-                int y=temp.second;
-                for(auto it:d)
-                {
-                    int nx=x+it.first;
-                    int ny=y+it.second;
-                    if(nx>=0&&ny>=0&&nx<n&&ny<m&&dp[x][y]+mat[nx][ny]<dp[nx][ny])
-                    {
-                        dp[nx][ny]=dp[x][y]+mat[nx][ny];
-                         q.push({nx,ny});
-                    }
+    int minimumObstacles(vector<vector<int>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+        priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,greater<pair<int,pair<int,int>>>> pq;
+        vector<vector<int>> dist(m,vector<int>(n,1e9));
+        
+        dist[0][0] = 0;
+        pq.push({0,{0,0}});
+        
+        int delRow[] = {-1,0,+1,0};
+        int delCol[] = {0,+1,0,-1};
+        
+        while(!pq.empty()){
+            int dis = pq.top().first;
+            int row = pq.top().second.first;
+            int col = pq.top().second.second;
+            pq.pop();
+            
+            for(int i=0;i<4;i++){
+                int nrow = row + delRow[i];
+                int ncol = col + delCol[i];
+                if(nrow>=0 && nrow<m && ncol>=0 &&ncol<n && dis+grid[nrow][ncol] < dist[nrow][ncol]){
+                    dist[nrow][ncol] = dis + grid[nrow][ncol];
+                    pq.push({dis+grid[nrow][ncol],{nrow,ncol}});
                 }
             }
         }
-        return dp[n-1][m-1];
-                
+        return dist[m-1][n-1];
     }
 };
+/*
+
+0 1 1
+1 1 0
+1 1 0
+
+
+
+
+
+*/
+
+
+
+
