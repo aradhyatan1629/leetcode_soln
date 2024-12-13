@@ -1,31 +1,26 @@
 class Solution {
 public:
     long long findScore(vector<int>& nums) {
-        unordered_map<int,int> m;
         priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
-        long long score = 0;
-        
-        for(int i=0;i<nums.size();i++)
-        {
+        int n = nums.size();
+        for(int i=0;i<n;i++){
             pq.push({nums[i],i});
         }
-                
-        while(!pq.empty())
-        {
-            int val = pq.top().first;
-            int index = pq.top().second;
+        
+        unordered_map<int,int> m;
+        long long ans = 0;
+        while(m.size() != n){
+            int ele = pq.top().first;
+            int ind = pq.top().second;
             pq.pop();
-            if(m[index]==1)
-            {
-                continue;
+            if(m.find(ind) == m.end()){
+                ans += ele;
+                m[ind] = 1;
+                if(ind-1 >= 0)m[ind-1] = 1;
+                if(ind+1 < n)m[ind+1] = 1;
             }
-            score+=val;
-            m[index]=1;
-            if(index-1>=0)
-                m[index-1]=1;
-            if(index+1<nums.size())
-                m[index+1]=1;
         }
-        return score;
+        return ans;
+        
     }
 };
